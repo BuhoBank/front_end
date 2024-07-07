@@ -1,6 +1,6 @@
 // src/Register.jsx
 import React from 'react';
-import './styles/Register.css'; // Asegúrate de crear y definir los estilos si es necesario
+import '../styles/Register.css'; // Asegúrate de crear y definir los estilos si es necesario
 
 const Register = () => {
     return (
