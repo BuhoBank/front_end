@@ -4,12 +4,31 @@ import "./register.css";
 const Register = () => {
   const [formData, setFormData] = useState({
     name: "",
+    lastname: "",
+    ci: "",
     email: "",
     password: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    // Validar si el campo es "name" o "lastname" y permitir solo letras en español
+    if (name === "name" || name === "lastname") {
+      const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/;
+      if (!regex.test(value)) {
+        return;
+      }
+    }
+
+    // Validar si el campo es "ci", permitir solo números y limitar a 10 dígitos
+    if (name === "ci") {
+      const regex = /^[0-9]*$/;
+      if (!regex.test(value) || value.length > 10) {
+        return;
+      }
+    }
+
     setFormData({
       ...formData,
       [name]: value,
@@ -36,7 +55,7 @@ const Register = () => {
           />
         </label>
         <label>
-          <h3> Apellidos: </h3>
+          <h3>Apellidos:</h3>
           <input
             type="text"
             name="lastname"
