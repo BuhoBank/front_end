@@ -38,7 +38,6 @@ const Login = () => {
         {error && <p className="error-message">{error}</p>}
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>Usuario</label>
             <input
               type="text"
               placeholder="Usuario"
@@ -48,7 +47,6 @@ const Login = () => {
             <a href="#">¿Olvidaste tu usuario?</a>
           </div>
           <div className="form-group">
-            <label>Contraseña</label>
             <input
               type="password"
               placeholder="Contraseña"
