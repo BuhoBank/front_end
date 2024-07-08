@@ -99,19 +99,38 @@ input:focus ~ .barra::before {
   width: 100%;
 }
 
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  gap: 10px;
+}
+
 .button {
   background: #ff512f;
   background: -webkit-linear-gradient(to right, #f09819, #ff512f);
   background: linear-gradient(to right, #f09819, #ff512f);
-  padding: 20px 40px;
+  padding: 20px 0px;
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin-top: 20px;
-  align-self: center; /* Añadir este estilo para centrar verticalmente */
-  transition: 0.2s;
+  /*margin-top: 20px;
+  /*align-self: center; /* Añadir este estilo para centrar verticalmente */
+  /*transition: 0.2s;*/
+  flex: 1;
+  text-align: center;
+  display: flex;
+  justify-content: center
+}
+
+.button:first-child {
+  margin-left: 0; /* Eliminar margen izquierdo del primer botón */
+}
+
+.button:last-child {
+  margin-right: 0; /* Eliminar margen derecho del último botón */
 }
 
 .button:hover {
@@ -129,3 +148,8 @@ input:focus ~ .barra::before {
 .row .group {
   width: 48%; /* Ajusta el ancho según sea necesario */
 }
+
+
+
+/* Agregar espacio entre los botones */
+

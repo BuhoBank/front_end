@@ -1,7 +1,8 @@
 import React from "react";
 import InputGroup from "./InputGroup";
+import { useNavigate } from "react-router-dom";
 
-const RegisterForm = ({ formData, handleChange, handleSubmit, validations }) => (
+const RegisterForm = ({ formData, handleChange, handleSubmit, validations,handleReturn }) => (
   <form onSubmit={handleSubmit}>
     <h2>Bienvenido a BuhoBank</h2>
     
@@ -88,9 +89,17 @@ const RegisterForm = ({ formData, handleChange, handleSubmit, validations }) => 
       />
     </div>
 
-    <button type="submit" className="button">
-      Registrarte
-    </button>
+    <div className="form-buttons">
+      <button type="submit" className="button">
+        Registrarte
+      </button>
+      <button type="submit" onClick={handleReturn} className="button">
+        Volver
+      </button>
+    </div>
+
+
+
   </form>
 );
 
