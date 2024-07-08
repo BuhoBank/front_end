@@ -9,7 +9,7 @@ const useRegisterForm = () => {
     cell: "",
     email: "",
     user: "",
-    pass: "",
+    password: "",
     pass_conf: "",
   });
 
@@ -51,7 +51,7 @@ const useRegisterForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (formData.pass !== formData.pass_conf) {
+    if (formData.password !== formData.pass_conf) {
       alert("Las contraseñas no coinciden.");
       return;
     }

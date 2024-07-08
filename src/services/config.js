@@ -1,1 +1,1 @@
-export const API_URL= 'http://tu-backend-url.com/api'
+export const API_URL= 'http://192.168.1.3:8000'
