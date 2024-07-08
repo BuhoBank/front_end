@@ -1,6 +1,4 @@
-// src/services/authService.js
-
-const API_URL = 'http://tu-backend-url.com/api'; // Reemplaza con la URL de tu backend
+import {API_URL} from './config'
 
 export const login = async (username, password) => {
     try {
