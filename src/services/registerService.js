@@ -1,7 +1,7 @@
 import { API_URL } from './config'
 export const register = async (userData) => {
     try {
-        const response = await fetch(`${API_URL}/register`, {
+        const response = await fetch(`${API_URL}/register_user`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

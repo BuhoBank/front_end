@@ -70,8 +70,8 @@ const RegisterForm = ({ formData, handleChange, handleSubmit, validations,handle
 
     <div className="row">
       <InputGroup
-        id="pass"
-        name="pass"
+        id="password"
+        name="password"
         label="Contraseña"
         type="password"
         value={formData.pass}
