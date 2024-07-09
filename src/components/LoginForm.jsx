@@ -1,12 +1,12 @@
 import React from "react";
 
-const LoginForm = ({ username, password, setUsername, setPassword, handleSubmit }) => (
+const LoginForm = ({ user, password, setUsername, setPassword, handleSubmit }) => (
   <form onSubmit={handleSubmit}>
     <div className="form-group">
       <input
         type="text"
         placeholder="Usuario"
-        value={username}
+        value={user}
         onChange={(e) => setUsername(e.target.value)}
       />
       <a href="#">¿Olvidaste tu usuario?</a>

@@ -1,13 +1,13 @@
 import {API_URL} from './config'
 
-export const login = async (username, password) => {
+export const login = async (user, password) => {
     try {
         const response = await fetch(`${API_URL}/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ username, password }),
+            body: JSON.stringify({ user, password }),
         });
 
         if (!response.ok) {
