@@ -7,7 +7,7 @@ import "../styles/Login.css";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { username, password, error, handleSubmit, setUsername, setPassword } = useLoginForm();
+  const { user, password, error, handleSubmit, setUsername, setPassword } = useLoginForm();
 
   const handleRegister = () => {
     navigate("/register");
@@ -22,7 +22,7 @@ const Login = () => {
         <h2>BIENVENIDO A TU BANCA WEB</h2>
         {error && <p className="error-message">{error}</p>}
         <LoginForm
-          username={username}
+          user={user}
           password={password}
           setUsername={setUsername}
           setPassword={setPassword}
