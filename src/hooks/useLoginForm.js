@@ -15,7 +15,7 @@ const useLoginForm = () => {
       const response = await login(user, password);
       if (response.authenticated) {
         console.log("Login successful");
-        localStorage.setItem("isLoggenIn", "true");
+        localStorage.setItem("isLoggenIn","true");
         navigate("/dashboard");
         // Aquí puedes manejar el éxito del login, por ejemplo:
         // - Guardar el token en localStorage

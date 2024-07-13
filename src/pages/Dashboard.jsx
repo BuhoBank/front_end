@@ -52,6 +52,7 @@ const Dashboard = () => {
           </section>
         </div>
       </main>
+
     </div>
   );
 };
