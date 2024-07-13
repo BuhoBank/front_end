@@ -5,11 +5,12 @@ import RegisterForm from "../components/RegisterForm";
 import "../styles/Register.css";
 
 const Register = () => {
-  const navigate=useNavigate();
-  const { formData, handleChange, handleSubmit, validations } = useRegisterForm();
+  const navigate = useNavigate();
+  const { formData, handleChange, handleSubmit, validations } =
+    useRegisterForm();
 
   const handleReturn = () => {
-    navigate("/"); 
+    navigate("/");
   };
 
   return (

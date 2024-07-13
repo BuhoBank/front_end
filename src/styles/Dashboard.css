@@ -1,0 +1,115 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.dashboard {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #f5f5f5;
+  padding: 20px;
+}
+
+.sidebar-logo img {
+  width: 100%;
+}
+
+.sidebar-menu ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar-menu li {
+  margin: 20px 0;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.sidebar-menu li:hover,
+.sidebar-menu li.active {
+  color: #f09819;
+  transform: translateX(10px);
+}
+
+.sidebar-menu .new-badge {
+  background-color: green;
+  color: white;
+  padding: 2px 5px;
+  margin-left: 5px;
+}
+
+.main-content {
+  flex-grow: 1;
+  background-color: #ffffff;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 20px;
+}
+
+.header-user {
+  display: flex;
+  align-items: center;
+}
+
+.header-user span:first-child {
+  background-color: #ccc;
+  border-radius: 50%;
+  padding: 10px;
+  margin-right: 10px;
+}
+
+.header-user a {
+  margin-left: 10px;
+  color: #0073e6;
+  text-decoration: underline;
+}
+
+.content {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.investment-banner {
+  background-color: #f09819;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.investment-banner p {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+}
+
+.products {
+  margin-top: 20px;
+}
+
+.product {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.product h3 {
+  margin-top: 0;
+}
+
+.account {
+  display: flex;
+  justify-content: space-between;
+}
+
+.balance {
+  text-align: right;
+}
