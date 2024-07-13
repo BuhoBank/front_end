@@ -43,7 +43,10 @@ const useRegisterForm = () => {
       message: "La contraseña debe tener mínimo 8 caracteres.",
     },
   };
-
+  
+  const [success, setSuccess] = useState(false);
+  const [noSuccess,setNoSuccess] = useState(null);
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -58,13 +61,32 @@ const useRegisterForm = () => {
 
     try {
       const response = await register(formData);
+      if (response.code==="USER_CREATE"){
+        setSuccess(true);
+      }
+      if (response.code==="CI_REPEAT"){
+        setNoSuccess(0);
+      }
+      if (response.code==="EMAIL_REPEAT"){
+        setNoSuccess(1);
+      }
+
+      if (response.code==="USER_REPEAT"){
+        setNoSuccess(2);
+      }
       console.log("Registro Exitoso", response);
     } catch (error) {
       console.error("Error en el registro:", error);
     }
   };
 
-  return { formData, handleChange, handleSubmit, validations };
+  const handleClosePopup = () => {
+    setSuccess(false);
+    setNoSuccess(null);
+  };
+
+
+  return { formData, handleChange, handleSubmit, validations,success, noSuccess,handleClosePopup };
 };
 
 export default useRegisterForm;
