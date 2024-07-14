@@ -2,23 +2,24 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardForm from "../components/DashboardForm";
 import useAccountData from "../hooks/useAccountData";
+import AccountInfo from "../components/accountsList";
 import "../styles/Dashboard.css"; // Asegúrate de ajustar la ruta si es necesario
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const { accountData, loading, error } = useAccountData();
+  // const { accountData, loading, error } = useAccountData();
 
   const handleLogout = () => {
     navigate("/");
   };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
 
-  if (error) {
-    return <div>Error al cargar los datos de la cuenta.</div>;
-  }
+  // if (error) {
+  //   return <div>Error al cargar los datos de la cuenta.</div>;
+  // }
 
   return (
     <div className="dashboard">
@@ -39,7 +40,7 @@ const Dashboard = () => {
           </div>
           <section className="products">
             <h2>Mis cuentas</h2>
-            <div className="product">
+            {/* <div className="product">
               <h3>Cuenta número 1</h3>
               <div className="account">
                 <span>{accountData.accountNumber}</span>
@@ -48,7 +49,8 @@ const Dashboard = () => {
                   <p>${accountData.balance}</p>
                 </div>
               </div>
-            </div>
+            </div> */}
+            <AccountInfo />
           </section>
         </div>
       </main>

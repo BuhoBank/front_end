@@ -1,12 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/Dashboard-profile.css"; // Asegúrate de importar los estilos
 
 const Profile = () => {
   const navigate = useNavigate();
 
+  const [isEditingUser, setIsEditingUser] = useState(false);
+  const [isEditingEmail, setIsEditingEmail] = useState(false);
+  const [isEditingPhone, setIsEditingPhone] = useState(false);
+
+  const [username, setUsername] = useState("user0101");
+  const [email, setEmail] = useState("user@correo.com");
+  const [phone, setPhone] = useState("0964567453");
+
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
   const handleLogout = () => {
     navigate("/");
+  };
+
+  const handleEditUser = () => {
+    setIsEditingUser(true);
+  };
+
+  const handleSaveUser = () => {
+    setIsEditingUser(false);
+    // Aquí puedes agregar la lógica para guardar el nuevo nombre de usuario en el backend
+  };
+
+  const handleEditEmail = () => {
+    setIsEditingEmail(true);
+  };
+
+  const handleSaveEmail = () => {
+    setIsEditingEmail(false);
+    // Aquí puedes agregar la lógica para guardar el nuevo correo electrónico en el backend
+  };
+
+  const handleEditPhone = () => {
+    setIsEditingPhone(true);
+  };
+
+  const handleSavePhone = () => {
+    setIsEditingPhone(false);
+    // Aquí puedes agregar la lógica para guardar el nuevo número de teléfono en el backend
+  };
+
+  const handlePasswordChange = () => {
+    // Aquí puedes agregar la lógica para cambiar la contraseña en el backend
+    if (newPassword === confirmPassword) {
+      console.log("Contraseña cambiada");
+    } else {
+      console.log("Las contraseñas no coinciden");
+    }
   };
 
   return (
@@ -43,8 +91,8 @@ const Profile = () => {
       <main className="main-content">
         <header className="header">
           <div className="header-user">
-            <span>SE</span>
-            <span>Steven Gabriel Erazo Laguna</span>
+            <span>UN</span>
+            <span>Nombre del usuario</span>
             <a href="#" onClick={handleLogout}>
               Salir
             </a>
@@ -54,28 +102,94 @@ const Profile = () => {
           <div className="profile-header">
             <h2>Nombre del usuario</h2>
           </div>
-          <div className="profile-tabs">
-            <button className="active">Detalle</button>
-            <button>Cambio de Contraseña</button>
-          </div>
           <section className="profile-details">
-            <div className="profile-section">
-              <h3>Datos personales</h3>
-              <div className="profile-item">
-                <span>Fecha de nacimiento</span>
-                <span>21/09/2001</span>
-              </div>
-              <div className="profile-item">
-                <span>Datos adicionales de perfil</span>
-                <span>Información laboral y patrimonial</span>
-              </div>
-            </div>
             <div className="profile-section">
               <h3>Datos de contacto</h3>
               <div className="profile-item">
-                <span>Número de celular</span>
-                <span>0962567643</span>
-                <a href="#">Editar</a>
+                <span>Usuario</span>
+                {isEditingUser ? (
+                  <>
+                    <input
+                      type="text"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                    />
+                    <button onClick={handleSaveUser}>Guardar</button>
+                  </>
+                ) : (
+                  <>
+                    <span>{username}</span>
+                    <a href="#" onClick={handleEditUser}>
+                      Editar
+                    </a>
+                  </>
+                )}
+              </div>
+              <div className="profile-item">
+                <span>Correo electrónico</span>
+                {isEditingEmail ? (
+                  <>
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <button onClick={handleSaveEmail}>Guardar</button>
+                  </>
+                ) : (
+                  <>
+                    <span>{email}</span>
+                    <a href="#" onClick={handleEditEmail}>
+                      Editar
+                    </a>
+                  </>
+                )}
+              </div>
+              <div className="profile-item">
+                <span>Número de teléfono</span>
+                {isEditingPhone ? (
+                  <>
+                    <input
+                      type="tel"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                    />
+                    <button onClick={handleSavePhone}>Guardar</button>
+                  </>
+                ) : (
+                  <>
+                    <span>{phone}</span>
+                    <a href="#" onClick={handleEditPhone}>
+                      Editar
+                    </a>
+                  </>
+                )}
+              </div>
+            </div>
+            <div className="profile-password">
+              <h3>Cambio de contraseña</h3>
+              <div className="profile-item">
+                <span>Contraseña actual</span>
+                <input
+                  type="password"
+                  value={currentPassword}
+                  onChange={(e) => setCurrentPassword(e.target.value)}
+                />
+                <span>Nueva contraseña</span>
+                <input
+                  type="password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                />
+                <span>Confirme su nueva contraseña</span>
+                <input
+                  type="password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+                <button onClick={handlePasswordChange}>
+                  Aceptar cambio de contraseña
+                </button>
               </div>
             </div>
           </section>

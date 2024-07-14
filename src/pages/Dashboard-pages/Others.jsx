@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Navigate from "../../components/navigate";
 import "../../styles/Dashboard-other.css";
 
 const Others = () => {
@@ -8,7 +9,7 @@ const Others = () => {
   return (
     <div className="others">
       <aside className="sidebar">
-        <div className="sidebar-logo">
+        {/* <div className="sidebar-logo">
           <img src="" alt="BuhoBank" />
         </div>
         <nav className="sidebar-menu">
@@ -29,7 +30,8 @@ const Others = () => {
             </li>
             <li onClick={() => navigate("/dashboard-profile")}>Mi perfil</li>
           </ul>
-        </nav>
+        </nav> */}
+        <Navigate />
       </aside>
       <main className="main-content">
         <h1>Otros Servicios</h1>

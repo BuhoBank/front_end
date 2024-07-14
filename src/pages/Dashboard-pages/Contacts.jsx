@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Navigate from "../../components/navigate";
 import "../../styles/Dashboard-contacts.css";
 
 const Contacts = () => {
@@ -8,7 +9,7 @@ const Contacts = () => {
   return (
     <div className="contacts">
       <aside className="sidebar">
-        <div className="sidebar-logo">
+        {/* <div className="sidebar-logo">
           <img src="" alt="BuhoBank" />
         </div>
         <nav className="sidebar-menu">
@@ -29,7 +30,8 @@ const Contacts = () => {
             </li>
             <li onClick={() => navigate("/dashboard-profile")}>Mi perfil</li>
           </ul>
-        </nav>
+        </nav> */}
+        <Navigate />
       </aside>
       <main className="main-content">
         <h1>Mis Contactos</h1>

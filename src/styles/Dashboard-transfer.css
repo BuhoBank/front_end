@@ -75,6 +75,34 @@ h1 {
   color: #333;
 }
 
+.account-info {
+  background-color: transparent;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.account-info label {
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.account-info select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-top: 5px;
+  background-color: #f5f5f5;
+}
+
+.transfer-form {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+}
+
 .form-group {
   margin-bottom: 15px;
 }
@@ -82,16 +110,64 @@ h1 {
 .form-group label {
   display: block;
   margin-bottom: 5px;
+  color: #333;
+}
+
+.amount-input {
+  display: flex;
+  align-items: center;
+}
+
+.amount-input span {
+  background-color: #eee;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-right: none;
+}
+
+.amount-input input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-left: none;
+  border-radius: 0 4px 4px 0;
 }
 
 .form-group input {
   width: 100%;
   padding: 8px;
   box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 
-button {
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-primary {
   padding: 10px 15px;
   background-color: #f09819;
   color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.btn-primary:hover {
+  background-color: #f09819;
+}
+
+.btn-secondary {
+  padding: 10px 15px;
+  background-color: #ccc;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.btn-secondary:hover {
+  background-color: #bbb;
 }
