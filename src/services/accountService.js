@@ -1,6 +1,6 @@
-import {API_URL} from './config'
+import { API_URL } from './config';
 
-export const createBankAccount = async () => {
+export const createBankAccount = async (clientID) => {
   try {
     const response = await fetch(`${API_URL}/create_bank_account`, {
       method: 'POST',
@@ -8,8 +8,7 @@ export const createBankAccount = async () => {
         'Content-Type': 'application/json',
         // Aquí puedes agregar headers adicionales si son necesarios, como un token de autenticación
       },
-      // Puedes agregar un cuerpo a la solicitud si es necesario
-      // body: JSON.stringify({}),
+      body: JSON.stringify(clientID)
     });
 
     if (!response.ok) {
