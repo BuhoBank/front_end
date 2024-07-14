@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Navigate from "../../components/navigate";
 import "../../styles/Dashboard-profile.css"; // Asegúrate de importar los estilos
 
 const Profile = () => {
@@ -12,7 +13,7 @@ const Profile = () => {
   return (
     <div className="dashboard">
       <aside className="sidebar">
-        <div className="sidebar-logo">
+        {/* <div className="sidebar-logo">
           <img src="logo.png" alt="BuhoBank" />
         </div>
         <nav className="sidebar-menu">
@@ -38,7 +39,8 @@ const Profile = () => {
               Mi perfil
             </li>
           </ul>
-        </nav>
+        </nav> */}
+        <Navigate />
       </aside>
       <main className="main-content">
         <header className="header">

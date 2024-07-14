@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Navigate from "../../components/navigate";
 import "../../styles/Dashboard-newaccount.css";
 
 const NewAccount = () => {
@@ -8,7 +9,7 @@ const NewAccount = () => {
   return (
     <div className="new-account">
       <aside className="sidebar">
-        <div className="sidebar-logo">
+        {/* <div className="sidebar-logo">
           <img src="" alt="BuhoBank" />
         </div>
         <nav className="sidebar-menu">
@@ -29,7 +30,8 @@ const NewAccount = () => {
             </li>
             <li onClick={() => navigate("/dashboard-profile")}>Mi perfil</li>
           </ul>
-        </nav>
+        </nav> */}
+        <Navigate />
       </aside>
       <main className="main-content">
         <h1>Solicitar Nueva Cuenta</h1>

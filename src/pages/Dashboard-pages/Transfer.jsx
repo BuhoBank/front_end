@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Navigate from "../../components/navigate";
 import "../../styles/Dashboard-transfer.css";
 
 const Transfer = () => {
@@ -16,7 +17,7 @@ const Transfer = () => {
   return (
     <div className="transfer">
       <aside className="sidebar">
-        <div className="sidebar-logo">
+        {/* <div className="sidebar-logo">
           <img src="" alt="BuhoBank" />
         </div>
         <nav className="sidebar-menu">
@@ -37,7 +38,8 @@ const Transfer = () => {
             </li>
             <li onClick={() => navigate("/dashboard-profile")}>Mi perfil</li>
           </ul>
-        </nav>
+        </nav> */}
+        <Navigate />
       </aside>
       <main className="main-content">
         <h1>Transferencias</h1>
