@@ -4,6 +4,10 @@ import '../styles/SuccessPopup.css';
 
 const SuccessPopup = ({ message, onClose,state}) => {
   const navigate=  useNavigate();
+  const storedData = localStorage.getItem('data');
+  const parsedData = JSON.parse(storedData);
+  const accountNumber = parsedData.account;
+
   const handleButtonClick = () => {
     onClose();
     if (state) {
@@ -18,6 +22,7 @@ const SuccessPopup = ({ message, onClose,state}) => {
         {state ? (
           <>
             <h1>{message}</h1>
+            <p>Cliente nuevo creado con número de cuenta: {accountNumber} </p>
             <button onClick={handleButtonClick}>Ir a inicio sesión</button>
           </>
         ) : (

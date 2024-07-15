@@ -63,6 +63,9 @@ const useRegisterForm = () => {
       const response = await register(formData);
       if (response.code==="USER_CREATE"){
         setSuccess(true);
+        localStorage.setItem('data',JSON.stringify(response));
+        const storedData = JSON.parse(localStorage.getItem('data'));
+        console.log(storedData)
       }
       if (response.code==="CI_REPEAT"){
         setNoSuccess(0);
@@ -74,7 +77,6 @@ const useRegisterForm = () => {
       if (response.code==="USER_REPEAT"){
         setNoSuccess(2);
       }
-      console.log("Registro Exitoso", response);
     } catch (error) {
       console.error("Error en el registro:", error);
     }
