@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navigate from "../../components/navigate";
+import { sendTransferData } from "../../services/transferService";
 import "../../styles/Dashboard-transfer.css";
 
 const Transfer = () => {
@@ -12,50 +13,43 @@ const Transfer = () => {
   const [description, setDescription] = useState("");
   const [notification, setNotification] = useState("");
 
-  const userAccounts = [
-    { id: "1", name: "Cuenta de Ahorro 1", number: "220678123" },
-    { id: "2", name: "Cuenta de Ahorro 2", number: "220678456" },
-    // Añadir más cuentas según sea necesario
-  ];
+  const accountsFromLocalStorage =
+    JSON.parse(localStorage.getItem("accounts")) || [];
+  const userAccounts = accountsFromLocalStorage.map((account, index) => ({
+    id: index + 1, // Asegúrate de tener un campo id en tus datos del localStorage
+    name: account.name, // Nombre de la cuenta
+    number: account.account_number, // Número de cuenta
+  }));
 
-  const handleTransfer = (e) => {
+  const handleTransfer = async (e) => {
     e.preventDefault();
     // Lógica para manejar la transferencia
-    console.log("Transferencia realizada:", {
+    const transferData = {
       selectedAccount,
       amount,
       beneficiary,
       accountNumber,
       description,
       notification,
-    });
+    };
+    const response = await sendTransferData(transferData);
+
+    if (response.success) {
+      console.log('Transferencia exitosa:', response.data);
+      // Puedes añadir aquí lógica adicional después de una transferencia exitosa, como navegar a otra página
+      navigate('/dashboard'); // Ejemplo de navegación a la página de dashboard después de la transferencia
+    } else {
+      console.error('Error al realizar la transferencia:', response.error);
+      // Manejar el error, por ejemplo, mostrar un mensaje al usuario
+    }
+
   };
+
+  
 
   return (
     <div className="transfer">
       <aside className="sidebar">
-        {/* <div className="sidebar-logo">
-          <img src="" alt="BuhoBank" />
-        </div>
-        <nav className="sidebar-menu">
-          <ul>
-            <li onClick={() => navigate("/dashboard")}>Mis Cuentas</li>
-            <li onClick={() => navigate("/dashboard-transfer")}>
-              Transferencias
-            </li>
-            <li onClick={() => navigate("/dashboard-payments")}>Pagos</li>
-            <li onClick={() => navigate("/dashboard-newaccount")}>
-              Solicitar cuentas
-            </li>
-            <li onClick={() => navigate("/dashboard-others")}>
-              Otros Servicios
-            </li>
-            <li onClick={() => navigate("/dashboard-contacts")}>
-              Mis Contactos
-            </li>
-            <li onClick={() => navigate("/dashboard-profile")}>Mi perfil</li>
-          </ul>
-        </nav> */}
         <Navigate />
       </aside>
       <main className="main-content">

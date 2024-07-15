@@ -13,13 +13,18 @@ const useLoginForm = () => {
     setError("");
     try {
       const response = await login(user, password);
+      console.log("Tipo de datos de la respuesta en login:", typeof response);
       if (response.authenticated) {
         console.log("Login successful");
         localStorage.setItem("isLoggenIn","true");
         localStorage.setItem('accounts',JSON.stringify(response.accounts_list));
         localStorage.setItem('clientID',response.id)
+
         console.log(response.id)
+        const storedData = JSON.parse(localStorage.getItem('accounts'));
+        console.log(storedData)
         navigate("/dashboard");
+        console.log(response)
         // Aquí puedes manejar el éxito del login, por ejemplo:
         // - Guardar el token en localStorage
         // - Redirigir al usuario a la página principal

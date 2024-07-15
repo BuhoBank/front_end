@@ -5,6 +5,7 @@ function AccountInfo() {
 
     useEffect(() => {
         const storedAccounts = JSON.parse(localStorage.getItem('accounts'));
+        console.log(storedAccounts)
         if (storedAccounts) {
             setAccounts(storedAccounts);
         }
