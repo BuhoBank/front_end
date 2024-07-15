@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navigate from "../../components/navigate";
 import { sendTransferData } from "../../services/transferService";
+import { getClientAccounts } from "../../services/getAccountsService";
 import "../../styles/Dashboard-transfer.css";
 
 const Transfer = () => {
@@ -12,6 +13,7 @@ const Transfer = () => {
   const [accountNumber, setAccountNumber] = useState("");
   const [description, setDescription] = useState("");
   const [notification, setNotification] = useState("");
+  const [showSuccessPopup, setSuccess] = useState(false);
 
   const accountsFromLocalStorage =
     JSON.parse(localStorage.getItem("accounts")) || [];
@@ -35,17 +37,35 @@ const Transfer = () => {
     const response = await sendTransferData(transferData);
 
     if (response.success) {
-      console.log('Transferencia exitosa:', response.data);
-      // Puedes añadir aquí lógica adicional después de una transferencia exitosa, como navegar a otra página
-      navigate('/dashboard'); // Ejemplo de navegación a la página de dashboard después de la transferencia
+      console.log("Transferencia exitosa:", response.data);
+      if (response.data.code === "TRANSFER_SUCCESSFUL") {
+        setSuccess(true);
+        const clientID = localStorage.getItem("clientID");
+        const accountsResponse = await getClientAccounts(clientID);
+        if (accountsResponse.success) {
+          console.log("Cuentas del cliente:", accountsResponse.data);
+          localStorage.removeItem("accounts");
+          localStorage.setItem(
+            "accounts",
+            JSON.stringify(accountsResponse.data.accounts_list)
+          );
+          const data = JSON.parse(localStorage.getItem("accounts"));
+          console.log(data);
+        } else {
+          setError("Error al obtener las cuentas del cliente");
+        }
+      }
+
+      // navigate('/dashboard'); // Ejemplo de navegación a la página de dashboard después de la transferencia
     } else {
-      console.error('Error al realizar la transferencia:', response.error);
+      console.error("Error al realizar la transferencia:", response.error);
       // Manejar el error, por ejemplo, mostrar un mensaje al usuario
     }
-
   };
 
-  
+  const handleCloseSuccessPopup = () => {
+    navigate("/dashboard");
+  };
 
   return (
     <div className="transfer">
@@ -133,6 +153,12 @@ const Transfer = () => {
           </div>
         </form>
       </main>
+      {showSuccessPopup && (
+        <div className="success-popup">
+          <h1>Transferencia realizada con exito</h1>
+          <button onClick={handleCloseSuccessPopup}>Ir a mis cuentas</button>
+        </div>
+      )}
     </div>
   );
 };
