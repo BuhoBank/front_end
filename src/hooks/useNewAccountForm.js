@@ -4,6 +4,7 @@ import { getClientAccounts } from "../services/getAccountsService";
 
 const useNewAccountForm = () => {
     const [error, setError] = useState("");
+    const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
     const handleNewAccountSubmit = async (id) => {
         setError("");
@@ -14,12 +15,14 @@ const useNewAccountForm = () => {
                 console.log("Cuenta creada con éxito", response.data);
                 const accountsResponse = await getClientAccounts(clientID);
                 console.log("Tipo de datos de la respuesta:", typeof accountsResponse);
+                localStorage.setItem('new_account',JSON.stringify(response.data.account_number))
                 if (accountsResponse.success) {
                     console.log("Cuentas del cliente:", accountsResponse.data);
                     localStorage.removeItem('accounts');
                     localStorage.setItem('accounts', JSON.stringify(accountsResponse.data.accounts_list));
                     const data = JSON.parse(localStorage.getItem('accounts'));
-                    console.log(data)
+                    console.log(data);
+                    setShowSuccessPopup(true);
                 } else {
                     setError("Error al obtener las cuentas del cliente");
                 }
@@ -32,7 +35,7 @@ const useNewAccountForm = () => {
         }
     };
 
-    return { error, handleNewAccountSubmit };
+    return { error, handleNewAccountSubmit, showSuccessPopup, setShowSuccessPopup };
 };
 
 export default useNewAccountForm;

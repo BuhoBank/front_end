@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ChangePassword from "../../components/changePasswordComponent";
 import "../../styles/Dashboard-profile.css"; // Asegúrate de importar los estilos
 
 const Profile = () => {
@@ -166,32 +167,7 @@ const Profile = () => {
                 )}
               </div>
             </div>
-            <div className="profile-password">
-              <h3>Cambio de contraseña</h3>
-              <div className="profile-item">
-                <span>Contraseña actual</span>
-                <input
-                  type="password"
-                  value={currentPassword}
-                  onChange={(e) => setCurrentPassword(e.target.value)}
-                />
-                <span>Nueva contraseña</span>
-                <input
-                  type="password"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                />
-                <span>Confirme su nueva contraseña</span>
-                <input
-                  type="password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                />
-                <button onClick={handlePasswordChange}>
-                  Aceptar cambio de contraseña
-                </button>
-              </div>
-            </div>
+           <ChangePassword />
           </section>
         </div>
       </main>
