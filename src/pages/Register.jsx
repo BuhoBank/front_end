@@ -11,6 +11,7 @@ const Register = () => {
     formData,
     handleChange,
     handleSubmit,
+    handleSendEmail,
     validations,
     success,
     noSuccess,
@@ -28,7 +29,8 @@ const Register = () => {
         <RegisterForm
           formData={formData}
           handleChange={handleChange}
-          handleSubmit={handleSubmit}
+          //handleSubmit={handleSubmit}
+          handleSubmit={handleSendEmail}
           validations={validations}
           handleReturn={handleReturn}
         />

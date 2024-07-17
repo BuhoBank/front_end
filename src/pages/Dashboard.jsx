@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardForm from "../components/DashboardForm";
-import useAccountData from "../hooks/useAccountData";
+// import useAccountData from "../hooks/useAccountData";
 import AccountInfo from "../components/accountsList";
 import "../styles/Dashboard.css"; // Asegúrate de ajustar la ruta si es necesario
 
