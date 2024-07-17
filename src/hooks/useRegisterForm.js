@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { register } from "../services/registerService";
+import { sendEmail } from "../services/sendCodeToEmail";
 
 const useRegisterForm = () => {
   const [formData, setFormData] = useState({
@@ -43,14 +44,33 @@ const useRegisterForm = () => {
       message: "La contraseña debe tener mínimo 8 caracteres.",
     },
   };
-  
+
   const [success, setSuccess] = useState(false);
-  const [noSuccess,setNoSuccess] = useState(null);
-  
+  const [noSuccess, setNoSuccess] = useState(null);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+
+
+
+  const handleSendEmail = async (e) => {
+    e.preventDefault();
+    try {
+      const data = {
+        email: formData.email
+      };
+      const resp_email = await sendEmail(formData)
+      if (response.success) {
+        console.log("Existo al mandar mensaje")
+        console.log(response)
+      }
+
+    } catch (error) {
+      console.error("Error en el registro:", error);
+    }
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -61,20 +81,20 @@ const useRegisterForm = () => {
 
     try {
       const response = await register(formData);
-      if (response.code==="USER_CREATE"){
+      if (response.code === "USER_CREATE") {
         setSuccess(true);
-        localStorage.setItem('data',JSON.stringify(response));
+        localStorage.setItem('data', JSON.stringify(response));
         const storedData = JSON.parse(localStorage.getItem('data'));
         console.log(storedData)
       }
-      if (response.code==="CI_REPEAT"){
+      if (response.code === "CI_REPEAT") {
         setNoSuccess(0);
       }
-      if (response.code==="EMAIL_REPEAT"){
+      if (response.code === "EMAIL_REPEAT") {
         setNoSuccess(1);
       }
 
-      if (response.code==="USER_REPEAT"){
+      if (response.code === "USER_REPEAT") {
         setNoSuccess(2);
       }
     } catch (error) {
@@ -88,7 +108,7 @@ const useRegisterForm = () => {
   };
 
 
-  return { formData, handleChange, handleSubmit, validations,success, noSuccess,handleClosePopup };
+  return { formData, handleChange, handleSubmit,handleSendEmail, validations, success, noSuccess, handleClosePopup };
 };
 
 export default useRegisterForm;
