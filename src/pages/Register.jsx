@@ -3,20 +3,32 @@ import { useNavigate } from "react-router-dom";
 import useRegisterForm from "../hooks/useRegisterForm";
 import RegisterForm from "../components/RegisterForm";
 import SuccessPopup from "../components/SuccessPopup";
+import EnterCodeComponent from "../components/EnterCodeComponent";
+import useSendCodeEmail from "../hooks/useSendCodeToEmail";
 import "../styles/Register.css";
 
 const Register = () => {
   const navigate = useNavigate();
+  // const {
+  //   formData,
+  //   handleChange,
+  //   handleSubmit,
+  //   handleSendEmail,
+  //   validations,
+  //   success,
+  //   noSuccess,
+  //   handleClosePopup,
+  // } = useRegisterForm();
+
   const {
     formData,
     handleChange,
-    handleSubmit,
     handleSendEmail,
     validations,
     success,
     noSuccess,
     handleClosePopup,
-  } = useRegisterForm();
+  }=useSendCodeEmail();
 
   const handleReturn = () => {
     navigate("/");
@@ -35,7 +47,7 @@ const Register = () => {
           handleReturn={handleReturn}
         />
         {success && (
-          <SuccessPopup message="Registro Exitoso" onClose={handleClosePopup} state={true} />
+          <EnterCodeComponent message="Ingrese codigo enviado al email" onClose={handleClosePopup} state={true} email_parameter={formData.email} />
         )}
          {noSuccess === 0 && (
           <SuccessPopup message="Cédula ya existe" onClose={handleClosePopup} state={false}/>
