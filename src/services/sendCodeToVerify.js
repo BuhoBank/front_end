@@ -1,8 +1,7 @@
 import { API_URL } from "./config";
 
-export const sendEmail = async (data) => {
-
-  const response = await fetch(`${API_URL}/send_email`, {
+export const sendCode = async (data) => {
+  const response = await fetch(`${API_URL}/verify_code_email`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
