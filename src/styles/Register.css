@@ -151,5 +151,16 @@ input:focus ~ .barra::before {
 
 
 
-/* Agregar espacio entre los botones */
+
+
+
+.required-asterisk {
+  color: red;
+  margin-left: 4px;
+}
+
+.input-group label {
+  display: flex;
+  align-items: center;
+}
 

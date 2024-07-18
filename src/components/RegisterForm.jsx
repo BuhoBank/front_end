@@ -14,6 +14,7 @@ const RegisterForm = ({ formData, handleChange, handleSubmit, validations,handle
       value={formData.ci}
       onChange={handleChange}
       validation={validations.ci}
+      required={true}
     />
 
     <div className="row">
@@ -25,6 +26,7 @@ const RegisterForm = ({ formData, handleChange, handleSubmit, validations,handle
         value={formData.name}
         onChange={handleChange}
         validation={validations.name}
+        required={true}
       />
       <InputGroup
         id="lastname"
@@ -34,6 +36,7 @@ const RegisterForm = ({ formData, handleChange, handleSubmit, validations,handle
         value={formData.lastname}
         onChange={handleChange}
         validation={validations.lastname}
+        required={true}
       />
     </div>
 
@@ -46,6 +49,7 @@ const RegisterForm = ({ formData, handleChange, handleSubmit, validations,handle
         value={formData.email}
         onChange={handleChange}
         validation={validations.email}
+        required={true}
       />
       <InputGroup
         id="cell"
@@ -55,6 +59,7 @@ const RegisterForm = ({ formData, handleChange, handleSubmit, validations,handle
         value={formData.cell}
         onChange={handleChange}
         validation={validations.cell}
+        required={false}
       />
     </div>
 
@@ -66,6 +71,7 @@ const RegisterForm = ({ formData, handleChange, handleSubmit, validations,handle
       value={formData.user}
       onChange={handleChange}
       validation={validations.user}
+      required={true}
     />
 
     <div className="row">
@@ -77,6 +83,7 @@ const RegisterForm = ({ formData, handleChange, handleSubmit, validations,handle
         value={formData.pass}
         onChange={handleChange}
         validation={validations.pass}
+        required={true}
       />
       <InputGroup
         id="pass_conf"
@@ -86,6 +93,7 @@ const RegisterForm = ({ formData, handleChange, handleSubmit, validations,handle
         value={formData.pass_conf}
         onChange={handleChange}
         validation={{ message: "La contraseña debe ser igual al anterior." }}
+        required={true}
       />
     </div>
 
@@ -104,3 +112,5 @@ const RegisterForm = ({ formData, handleChange, handleSubmit, validations,handle
 );
 
 export default RegisterForm;
+
+
