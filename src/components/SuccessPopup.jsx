@@ -2,11 +2,11 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/SuccessPopup.css';
 
-const SuccessPopup = ({ message, onClose,state}) => {
+const SuccessPopup = ({ message, onClose,state,acc_number}) => {
   const navigate=  useNavigate();
-  const storedData = localStorage.getItem('data');
-  const parsedData = JSON.parse(storedData);
-  const accountNumber = parsedData.account;
+  // const storedData = localStorage.getItem('data');
+  // const parsedData = JSON.parse(storedData);
+  // const accountNumber = parsedData.account;
 
   const handleButtonClick = () => {
     onClose();
@@ -22,7 +22,7 @@ const SuccessPopup = ({ message, onClose,state}) => {
         {state ? (
           <>
             <h1>{message}</h1>
-            <p>Cliente nuevo creado con número de cuenta: {accountNumber} </p>
+            <p>Cliente nuevo creado con número de cuenta: {acc_number} </p>
             <button onClick={handleButtonClick}>Ir a inicio sesión</button>
           </>
         ) : (

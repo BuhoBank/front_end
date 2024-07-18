@@ -44,6 +44,28 @@ const useSendCodeEmail = () => {
         },
     };
 
+    const validateForm = () => {
+        // Validar campos requeridos
+        if (!formData.name || !formData.lastname || !formData.ci || !formData.email || !formData.user || !formData.password || !formData.pass_conf) {
+          alert("Por favor, complete todos los campos requeridos.");
+          return false;
+        }
+    
+        // Validar contraseñas
+        if (formData.password !== formData.pass_conf) {
+          alert("Las contraseñas no coinciden.");
+          return false;
+        }
+    
+        // Validar cell solo si se ha ingresado un valor
+        if (formData.cell && !formData.cell.match(validations.cell.pattern)) {
+          alert("El número de teléfono no es válido.");
+          return false;
+        }
+    
+        return true;
+      };
+
     const [success, setSuccess] = useState(false);
     const [noSuccess, setNoSuccess] = useState(null);
 
@@ -54,27 +76,31 @@ const useSendCodeEmail = () => {
 
     const handleSendEmail = async (e) => {
         e.preventDefault();
+
+        if (!validateForm()) {
+            return;
+          }
         try {
             const data = {
                 email: formData.email
             };
             const response = await sendEmail(formData)
-            if (response.code==='EMAIL_SEND') {
+            if (response.code === 'EMAIL_SEND') {
                 console.log("Existo al mandar mensaje")
                 console.log(response)
                 setSuccess(true)
             }
-            if (response.code==='CI_REPEAT') {
+            if (response.code === 'CI_REPEAT') {
                 console.log("Cedula repetida")
                 console.log(response)
                 setNoSuccess(0)
             }
-            if (response.code==='EMAIL_REPEAT') {
+            if (response.code === 'EMAIL_REPEAT') {
                 console.log("email repetido")
                 console.log(response)
                 setNoSuccess(1)
             }
-            if (response.code==='USER_REPEAT') {
+            if (response.code === 'USER_REPEAT') {
                 console.log("usuario creado")
                 console.log(response)
                 setNoSuccess(2)

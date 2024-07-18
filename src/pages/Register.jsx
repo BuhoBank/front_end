@@ -28,7 +28,7 @@ const Register = () => {
     success,
     noSuccess,
     handleClosePopup,
-  }=useSendCodeEmail();
+  } = useSendCodeEmail();
 
   const handleReturn = () => {
     navigate("/");
@@ -47,17 +47,17 @@ const Register = () => {
           handleReturn={handleReturn}
         />
         {success && (
-          <EnterCodeComponent message="Ingrese codigo enviado al email" onClose={handleClosePopup} state={true} email_parameter={formData.email} />
+          <EnterCodeComponent message="Ingrese codigo enviado al email" onClose={handleClosePopup} state={true} data_parameter={formData} />
         )}
-         {noSuccess === 0 && (
-          <SuccessPopup message="Cédula ya existe" onClose={handleClosePopup} state={false}/>
+        {noSuccess === 0 && (
+          <SuccessPopup message="Cédula ya existe" onClose={handleClosePopup} state={false} />
         )}
         {noSuccess === 1 && (
-          <SuccessPopup message="Correo electrónico ya existe" onClose={handleClosePopup} state={false}/>
+          <SuccessPopup message="Correo electrónico ya existe" onClose={handleClosePopup} state={false} />
         )}
         {
-          noSuccess ===2 && (
-            <SuccessPopup message="Nombre de usuario ya existe" onClose={handleClosePopup} state={false}/>
+          noSuccess === 2 && (
+            <SuccessPopup message="Nombre de usuario ya existe" onClose={handleClosePopup} state={false} />
           )
         }
       </div>
