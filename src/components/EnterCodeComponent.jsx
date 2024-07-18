@@ -9,6 +9,8 @@ const EnterCodeComponent = ({ message, onClose, state, data_parameter }) => {
   const { success, handleRegister } = useRegisterForm(data_parameter);
   const [registerSuccess, setRegisterSuccess] = useState(false);
   const [accountNumber, setAccountNumber] = useState(null);
+  const [attempts,setAttemps]=useState(3)
+  const [showAttemptsWarning, setShowAttemptsWarning] = useState(false);
   const [formData, setFormData] = useState({
     codigo: '',
     email: data_parameter.email
@@ -52,6 +54,12 @@ const EnterCodeComponent = ({ message, onClose, state, data_parameter }) => {
           console.error("Error al registrar:", error);
         }
       }
+      if(response.code==="NO_SUCCESS" ){
+        setAttemps(attempts-1)
+        if (attempts - 1 === 0) {
+          setShowAttemptsWarning(true); // Mostrar advertencia cuando los intentos llegan a cero
+        }
+      }
     } catch (error) {
       console.error("Error al enviar el código:", error);
     }
@@ -73,7 +81,20 @@ const EnterCodeComponent = ({ message, onClose, state, data_parameter }) => {
                 onChange={handleChange}
                 validation={validations.codigo}
               />
-              <button type="submit">Enviar Código</button>
+              {showAttemptsWarning &&
+              (<p>Ya no tiene más intentos disponibles. Asegurese de usar un correcto
+                existente, asegurese que el codigo le llego al correo, verifique spam.
+
+              </p>)
+               
+        
+               }
+              {attempts > 0 && (
+                <div>
+                  <p>Tiene {attempts} intentos para ingresar el código.</p>
+                  <button type="submit">Enviar Código</button>
+                </div>
+              )}
             </form>
           </>
         )}
