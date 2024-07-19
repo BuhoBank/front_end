@@ -1,6 +1,7 @@
 import React from "react";
 
 const LoginForm = ({ user, password, setUsername, setPassword, handleSubmit }) => (
+
   <form onSubmit={handleSubmit}>
     <div className="form-group">
       <input

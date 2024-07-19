@@ -11,6 +11,7 @@ const EnterCodeComponent = ({ message, onClose, state, data_parameter }) => {
   const [accountNumber, setAccountNumber] = useState(null);
   const [attempts,setAttemps]=useState(3)
   const [showAttemptsWarning, setShowAttemptsWarning] = useState(false);
+  const [showBadCodeWarning,setShowBadCodeWarning]=useState(false)
   const [formData, setFormData] = useState({
     codigo: '',
     email: data_parameter.email
@@ -56,8 +57,9 @@ const EnterCodeComponent = ({ message, onClose, state, data_parameter }) => {
       }
       if(response.code==="NO_SUCCESS" ){
         setAttemps(attempts-1)
+        setShowBadCodeWarning(true)
         if (attempts - 1 === 0) {
-          setShowAttemptsWarning(true); // Mostrar advertencia cuando los intentos llegan a cero
+          setShowAttemptsWarning(true);
         }
       }
     } catch (error) {
@@ -88,6 +90,11 @@ const EnterCodeComponent = ({ message, onClose, state, data_parameter }) => {
               </p>)
                
         
+               }
+               {showBadCodeWarning && (
+                <p>Código incorrecto, intente nuevamente</p>
+               )
+
                }
               {attempts > 0 && (
                 <div>
