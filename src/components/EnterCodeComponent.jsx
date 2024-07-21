@@ -3,18 +3,19 @@ import InputGroup from "./InputGroup";
 import { sendCode } from '../services/sendCodeToVerify';
 import '../styles/SuccessPopup.css';
 import useRegisterForm from '../hooks/useRegisterForm';
-import SuccessPopup from './SuccessPopup'; // Asegúrate de que este import sea correcto
+import SuccessPopup from './SuccessPopup';
 
 const EnterCodeComponent = ({ message, onClose, state, data_parameter }) => {
   const { success, handleRegister } = useRegisterForm(data_parameter);
   const [registerSuccess, setRegisterSuccess] = useState(false);
   const [accountNumber, setAccountNumber] = useState(null);
-  const [attempts,setAttemps]=useState(3)
+  const [attempts, setAttemps] = useState(3)
   const [showAttemptsWarning, setShowAttemptsWarning] = useState(false);
-  const [showBadCodeWarning,setShowBadCodeWarning]=useState(false)
+  const [showBadCodeWarning, setShowBadCodeWarning] = useState(false)
   const [formData, setFormData] = useState({
     codigo: '',
-    email: data_parameter.email
+    email: data_parameter.email,
+    parameter: 0
   });
 
   const validations = {
@@ -55,8 +56,8 @@ const EnterCodeComponent = ({ message, onClose, state, data_parameter }) => {
           console.error("Error al registrar:", error);
         }
       }
-      if(response.code==="NO_SUCCESS" ){
-        setAttemps(attempts-1)
+      if (response.code === "NO_SUCCESS") {
+        setAttemps(attempts - 1)
         setShowBadCodeWarning(true)
         if (attempts - 1 === 0) {
           setShowAttemptsWarning(true);
@@ -66,6 +67,8 @@ const EnterCodeComponent = ({ message, onClose, state, data_parameter }) => {
       console.error("Error al enviar el código:", error);
     }
   };
+
+
 
   return (
     <div className="popup-overlay">
@@ -84,22 +87,24 @@ const EnterCodeComponent = ({ message, onClose, state, data_parameter }) => {
                 validation={validations.codigo}
               />
               {showAttemptsWarning &&
-              (<p>Ya no tiene más intentos disponibles. Asegurese de usar un correcto
-                existente, asegurese que el codigo le llego al correo, verifique spam.
+                (<p>Ya no tiene más intentos disponibles. Asegurese de usar un correcto
+                  existente, asegurese que el codigo le llego al correo, verifique spam.
 
-              </p>)
-               
-        
-               }
-               {showBadCodeWarning && (
-                <p>Código incorrecto, intente nuevamente</p>
-               )
+                </p>)
 
-               }
+
+              }
+              {showBadCodeWarning && (
+                <p style={{ color: 'red' }}>Código incorrecto, intente nuevamente</p>
+              )
+
+              }
               {attempts > 0 && (
                 <div>
                   <p>Tiene {attempts} intentos para ingresar el código.</p>
-                  <button type="submit">Enviar Código</button>
+                  <div className="form-buttons">
+                    <button type="submit">Enviar Código</button>
+                  </div>
                 </div>
               )}
             </form>
@@ -108,10 +113,15 @@ const EnterCodeComponent = ({ message, onClose, state, data_parameter }) => {
         {registerSuccess && (
           <SuccessPopup message="Registro exitoso" onClose={onClose} state={true} acc_number={accountNumber} />
         )}
-        <button onClick={onClose}>Cerrar</button>
+        <div className='form-buttons'>
+          <button onClick={onClose}>Cerrar</button>
+        </div>
       </div>
     </div>
   );
 };
 
 export default EnterCodeComponent;
+
+
+

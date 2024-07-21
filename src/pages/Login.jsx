@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import useLoginForm from "../hooks/useLoginForm";
 import LoginForm from "../components/LoginForm";
 import ExtraLinks from "../components/ExtraLinks";
-import RecoverPassword from "../components/recoverPassword/RecoverPassword"
 import "../styles/Login.css";
 
 const Login = () => {
@@ -14,9 +13,6 @@ const Login = () => {
     navigate("/register");
   };
 
-  const handleResetPasss = () => {
-    setshowResetPass(true)
-  }
 
   return (
     <div className="login-container">
@@ -32,11 +28,7 @@ const Login = () => {
           setUsername={setUsername}
           setPassword={setPassword}
           handleSubmit={handleSubmit}
-          handleResetPasss={handleResetPasss}
         />
-        {showResetPass &&
-          (<RecoverPassword />)
-        }
         <ExtraLinks handleRegister={handleRegister} />
       </div>
     </div>

@@ -1,7 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const LoginForm = ({ user, password, setUsername, setPassword, handleSubmit,handleResetPasss }) => (
-
+const LoginForm = ({ user, password, setUsername, setPassword, handleSubmit }) => (
   <form onSubmit={handleSubmit}>
     <div className="form-group">
       <input
@@ -10,7 +10,7 @@ const LoginForm = ({ user, password, setUsername, setPassword, handleSubmit,hand
         value={user}
         onChange={(e) => setUsername(e.target.value)}
       />
-      <a href="#">¿Olvidaste tu usuario?</a>
+      <Link to="#">¿Olvidaste tu usuario?</Link>
     </div>
     <div className="form-group">
       <input
@@ -19,12 +19,10 @@ const LoginForm = ({ user, password, setUsername, setPassword, handleSubmit,hand
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <a href="#" onClick={handleResetPasss}>¿Olvidaste tu contraseña?</a>
+      <Link to="/recuperar_contrasena">¿Olvidaste tu contraseña?</Link>
     </div>
     <button type="submit">INGRESAR</button>
   </form>
 );
 
 export default LoginForm;
-
-

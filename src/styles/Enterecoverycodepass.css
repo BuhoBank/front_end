@@ -1,0 +1,68 @@
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* Asegúrate de que la ventana emergente esté siempre por encima */
+  }
+  
+  .popup {
+    background: white;
+    padding: 50px;
+    border-radius: 10px;
+    text-align: justify;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 500px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  /* Animación cuando se activa el estado de éxito */
+  .popup.success {
+    transform: translateY(-50%);
+  }
+  
+  .popup h1 {
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+  }
+  
+  .popup button {
+    background: #ff512f;
+    background: -webkit-linear-gradient(to right, #f09819, #ff512f);
+    background: linear-gradient(to right, #f09819, #ff512f);
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+    margin: 10px;
+    width: 100%;
+  }
+  
+  .popup button:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Alineación de los botones uno al lado del otro */
+  .popup-button-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  /* Estilo para la sección del formulario de éxito */
+  .success-form {
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
