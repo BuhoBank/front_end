@@ -13,6 +13,7 @@ import Others from "./pages/Dashboard-pages/Others";
 import Payments from "./pages/Dashboard-pages/Payments";
 import Profile from "./pages/Dashboard-pages/Profile";
 import Transfer from "./pages/Dashboard-pages/Transfer";
+import RecoverPasswordPage from "./pages/RecoverPasswordPage";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/dashboard-payments" element={<Payments />} />
         <Route path="/dashboard-profile" element={<Profile />} />
         <Route path="/dashboard-transfer" element={<Transfer />} />
+        <Route path="/recuperar_contrasena" element={<RecoverPasswordPage />} />
       </Routes>
     </Router>
   );
