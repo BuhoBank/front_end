@@ -34,7 +34,7 @@ const RecoverPassword = () => {
 
     return (
         <div className="popup-overlay">
-            <div className="popup">
+                <div className="popup">
                 <>
                     <form onSubmit={handleSubmit}>
                         <h1>Ingrese su dirección de correo electrónico con el que se registro</h1>
@@ -68,7 +68,7 @@ const RecoverPassword = () => {
                         )}
                     </form>
                 </>
-            </div>
+                </div>
         </div>
     )
 }
