@@ -15,7 +15,7 @@ const ChangePassword = ({ userId }) => {
     }
 
     const clientID = localStorage.getItem("clientID");
-    const response = await changePassword(clientID, currentPassword, newPassword);
+    const response = await changePassword(clientID, currentPassword, newPassword,0);
     console.log(response);
     if (response.message === "INVALID_PASSWORD_LENGTH") {
         setMessage("La nueva contraseña debe tener entre 8 y 20 caracteres");

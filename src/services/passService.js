@@ -1,6 +1,6 @@
 import { API_URL } from './config';
 
-export const changePassword = async (userId, currentPassword, newPassword) => {
+export const changePassword = async (userId, currentPassword, newPassword,pam) => {
   try {
     const response = await fetch(`${API_URL}/change_password`, {
       method: 'POST',
@@ -10,7 +10,8 @@ export const changePassword = async (userId, currentPassword, newPassword) => {
       body: JSON.stringify({ 
         user_id: userId, 
         current_password: currentPassword, 
-        new_password: newPassword 
+        new_password: newPassword ,
+        parameter: pam
       }),
     });
 
