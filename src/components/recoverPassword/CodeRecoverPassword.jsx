@@ -12,6 +12,8 @@ const CodeRecoverPassword = ({ data_parameter, handleClose }) => {
     const [showBadCodeWarning, setShowBadCodeWarning] = useState(false);
     const [passwordError, setPasswordError] = useState('');
     const [message, setMessage] = useState(false); // Inicialmente, el mensaje de éxito está oculto
+    const [timeOut,setTimeOut]=useState(false)
+
     const navigate=useNavigate()
 
     const [formData, setFormData] = useState({
@@ -84,6 +86,8 @@ const CodeRecoverPassword = ({ data_parameter, handleClose }) => {
                     setShowBadCodeWarning(true);
                     return newAttempts;
                 });
+            }else if (response.code==='TIME_OUT'){
+                setTimeOut(true)
             }
         } catch (error) {
             console.error("Error al enviar el código:", error);
@@ -134,6 +138,9 @@ const CodeRecoverPassword = ({ data_parameter, handleClose }) => {
                         </div>
                         {showBadCodeWarning && (
                             <p style={{ color: 'red' }}>Código incorrecto, intente nuevamente</p>
+                        )}
+                        {timeOut && (
+                            <p style={{ color: 'red' }}>El tiempo para ingresar el código se ha agotado</p>
                         )}
                         {attempts > 0 && (
                             <p>Tiene {attempts} intentos para ingresar el código.</p>
