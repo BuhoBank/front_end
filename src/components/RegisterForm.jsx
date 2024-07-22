@@ -2,6 +2,7 @@ import React from "react";
 import InputGroup from "./InputGroup";
 import { useNavigate } from "react-router-dom";
 
+
 const RegisterForm = ({ formData, handleChange, handleSubmit, validations,handleReturn }) => (
   <form onSubmit={handleSubmit}>
     <h2>Bienvenido a BuhoBank</h2>
