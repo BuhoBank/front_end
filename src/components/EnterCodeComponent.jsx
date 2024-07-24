@@ -12,6 +12,7 @@ const EnterCodeComponent = ({ message, onClose, state, data_parameter }) => {
   const [attempts, setAttemps] = useState(3)
   const [showAttemptsWarning, setShowAttemptsWarning] = useState(false);
   const [showBadCodeWarning, setShowBadCodeWarning] = useState(false)
+  const [showTimeOut, setTimeOut] = useState(false)
   const [formData, setFormData] = useState({
     codigo: '',
     email: data_parameter.email,
@@ -55,7 +56,11 @@ const EnterCodeComponent = ({ message, onClose, state, data_parameter }) => {
         } catch (error) {
           console.error("Error al registrar:", error);
         }
+      }else if(response.code === 'TIME_OUT'){
+        setTimeOut(true);
+
       }
+      
       if (response.code === "NO_SUCCESS") {
         setAttemps(attempts - 1)
         setShowBadCodeWarning(true)
@@ -86,6 +91,14 @@ const EnterCodeComponent = ({ message, onClose, state, data_parameter }) => {
                 onChange={handleChange}
                 validation={validations.codigo}
               />
+              
+              {showTimeOut && (
+                <p style={{ color: 'red' }}>Tiempo para ingresar el codigo, agotado.</p>
+              )
+
+              }
+
+
               {showAttemptsWarning &&
                 (<p>Ya no tiene más intentos disponibles. Asegurese de usar un correcto
                   existente, asegurese que el codigo le llego al correo, verifique spam.
