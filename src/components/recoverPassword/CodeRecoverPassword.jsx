@@ -26,6 +26,7 @@ const CodeRecoverPassword = ({ data_parameter, handleClose }) => {
         id: JSON.parse(localStorage.getItem("id")),
         new_password: '',
         current_password: '',
+        confirm_password:'',
     });
 
     const validations = {
@@ -65,11 +66,25 @@ const CodeRecoverPassword = ({ data_parameter, handleClose }) => {
         return '';
     };
 
+
+    const validateEqualsPasswords = (password, confirmPassword) => {
+        if (password !== confirmPassword) {
+            return 'Las contraseñas no coinciden, vuelva a escribirlas';
+        }
+        return '';
+    };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         if (!validations.codigo.pattern.test(formData.codigo)) {
             alert("Ingrese 6 dígitos por favor");
+            return;
+        }
+
+        const confirmPasswordError = validateEqualsPasswords(formData2.new_password, formData2.confirm_password);
+        if (confirmPasswordError) {
+            setConfirmPasswordError(confirmPasswordError);
             return;
         }
 
@@ -165,6 +180,15 @@ const CodeRecoverPassword = ({ data_parameter, handleClose }) => {
                                     value={formData2.new_password}
                                     onChange={handleChange}
                                     validation={validations.new_password}
+                                />
+                                <InputGroup
+                                    id="confirm_password"
+                                    name="confirm_password"
+                                    label="Repetir contraseña"
+                                    type="password"
+                                    value={formData.confirm_password}
+                                    onChange={handleChange}
+                                    validation={{ message: "La contraseña debe ser igual al anterior."}}
                                 />
                                 {passwordError && (
                                     <p style={{ color: 'red' }}>{passwordError}</p>

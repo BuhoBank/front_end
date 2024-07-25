@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import InputGroup from "./InputGroup";
 import { useNavigate } from "react-router-dom";
+import PasswordInput from "./PasswordInput";
 
 
-const RegisterForm = ({ formData, handleChange, handleSubmit, validations,handleReturn }) => (
+const RegisterForm = ({ formData, handleChange, handleSubmit, validations,handleReturn,pass,setPass,conf_pass,setConf_pass }) => (
+  
   <form onSubmit={handleSubmit}>
     <h2>Bienvenido a BuhoBank</h2>
     
@@ -76,7 +78,7 @@ const RegisterForm = ({ formData, handleChange, handleSubmit, validations,handle
     />
 
     <div className="row">
-      <InputGroup
+      {/* <InputGroup
         id="password"
         name="password"
         label="Contraseña"
@@ -85,8 +87,16 @@ const RegisterForm = ({ formData, handleChange, handleSubmit, validations,handle
         onChange={handleChange}
         validation={validations.pass}
         required={true}
+      /> */}
+      <PasswordInput
+        password={pass}
+        setPassword={setPass}
+       />
+      <PasswordInput 
+      password={conf_pass}
+      setPassword={setConf_pass}
       />
-      <InputGroup
+      {/* <InputGroup
         id="pass_conf"
         name="pass_conf"
         label="Repetir contraseña"
@@ -95,7 +105,7 @@ const RegisterForm = ({ formData, handleChange, handleSubmit, validations,handle
         onChange={handleChange}
         validation={{ message: "La contraseña debe ser igual al anterior." }}
         required={true}
-      />
+      /> */}
     </div>
 
     <div className="form-buttons">

@@ -11,6 +11,7 @@ const Dashboard = () => {
     navigate("/");
   };
 
+
   return (
     <div className="dashboard">
       <DashboardForm handleLogout={handleLogout} />
@@ -18,7 +19,7 @@ const Dashboard = () => {
         <header className="header">
           <div className="header-user">
             <span>IU</span>
-            <span>Nombre de usuario</span>
+            <span>AQui debes poner el name user</span>
             <a href="#" onClick={handleLogout}>
               Cerrar sesión
             </a>
