@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PasswordInput from "./PasswordInput"; 
 
 const LoginForm = ({ user, password, setUsername, setPassword, handleSubmit }) => (
   <form onSubmit={handleSubmit}>
@@ -13,11 +14,10 @@ const LoginForm = ({ user, password, setUsername, setPassword, handleSubmit }) =
       <Link to="#">¿Olvidaste tu usuario?</Link>
     </div>
     <div className="form-group">
-      <input
-        type="password"
+      <PasswordInput
+        password={password}
+        setPassword={setPassword}
         placeholder="Contraseña"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
       />
       <Link to="/recuperar_contrasena">¿Olvidaste tu contraseña?</Link>
     </div>
