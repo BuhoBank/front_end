@@ -28,6 +28,10 @@ const Register = () => {
     success,
     noSuccess,
     handleClosePopup,
+    pass,
+    setPass,
+    conf_pass,
+    setConf_pass
   } = useSendCodeEmail();
 
   const handleReturn = () => {
@@ -45,6 +49,11 @@ const Register = () => {
           handleSubmit={handleSendEmail}
           validations={validations}
           handleReturn={handleReturn}
+          pass={pass}
+          setPass={setPass}
+          conf_pass={conf_pass}
+          setConf_pass={setConf_pass}
+
         />
         {success && (
           <EnterCodeComponent message="Ingrese codigo enviado al email" onClose={handleClosePopup} state={true} data_parameter={formData} />

@@ -46,7 +46,8 @@ const useSendCodeEmail = () => {
 
     const validateForm = () => {
         // Validar campos requeridos
-        if (!formData.name || !formData.lastname || !formData.ci || !formData.email || !formData.user || !formData.password || !formData.pass_conf) {
+       // if (!formData.name || !formData.lastname || !formData.ci || !formData.email || !formData.user || !formData.password || !formData.pass_conf) {
+        if (!formData.name || !formData.lastname || !formData.ci || !formData.email || !formData.user ){
           alert("Por favor, complete todos los campos requeridos.");
           return false;
         }
@@ -76,7 +77,13 @@ const useSendCodeEmail = () => {
 
     const handleSendEmail = async (e) => {
         e.preventDefault();
-
+        setFormData(prevState => ({
+            ...prevState,  
+            password: pass ,
+            pass_conf:conf_pass
+            
+        }));
+ 
         if (!validateForm()) {
             return;
           }
@@ -116,7 +123,9 @@ const useSendCodeEmail = () => {
         setNoSuccess(null);
     };
 
-    return { formData, handleChange, handleSendEmail, validations, success, noSuccess, handleClosePopup };
+    const[pass,setPass]=useState("")
+    const[conf_pass,setConf_pass]=useState("")
+    return { formData, handleChange, handleSendEmail, validations, success, noSuccess, handleClosePopup ,pass,setPass,conf_pass,setConf_pass};
 
 };
 

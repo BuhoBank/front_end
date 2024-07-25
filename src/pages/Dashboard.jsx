@@ -12,7 +12,7 @@ const Dashboard = () => {
   const handleLogout = () => {
     navigate("/");
   };
-
+  // const name_user = JSON.parse(localStorage.getItem('id')); ESTO TIENES QUE USAR CON NAME_USER
   // if (loading) {
   //   return <div>Loading...</div>;
   // }
@@ -28,7 +28,7 @@ const Dashboard = () => {
         <header className="header">
           <div className="header-user">
             <span>IU</span>
-            <span>Nombre de usuario</span>
+            <span>AQui debes poner el name user</span>
             <a href="#" onClick={handleLogout}>
               Cerrar sesión
             </a>
