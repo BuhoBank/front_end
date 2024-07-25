@@ -14,6 +14,7 @@ import Payments from "./pages/Dashboard-pages/Payments";
 import Profile from "./pages/Dashboard-pages/Profile";
 import Transfer from "./pages/Dashboard-pages/Transfer";
 import RecoverPasswordPage from "./pages/RecoverPasswordPage";
+import AccountMovements from "./pages/AccountMovements"; // Importa tu nuevo componente
 
 function App() {
   return (
@@ -29,8 +30,10 @@ function App() {
         <Route path="/dashboard-profile" element={<Profile />} />
         <Route path="/dashboard-transfer" element={<Transfer />} />
         <Route path="/recuperar_contrasena" element={<RecoverPasswordPage />} />
+        <Route path="/account/:accountNumber" element={<AccountMovements />} /> {/* Nueva ruta */}
       </Routes>
     </Router>
   );
 }
+
 export default App;
