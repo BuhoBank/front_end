@@ -15,8 +15,9 @@ const Transfer = () => {
   const [description, setDescription] = useState("");
   const [notification, setNotification] = useState("");
   const [showSuccessPopup, setSuccess] = useState(false);
-  const [showAll,setShowAll] = useState(false);
+  const [showAll, setShowAll] = useState(false);
   const [showBeneficiary, setShowBeneficiary] = useState(false)
+  const [showNotBalance, setShowNotBalance] = useState(false)
 
   const accountsFromLocalStorage =
     JSON.parse(localStorage.getItem("accounts")) || [];
@@ -57,6 +58,8 @@ const Transfer = () => {
         } else {
           setError("Error al obtener las cuentas del cliente");
         }
+      } else if (response.data.code === "NOT_BALANCE") {
+        setShowNotBalance(true)
       }
 
       // navigate('/dashboard'); // Ejemplo de navegación a la página de dashboard después de la transferencia
@@ -69,6 +72,10 @@ const Transfer = () => {
   const handleCloseSuccessPopup = () => {
     navigate("/dashboard");
   };
+
+  const handleReturn = () => {
+    setShowNotBalance(false)
+  }
 
   const handleBlur = async (e) => {
     e.preventDefault();
@@ -130,7 +137,7 @@ const Transfer = () => {
               required
               placeholder="Nombre del beneficiario"
             />
-          ) :(
+          ) : (
             <p>Ingrese un número de cuenta</p>
           )}
         </div>
@@ -141,58 +148,58 @@ const Transfer = () => {
 
 
 
-          {showAll && (
-             <form className="transfer-form" onSubmit={handleTransfer}>
-             <div className="form-group">
-               <label htmlFor="amount"></label>
-               <div className="amount-input">
-                 <span>$</span>
-                 <input
-                   type="number"
-                   id="amount"
-                   value={amount}
-                   onChange={(e) => setAmount(e.target.value)}
-                   placeholder="Ingrese el valor a transferir"
-                   required
-                 />
-               </div>
-             </div>
-   
-             <div className="form-group">
-               <label htmlFor="description"></label>
-               <input
-                 type="text"
-                 id="description"
-                 value={description}
-                 onChange={(e) => setDescription(e.target.value)}
-                 maxLength="150"
-                 placeholder="Descripción (Opcional)"
-               />
-             </div>
-             <div className="form-group">
-               <label htmlFor="notification"></label>
-               <input
-                 type="email"
-                 id="notification"
-                 value={notification}
-                 onChange={(e) => setNotification(e.target.value)}
-                 placeholder="Correo electrónico (Opcional)"
-               />
-             </div>
-             <div className="form-actions">
-               <button type="reset" className="btn-secondary">
-                 Limpiar
-               </button>
-               <button type="submit" className="btn-primary">
-                 Continuar
-               </button>
-             </div>
-           </form>
-   
-   
+        {showAll && (
+          <form className="transfer-form" onSubmit={handleTransfer}>
+            <div className="form-group">
+              <label htmlFor="amount"></label>
+              <div className="amount-input">
+                <span>$</span>
+                <input
+                  type="number"
+                  id="amount"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                  placeholder="Ingrese el valor a transferir"
+                  required
+                />
+              </div>
+            </div>
 
-          )}  
-       
+            <div className="form-group">
+              <label htmlFor="description"></label>
+              <input
+                type="text"
+                id="description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                maxLength="150"
+                placeholder="Descripción (Opcional)"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="notification"></label>
+              <input
+                type="email"
+                id="notification"
+                value={notification}
+                onChange={(e) => setNotification(e.target.value)}
+                placeholder="Correo electrónico (Opcional)"
+              />
+            </div>
+            <div className="form-actions">
+              <button type="reset" className="btn-secondary">
+                Limpiar
+              </button>
+              <button type="submit" className="btn-primary">
+                Continuar
+              </button>
+            </div>
+          </form>
+
+
+
+        )}
+
 
 
 
@@ -201,6 +208,15 @@ const Transfer = () => {
         <div className="success-popup">
           <h1>Transferencia realizada con exito</h1>
           <button onClick={handleCloseSuccessPopup}>Ir a mis cuentas</button>
+        </div>
+      )}
+      {showNotBalance && (
+        <div className="success-popup">
+          <p style={{ color: 'red' }}>  No tiene suficientes fondos para realizar la transferencia</p>
+          <button onClick={handleReturn} style={{
+            display: 'block',
+            margin: '0 auto'
+          }}>Intentar de nuevo</button>
         </div>
       )}
     </div>
