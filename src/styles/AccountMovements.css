@@ -1,0 +1,54 @@
+.movements-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.movements-header {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.movements-balance {
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #333;
+}
+
+.movements-list {
+    list-style: none;
+    padding: 0;
+}
+
+.movement-item {
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    border: 2px solid transparent; /* Borde inicial transparente */
+    transition: all 0.3s ease; /* Transición suave para animación */
+}
+
+.movement-item:hover {
+    border-color: #f4a261; /* Color del borde al hacer hover */
+    transform: scale(1.02); /* Escalado al hacer hover */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Aumentar sombra al hacer hover */
+}
+
+.movement-date {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.movement-details {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+}
+
+.movement-amount {
+    color: #333;
+}
