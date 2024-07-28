@@ -4,6 +4,8 @@ import Navigate from "../../components/navigate";
 import { sendTransferData } from "../../services/transferService";
 import { getClientAccounts } from "../../services/getAccountsService";
 import searchBankAccount from "../../services/searchAccount";
+import { sendEmailToTransfer } from "../../services/sendEmailTransfer";
+import TransferCodePopup from "../../components/transferCode/transferCode";
 import "../../styles/Dashboard-transfer.css";
 
 const Transfer = () => {
@@ -18,17 +20,51 @@ const Transfer = () => {
   const [showAll, setShowAll] = useState(false);
   const [showBeneficiary, setShowBeneficiary] = useState(false)
   const [showNotBalance, setShowNotBalance] = useState(false)
+  const [showEnterCodePopup, setshowEnterCodePopup] = useState(false)
 
   const accountsFromLocalStorage =
     JSON.parse(localStorage.getItem("accounts")) || [];
+  const user_email = localStorage.getItem('user_email')
   const userAccounts = accountsFromLocalStorage.map((account, index) => ({
     id: index + 1, // Asegúrate de tener un campo id en tus datos del localStorage
     name: account.name, // Nombre de la cuenta
     number: account.account_number, // Número de cuenta
+    balance: account.balance
   }));
+
 
   const handleTransfer = async (e) => {
     e.preventDefault();
+
+    const emailData = {
+      email: user_email
+    }
+
+    const selectedAccountNumber = parseInt(selectedAccount, 10);
+
+    const account = userAccounts.find(acc => acc.number === selectedAccountNumber)
+
+    if (amount > account.balance) {
+      setShowNotBalance(true)
+    } else {
+      try {
+        const responseEmail = await sendEmailToTransfer(emailData)
+        if (responseEmail.code === "EMAIL_SEND") {
+          setshowEnterCodePopup(true)
+        }
+
+      } catch (error) {
+        console.log("error en send email code transfer", error)
+      }
+
+
+
+    }
+
+  };
+
+
+  const handleTransferAfetCode = async () => {
     // Lógica para manejar la transferencia
     const transferData = {
       selectedAccount,
@@ -38,8 +74,8 @@ const Transfer = () => {
       description,
       notification,
     };
-    const response = await sendTransferData(transferData);
 
+    const response = await sendTransferData(transferData);
     if (response.success) {
       console.log("Transferencia exitosa:", response.data);
       if (response.data.code === "TRANSFER_SUCCESSFUL") {
@@ -65,9 +101,10 @@ const Transfer = () => {
       // navigate('/dashboard'); // Ejemplo de navegación a la página de dashboard después de la transferencia
     } else {
       console.error("Error al realizar la transferencia:", response.error);
-      // Manejar el error, por ejemplo, mostrar un mensaje al usuario
+      alert("Ocurrio un error al realizar la transferencia, intentelo mas tarde")
+      return alert
     }
-  };
+  }
 
   const handleCloseSuccessPopup = () => {
     navigate("/dashboard");
@@ -75,6 +112,10 @@ const Transfer = () => {
 
   const handleReturn = () => {
     setShowNotBalance(false)
+  }
+
+  const handleReturnCode = () => {
+    setshowEnterCodePopup(false)
   }
 
   const handleBlur = async (e) => {
@@ -112,7 +153,7 @@ const Transfer = () => {
             <option value="">Seleccione una cuenta</option>
             {userAccounts.map((account) => (
               <option key={account.id} value={account.number}>
-                {account.name} - {account.number}
+                {account.number}
               </option>
             ))}
           </select>
@@ -219,6 +260,7 @@ const Transfer = () => {
           }}>Intentar de nuevo</button>
         </div>
       )}
+      {showEnterCodePopup && (<TransferCodePopup handleTransfer={handleTransferAfetCode} handleClose={handleReturnCode} />)}
     </div>
   );
 };
