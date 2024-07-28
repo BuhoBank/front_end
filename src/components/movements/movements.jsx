@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { format } from 'date-fns';
+import { useNavigate, useParams } from 'react-router-dom';
+import { format, subDays, startOfMonth, endOfMonth, isWithinInterval } from 'date-fns';
 import es from 'date-fns/locale/es'; // Importa el locale español si quieres que esté en español
+import FilterMovements from './FilterMovements';
 import '../../styles/AccountMovements.css';
 
 function AccountMovements() {
     const { accountNumber } = useParams(); // Obtén el número de cuenta de los parámetros
     const [movements, setMovements] = useState([]);
     const [accountBalance, setAccountBalance] = useState(0);
+    const [filter, setFilter] = useState('15days'); // Para los filtros de fecha, por defecto '15days'
+    const [startDate, setStartDate] = useState(null); // Para el filtro personalizado
+    const [endDate, setEndDate] = useState(null); // Para el filtro personalizado
+    const navigate = useNavigate();
 
     useEffect(() => {
         const storedAccounts = JSON.parse(localStorage.getItem('accounts')) || [];
@@ -19,67 +24,82 @@ function AccountMovements() {
         }
     }, [accountNumber]);
 
+    const handleFilterChange = (newFilter, start, end) => {
+        setFilter(newFilter);
+        setStartDate(start);
+        setEndDate(end);
+    };
+
+    const handleReturn = () => {
+        navigate("/dashboard");
+    };
+
     // Helper function to format amounts with + or -
     const formatAmount = (amount) => amount >= 0 ? `+${amount.toFixed(2)}` : `${amount.toFixed(2)}`;
 
     // Calculate movements with previous and current balances
     const calculateMovements = () => {
-        let previousBalance = 0; // Start with 0 for the first movement
-        let finalBalance = 0; // To keep track of the final balance, start with 0
+        // Filter movements based on the selected filter
+        let filteredMovements = movements;
 
-        // Calculate the final balance by iterating over the movements
-        movements.forEach(movement => {
-            const amountIn = movement.saldo_entra;
-            const amountOut = movement.saldo_sale;
-            finalBalance += amountIn - amountOut;
-        });
+        if (filter === '15days') {
+            const fifteenDaysAgo = subDays(new Date(), 15);
+            filteredMovements = movements.filter(movement =>
+                isWithinInterval(new Date(movement.fecha_movimiento), { start: fifteenDaysAgo, end: new Date() })
+            );
+        } else if (filter === 'month') {
+            const start = startOfMonth(new Date());
+            const end = endOfMonth(new Date());
+            filteredMovements = movements.filter(movement =>
+                isWithinInterval(new Date(movement.fecha_movimiento), { start, end })
+            );
+        } else if (filter === 'custom') {
+            if (startDate && endDate) {
+                filteredMovements = movements.filter(movement =>
+                    isWithinInterval(new Date(movement.fecha_movimiento), { start: startDate, end: endDate })
+                );
+            }
+        }
 
-        // Calculate movements details with updated balance values
-        return movements.map((movement, index) => {
-            const amountIn = movement.saldo_entra;
-            const amountOut = movement.saldo_sale;
+        // Map the filtered movements with the balance information directly from localStorage
+        const results = filteredMovements.map((movement) => {
             const date = format(new Date(movement.fecha_movimiento), 'EEEE, d MMMM yyyy', { locale: es });
             const isDeposit = movement.cuenta_origen === 0; // Check if it’s a deposit
-            const isTransfer = amountIn > 0; // Check if it’s a transfer based on the amount
-
-            const currentMovementFinalBalance = previousBalance + amountIn - amountOut;
 
             // Determine the appropriate account info to display
             const accountInfo = isDeposit
                 ? '' // No account info needed for deposits
-                : amountOut > 0 // If it’s a transfer out, show the destination account
-                ? `A la cuenta: ${movement.cuenta_destino}`
-                : `Desde la cuenta: ${movement.cuenta_origen}`; // If it’s a transfer in, show the origin account
+                : movement.saldo_sale > 0 // If it’s a transfer out, show the destination account
+                    ? `A la cuenta: ${movement.cuenta_destino}`
+                    : `Desde la cuenta: ${movement.cuenta_origen}`; // If it’s a transfer in, show the origin account
 
-            const result = {
+            return {
                 date,
                 type: isDeposit ? 'Depósito' : 'Transferencia',
-                amountIn,
-                amountOut,
-                previousBalance,
-                finalBalance: currentMovementFinalBalance,
+                amountIn: movement.saldo_entra,
+                amountOut: movement.saldo_sale,
+                previousBalance: movement.saldo_anterior,
+                finalBalance: movement.saldo_resultante,
                 accountInfo: accountInfo, // Show appropriate account info based on the type of movement
+                entryOrExit: movement.saldo_entra > 0 ? 'Entra' : 'Sale' // Determine if it's an entry or exit
             };
-
-            // Update previous balance for the next iteration
-            previousBalance = currentMovementFinalBalance;
-
-            return result;
         });
+
+        return results;
     };
 
-    // Ensure that the last movement's final balance matches the account balance
     const movementDetails = calculateMovements();
-    if (movementDetails.length > 0) {
-        movementDetails[movementDetails.length - 1].finalBalance = accountBalance;
-    }
 
     return (
         <div className="movements-container">
             <h2 className="movements-header">Movimientos de Cuenta: {accountNumber}</h2>
             <div className="movements-balance">
                 <span>Saldo Actual: ${accountBalance.toFixed(2)}</span>
+                <div className="filter-container">
+                    <FilterMovements onFilterChange={handleFilterChange} />
+                </div>
             </div>
+
             <ul className="movements-list">
                 {movementDetails.map((movement, index) => (
                     <li
@@ -95,7 +115,7 @@ function AccountMovements() {
                             </span>
                             <div className="movement-amount">
                                 <span className={movement.amountIn > 0 ? 'amount-entry' : 'amount-exit'}>
-                                    {movement.type === 'Depósito' ? 'Entrada' : 'Salida'}: {formatAmount(movement.amountIn || -movement.amountOut)}
+                                    {movement.entryOrExit}: {formatAmount(movement.amountIn || -movement.amountOut)}
                                 </span>
                             </div>
                             <div className="movement-balance">
@@ -113,6 +133,7 @@ function AccountMovements() {
                     </li>
                 ))}
             </ul>
+            <button onClick={handleReturn}>Volver</button>
         </div>
     );
 }
