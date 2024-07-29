@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardForm from "../components/DashboardForm";
 import AccountInfo from "../components/accountsList";
+import HeaderDashboard from "../components/headerDashboard";
 import "../styles/Dashboard.css"; 
 
 const Dashboard = () => {
@@ -16,7 +17,7 @@ const Dashboard = () => {
     <div className="dashboard">
       <DashboardForm handleLogout={handleLogout} />
       <main className="main-content">
-        <header className="header">
+        {/* <header className="header">
           <div className="header-user">
             <span>IU</span>
             <span> Bienvenido {name_user}</span>
@@ -24,7 +25,8 @@ const Dashboard = () => {
               Cerrar sesión
             </a>
           </div>
-        </header>
+        </header> */}
+        <HeaderDashboard />
         <div className="content">
           <div className="investment-banner">
             <p>Bienvenido a tus cuentas BuhoBank</p>

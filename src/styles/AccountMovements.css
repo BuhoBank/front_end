@@ -114,3 +114,11 @@
     background-color: #e76f51;
   }
   
+
+  .filter-buttons button {
+    margin-right: 10px; /* Ajusta este valor según sea necesario */
+  }
+  
+  .filter-buttons button:last-child {
+    margin-right: 0; /* Elimina el margen del último botón para evitar espacio extra al final */
+  }
