@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ChangePassword from "../../components/changePasswordComponent";
+import HeaderDashboard from "../../components/headerDashboard";
 import "../../styles/Dashboard-profile.css"; // Asegúrate de importar los estilos
 
 const Profile = () => {
@@ -10,9 +11,14 @@ const Profile = () => {
   const [isEditingEmail, setIsEditingEmail] = useState(false);
   const [isEditingPhone, setIsEditingPhone] = useState(false);
 
-  const [username, setUsername] = useState("user0101");
-  const [email, setEmail] = useState("user@correo.com");
-  const [phone, setPhone] = useState("0964567453");
+
+  const username=localStorage.getItem('user')
+  const email=localStorage.getItem("user_email")
+  const phone=localStorage.getItem("phone")
+
+  //const [username, setUsername] = useState("user0101");
+  //const [email, setEmail] = useState("user@correo.com");
+  //const [phone, setPhone] = useState("0964567453");
 
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -91,13 +97,14 @@ const Profile = () => {
       </aside>
       <main className="main-content">
         <header className="header">
-          <div className="header-user">
+          {/* <div className="header-user">
             <span>UN</span>
             <span>Nombre del usuario</span>
             <a href="#" onClick={handleLogout}>
               Salir
             </a>
-          </div>
+          </div> */}
+          <HeaderDashboard />
         </header>
         <div className="profile-content">
           <div className="profile-header">

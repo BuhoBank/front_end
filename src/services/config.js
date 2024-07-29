@@ -1,1 +1,1 @@
-export const API_URL= 'https://back-end-buho-bank.vercel.app'
+export const API_URL= 'http://20.201.79.104:80'

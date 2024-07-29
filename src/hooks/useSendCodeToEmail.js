@@ -46,25 +46,26 @@ const useSendCodeEmail = () => {
 
     const validateForm = () => {
         // Validar campos requeridos
-        if (!formData.name || !formData.lastname || !formData.ci || !formData.email || !formData.user || !formData.password || !formData.pass_conf) {
-          alert("Por favor, complete todos los campos requeridos.");
-          return false;
+        // if (!formData.name || !formData.lastname || !formData.ci || !formData.email || !formData.user || !formData.password || !formData.pass_conf) {
+        if (!formData.name || !formData.lastname || !formData.ci || !formData.email || !formData.user) {
+            alert("Por favor, complete todos los campos requeridos.");
+            return false;
         }
-    
+
         // Validar contraseñas
-        if (formData.password !== formData.pass_conf) {
-          alert("Las contraseñas no coinciden.");
-          return false;
+        if (pass !== conf_pass) {
+            alert("Las contraseñas no coinciden.");
+            return false;
         }
-    
+
         // Validar cell solo si se ha ingresado un valor
         if (formData.cell && !formData.cell.match(validations.cell.pattern)) {
-          alert("El número de teléfono no es válido.");
-          return false;
+            alert("El número de teléfono no es válido.");
+            return false;
         }
-    
+
         return true;
-      };
+    };
 
     const [success, setSuccess] = useState(false);
     const [noSuccess, setNoSuccess] = useState(null);
@@ -76,10 +77,16 @@ const useSendCodeEmail = () => {
 
     const handleSendEmail = async (e) => {
         e.preventDefault();
+        setFormData(prevState => ({
+            ...prevState,
+            password: pass,
+            pass_conf: conf_pass
 
+        }));
+        console.log("Veamos que regresa: ", !validateForm())
         if (!validateForm()) {
             return;
-          }
+        }
         try {
             const data = {
                 email: formData.email
@@ -116,7 +123,9 @@ const useSendCodeEmail = () => {
         setNoSuccess(null);
     };
 
-    return { formData, handleChange, handleSendEmail, validations, success, noSuccess, handleClosePopup };
+    const [pass, setPass] = useState("")
+    const [conf_pass, setConf_pass] = useState("")
+    return { formData, handleChange, handleSendEmail, validations, success, noSuccess, handleClosePopup, pass, setPass, conf_pass, setConf_pass };
 
 };
 

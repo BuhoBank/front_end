@@ -26,6 +26,7 @@ const CodeRecoverPassword = ({ data_parameter, handleClose }) => {
         id: JSON.parse(localStorage.getItem("id")),
         new_password: '',
         current_password: '',
+        confirm_password:'',
     });
 
     const validations = {
@@ -65,6 +66,14 @@ const CodeRecoverPassword = ({ data_parameter, handleClose }) => {
         return '';
     };
 
+
+    const validateEqualsPasswords = (password, confirmPassword) => {
+        if (password !== confirmPassword) {
+            return true;
+        }
+        return false;
+    };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -72,6 +81,8 @@ const CodeRecoverPassword = ({ data_parameter, handleClose }) => {
             alert("Ingrese 6 dígitos por favor");
             return;
         }
+
+       
 
         try {
             const response = await sendCode(formData);
@@ -97,6 +108,12 @@ const CodeRecoverPassword = ({ data_parameter, handleClose }) => {
     const handlePasswordSubmit = async (event) => {
         event.preventDefault();
         const error = validatePassword(formData2.new_password);
+        const confirmPasswordError = validateEqualsPasswords(formData2.new_password, formData2.confirm_password);
+        console.log("confirmacion de contraseñas iguales: ", confirmPasswordError)
+        if (confirmPasswordError) {
+            setPasswordError("Las contraseñas deben ser iguales")
+            return;
+        }
         if (error) {
             setPasswordError(error);
             return;
@@ -165,6 +182,15 @@ const CodeRecoverPassword = ({ data_parameter, handleClose }) => {
                                     value={formData2.new_password}
                                     onChange={handleChange}
                                     validation={validations.new_password}
+                                />
+                                <InputGroup
+                                    id="confirm_password"
+                                    name="confirm_password"
+                                    label="Repetir contraseña"
+                                    type="password"
+                                    value={formData2.confirm_password}
+                                    onChange={handleChange}
+                                    validation={{ message: "La contraseña debe ser igual al anterior."}}
                                 />
                                 {passwordError && (
                                     <p style={{ color: 'red' }}>{passwordError}</p>

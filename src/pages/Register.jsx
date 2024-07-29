@@ -9,16 +9,6 @@ import "../styles/Register.css";
 
 const Register = () => {
   const navigate = useNavigate();
-  // const {
-  //   formData,
-  //   handleChange,
-  //   handleSubmit,
-  //   handleSendEmail,
-  //   validations,
-  //   success,
-  //   noSuccess,
-  //   handleClosePopup,
-  // } = useRegisterForm();
 
   const {
     formData,
@@ -28,6 +18,10 @@ const Register = () => {
     success,
     noSuccess,
     handleClosePopup,
+    pass,
+    setPass,
+    conf_pass,
+    setConf_pass
   } = useSendCodeEmail();
 
   const handleReturn = () => {
@@ -41,10 +35,14 @@ const Register = () => {
         <RegisterForm
           formData={formData}
           handleChange={handleChange}
-          //handleSubmit={handleSubmit}
           handleSubmit={handleSendEmail}
           validations={validations}
           handleReturn={handleReturn}
+          pass={pass}
+          setPass={setPass}
+          conf_pass={conf_pass}
+          setConf_pass={setConf_pass}
+
         />
         {success && (
           <EnterCodeComponent message="Ingrese codigo enviado al email" onClose={handleClosePopup} state={true} data_parameter={formData} />
