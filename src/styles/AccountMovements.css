@@ -1,0 +1,124 @@
+/* Estilo base para el borde del movimiento */
+.movement-item {
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    border: 2px solid transparent; /* Borde inicial transparente */
+    transition: all 0.3s ease; /* Transición suave para animación */
+    border-color: #f4a261;
+}
+
+.movement-item:hover {
+    transform: scale(1.02); /* Escalado al hacer hover */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Aumentar sombra al hacer hover */
+}
+
+/* Color del borde cuando es una entrada */
+.movement-item.entry:hover {
+    border-color: green; /* Borde verde para entradas */
+}
+
+/* Color del borde cuando es una salida */
+.movement-item.exit:hover {
+    border-color: red; /* Borde rojo para salidas */
+}
+
+/* Otros estilos */
+.movements-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.movements-header {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.movements-balance {
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #333;
+}
+
+.movements-list {
+    list-style: none;
+    padding: 0;
+}
+
+.movement-date {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.movement-details {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+}
+
+.movement-amount {
+    margin: 8px 0;
+}
+
+.movement-amount span {
+    display: block;
+}
+
+.movement-amount .amount-entry {
+    color: green; /* Color para entradas (depósitos) */
+}
+
+.movement-amount .amount-exit {
+    color: red; /* Color para salidas (transferencias) */
+}
+
+.movement-details .account-info {
+    margin: 4px 0;
+    font-style: italic;
+    color: #555; /* Color para la información de cuentas */
+}
+
+.custom-filter {
+    margin-left: 100px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .date-input {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 120px; /* Ajusta según sea necesario */
+  }
+  
+  .custom-filter button {
+    padding: 8px 16px;
+    font-size: 14px;
+    background-color: #f4a261;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .custom-filter button:hover {
+    background-color: #e76f51;
+  }
+  
+
+  .filter-buttons button {
+    margin-right: 10px; /* Ajusta este valor según sea necesario */
+  }
+  
+  .filter-buttons button:last-child {
+    margin-right: 0; /* Elimina el margen del último botón para evitar espacio extra al final */
+  }

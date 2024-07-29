@@ -1,0 +1,49 @@
+/* Estilos generales para el contenedor */
+.account-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+/* Estilos para el encabezado */
+.account-header {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    color: #333;
+}
+
+/* Estilos para cada item de la lista de cuentas */
+.account-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover effect para resaltar la cuenta */
+.account-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+}
+
+/* Estilos para el número de cuenta */
+.account-number {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Estilos para el saldo */
+.account-balance {
+    font-weight: bold;
+    color: #28a745;
+}

@@ -1,0 +1,129 @@
+.terms-dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .terms-dialog-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .terms-dialog-content {
+    background-color: white;
+    border-radius: 8px;
+    padding: 24px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    z-index: 1001;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .terms-dialog-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+  
+  .terms-dialog-body {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+  }
+  
+  .terms-dialog-footer {
+    margin-top: 24px;
+    text-align: right;
+  }
+  
+  .terms-dialog-close-btn {
+    padding: 8px 16px;
+    background-color: #f09819;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .terms-dialog-close-btn:hover {
+    background-color: #e87e00;
+  }
+  
+  /* Estilos para el botón de solicitar en NewAccountForm */
+  .new-account-form button {
+    padding: 10px 20px;
+    background-color: #f09819;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .new-account-form button:hover {
+    background-color: #e87e00;
+  }
+  
+
+
+  .terms-dialog-footer {
+    margin-top: 24px;
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  
+  .terms-dialog-close-btn,
+  .terms-dialog-accept-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .terms-dialog-close-btn {
+    background-color: #e0e0e0;
+    color: #333;
+  }
+  
+  .terms-dialog-close-btn:hover {
+    background-color: #d0d0d0;
+  }
+  
+  .terms-dialog-accept-btn {
+    background-color: #19f07a;
+    color: white;
+  }
+  
+  .terms-dialog-accept-btn:hover {
+    background-color: #e87e00;
+  }
+  
+  .success-popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    border: 3px solid #e87e00 ;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1100; /* Asegura que esté encima de .terms-dialog-content */
+  }
+  
