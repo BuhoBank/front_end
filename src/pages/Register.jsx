@@ -9,16 +9,6 @@ import "../styles/Register.css";
 
 const Register = () => {
   const navigate = useNavigate();
-  // const {
-  //   formData,
-  //   handleChange,
-  //   handleSubmit,
-  //   handleSendEmail,
-  //   validations,
-  //   success,
-  //   noSuccess,
-  //   handleClosePopup,
-  // } = useRegisterForm();
 
   const {
     formData,
@@ -45,7 +35,6 @@ const Register = () => {
         <RegisterForm
           formData={formData}
           handleChange={handleChange}
-          //handleSubmit={handleSubmit}
           handleSubmit={handleSendEmail}
           validations={validations}
           handleReturn={handleReturn}

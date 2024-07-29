@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 const PasswordInput = ({ password, setPassword }) => {
   const [showPassword, setShowPassword] = useState(false);
-
   return (
     <div className="password-input-container">
       <input

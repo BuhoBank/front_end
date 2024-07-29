@@ -21,6 +21,7 @@ const useLoginForm = () => {
         localStorage.setItem('clientID',response.id)
         localStorage.setItem('user_name', response.name_user);
         localStorage.setItem('user_email', response.user_email);
+        localStorage.setItem('user',response.user);
         
 
 
