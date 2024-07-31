@@ -2,6 +2,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Navigate from "../../components/navigate";
 import "../../styles/Dashboard-payments.css";
+import DashboardForm from "../../components/DashboardForm";
+import HeaderDashboard from "../../components/headerDashboard";
 
 const Payments = () => {
   const navigate = useNavigate();
@@ -9,9 +11,10 @@ const Payments = () => {
   return (
     <div className="payments">
       <aside className="sidebar">
-        <Navigate />
+        <DashboardForm />
       </aside>
       <main className="main-content">
+        <HeaderDashboard />
         <h1>Pagos</h1>
         <form>
           <div className="form-group">

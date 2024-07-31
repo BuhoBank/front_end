@@ -8,6 +8,7 @@ import { sendEmailToTransfer } from "../../services/sendEmailTransfer";
 import TransferCodePopup from "../../components/transferCode/transferCode";
 import DashboardForm from "../../components/DashboardForm";
 import "../../styles/Dashboard-transfer.css";
+import HeaderDashboard from "../../components/headerDashboard";
 
 const Transfer = () => {
   const navigate = useNavigate();
@@ -138,10 +139,11 @@ const Transfer = () => {
   return (
     <div className="transfer">
       <aside className="sidebar">
-        {/* <Navigate /> */}
         <DashboardForm />
       </aside>
+
       <main className="main-content">
+        <HeaderDashboard />
         <h1>Transferencias Directas</h1>
         <div className="account-info">
           <label htmlFor="account-select"></label>

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import ChangePassword from "../../components/changePasswordComponent";
 import HeaderDashboard from "../../components/headerDashboard";
 import "../../styles/Dashboard-profile.css"; // Asegúrate de importar los estilos
+import DashboardForm from "../../components/DashboardForm";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -66,44 +67,10 @@ const Profile = () => {
   return (
     <div className="dashboard">
       <aside className="sidebar">
-        <div className="sidebar-logo">
-          <img src="logo.png" alt="BuhoBank" />
-        </div>
-        <nav className="sidebar-menu">
-          <ul>
-            <li onClick={() => navigate("/dashboard")}>Mis Cuentas</li>
-            <li onClick={() => navigate("/dashboard-transfer")}>
-              Transferencias
-            </li>
-            <li onClick={() => navigate("/dashboard-payments")}>Pagos</li>
-            <li onClick={() => navigate("/dashboard-newaccount")}>
-              Solicitar cuentas
-            </li>
-            <li onClick={() => navigate("/dashboard-others")}>
-              Otros Servicios
-            </li>
-            <li onClick={() => navigate("/dashboard-contacts")}>
-              Mis Contactos
-            </li>
-            <li
-              className="active"
-              onClick={() => navigate("/dashboard-profile")}
-            >
-              {" "}
-              Mi perfil
-            </li>
-          </ul>
-        </nav>
+        <DashboardForm />
       </aside>
       <main className="main-content">
         <header className="header">
-          {/* <div className="header-user">
-            <span>UN</span>
-            <span>Nombre del usuario</span>
-            <a href="#" onClick={handleLogout}>
-              Salir
-            </a>
-          </div> */}
           <HeaderDashboard />
         </header>
         <div className="profile-content">
