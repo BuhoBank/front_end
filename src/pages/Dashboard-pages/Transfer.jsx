@@ -8,6 +8,7 @@ import { sendEmailToTransfer } from "../../services/sendEmailTransfer";
 import TransferCodePopup from "../../components/transferCode/transferCode";
 import DashboardForm from "../../components/DashboardForm";
 import "../../styles/Dashboard-transfer.css";
+import HeaderDashboard from "../../components/headerDashboard";
 
 const Transfer = () => {
   const navigate = useNavigate();
@@ -19,51 +20,46 @@ const Transfer = () => {
   const [notification, setNotification] = useState("");
   const [showSuccessPopup, setSuccess] = useState(false);
   const [showAll, setShowAll] = useState(false);
-  const [showBeneficiary, setShowBeneficiary] = useState(false)
-  const [showNotBalance, setShowNotBalance] = useState(false)
-  const [showEnterCodePopup, setshowEnterCodePopup] = useState(false)
+  const [showBeneficiary, setShowBeneficiary] = useState(false);
+  const [showNotBalance, setShowNotBalance] = useState(false);
+  const [showEnterCodePopup, setshowEnterCodePopup] = useState(false);
 
   const accountsFromLocalStorage =
     JSON.parse(localStorage.getItem("accounts")) || [];
-  const user_email = localStorage.getItem('user_email')
+  const user_email = localStorage.getItem("user_email");
   const userAccounts = accountsFromLocalStorage.map((account, index) => ({
     id: index + 1, // Asegúrate de tener un campo id en tus datos del localStorage
     name: account.name, // Nombre de la cuenta
     number: account.account_number, // Número de cuenta
-    balance: account.balance
+    balance: account.balance,
   }));
-
 
   const handleTransfer = async (e) => {
     e.preventDefault();
 
     const emailData = {
-      email: user_email
-    }
+      email: user_email,
+    };
 
     const selectedAccountNumber = parseInt(selectedAccount, 10);
 
-    const account = userAccounts.find(acc => acc.number === selectedAccountNumber)
+    const account = userAccounts.find(
+      (acc) => acc.number === selectedAccountNumber
+    );
 
     if (amount > account.balance) {
-      setShowNotBalance(true)
+      setShowNotBalance(true);
     } else {
       try {
-        const responseEmail = await sendEmailToTransfer(emailData)
+        const responseEmail = await sendEmailToTransfer(emailData);
         if (responseEmail.code === "EMAIL_SEND") {
-          setshowEnterCodePopup(true)
+          setshowEnterCodePopup(true);
         }
-
       } catch (error) {
-        console.log("error en send email code transfer", error)
+        console.log("error en send email code transfer", error);
       }
-
-
-
     }
-
   };
-
 
   const handleTransferAfetCode = async () => {
     // Lógica para manejar la transferencia
@@ -96,57 +92,66 @@ const Transfer = () => {
           setError("Error al obtener las cuentas del cliente");
         }
       } else if (response.data.code === "NOT_BALANCE") {
-        setShowNotBalance(true)
+        setShowNotBalance(true);
       }
 
       // navigate('/dashboard'); // Ejemplo de navegación a la página de dashboard después de la transferencia
     } else {
       console.error("Error al realizar la transferencia:", response.error);
-      alert("Ocurrio un error al realizar la transferencia, intentelo mas tarde")
-      return alert
+      alert(
+        "Ocurrio un error al realizar la transferencia, intentelo mas tarde"
+      );
+      return alert;
     }
-  }
+  };
 
   const handleCloseSuccessPopup = () => {
     navigate("/dashboard");
   };
 
   const handleReturn = () => {
-    setShowNotBalance(false)
-  }
+    setShowNotBalance(false);
+  };
 
   const handleReturnCode = () => {
-    setshowEnterCodePopup(false)
-  }
+    setshowEnterCodePopup(false);
+  };
 
   const handleBlur = async (e) => {
     e.preventDefault();
-    console.log('Cuenta a buscar:', accountNumber);
+    console.log("Cuenta a buscar:", accountNumber);
     const response = await searchBankAccount(accountNumber);
-    console.log(response)
+    console.log(response);
     if (response.code === "TRUE_ACCOUNT") {
       console.log("Veamos");
-      setBeneficiary(response.name)
-      setShowBeneficiary(true)
-      setShowAll(true)
+      setBeneficiary(response.name);
+      setShowBeneficiary(true);
+      setShowAll(true);
     } else {
       console.error("Error al consultar la cuenta bancaria:", response.error);
-      alert("El numero de cuenta no existe, por favor verifique la información")
-      setAccountNumber("")
+      alert(
+        "El numero de cuenta no existe, por favor verifique la información"
+      );
+      setAccountNumber("");
     }
   };
 
   return (
     <div className="transfer">
       <aside className="sidebar">
-        {/* <Navigate /> */}
         <DashboardForm />
       </aside>
+
       <main className="main-content">
+        <HeaderDashboard />
         <h1>Transferencias Directas</h1>
         <div className="account-info">
           <label htmlFor="account-select"></label>
-          <p><strong>Seleccione la cuenta desde la cual va a realizar la transferencia:</strong></p>
+          <p>
+            <strong>
+              Seleccione la cuenta desde la cual va a realizar la transferencia:
+            </strong>
+          </p>
           <select
             id="account-select"
             value={selectedAccount}
@@ -184,12 +189,6 @@ const Transfer = () => {
             <p>Ingrese un número de cuenta</p>
           )}
         </div>
-
-
-
-
-
-
 
         {showAll && (
           <form className="transfer-form" onSubmit={handleTransfer}>
@@ -238,14 +237,7 @@ const Transfer = () => {
               </button>
             </div>
           </form>
-
-
-
         )}
-
-
-
-
       </main>
       {showSuccessPopup && (
         <div className="success-popup">
@@ -254,21 +246,34 @@ const Transfer = () => {
           <p>Hacia cuenta: {accountNumber}</p>
           <p>Beneficiario: {beneficiary}</p>
           <p>Monto transferido: {amount}$</p>
-          {description && (<p>Descripción: {description}</p>)}
+          {description && <p>Descripción: {description}</p>}
           {}
           <button onClick={handleCloseSuccessPopup}>Ir a mis cuentas</button>
         </div>
       )}
       {showNotBalance && (
         <div className="success-popup">
-          <p style={{ color: 'red' }}>  No tiene suficientes fondos para realizar la transferencia</p>
-          <button onClick={handleReturn} style={{
-            display: 'block',
-            margin: '0 auto'
-          }}>Intentar de nuevo</button>
+          <p style={{ color: "red" }}>
+            {" "}
+            No tiene suficientes fondos para realizar la transferencia
+          </p>
+          <button
+            onClick={handleReturn}
+            style={{
+              display: "block",
+              margin: "0 auto",
+            }}
+          >
+            Intentar de nuevo
+          </button>
         </div>
       )}
-      {showEnterCodePopup && (<TransferCodePopup handleTransfer={handleTransferAfetCode} handleClose={handleReturnCode} />)}
+      {showEnterCodePopup && (
+        <TransferCodePopup
+          handleTransfer={handleTransferAfetCode}
+          handleClose={handleReturnCode}
+        />
+      )}
     </div>
   );
 };
