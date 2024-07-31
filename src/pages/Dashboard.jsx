@@ -8,14 +8,14 @@ import "../styles/Dashboard.css";
 const Dashboard = () => {
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    navigate("/");
-  };
+  // const handleLogout = () => {
+  //   navigate("/");
+  // };
   const name_user = localStorage.getItem('user_name'); 
 
   return (
     <div className="dashboard">
-      <DashboardForm handleLogout={handleLogout} />
+      <DashboardForm />
       <main className="main-content">
         {/* <header className="header">
           <div className="header-user">
