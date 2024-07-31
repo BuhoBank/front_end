@@ -8,6 +8,7 @@ import { sendEmailToTransfer } from "../../services/sendEmailTransfer";
 import TransferCodePopup from "../../components/transferCode/transferCode";
 import DashboardForm from "../../components/DashboardForm";
 import "../../styles/Dashboard-transfer.css";
+import HeaderDashboard from "../../components/headerDashboard";
 
 const Transfer = () => {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ const Transfer = () => {
     id: index + 1, // Asegúrate de tener un campo id en tus datos del localStorage
     name: account.name, // Nombre de la cuenta
     number: account.account_number, // Número de cuenta
-    balance: account.balance
+    balance: account.balance,
   }));
 
   const handleTransfer = async (e) => {
@@ -47,13 +48,17 @@ const Transfer = () => {
 
     if (amount > account.balance) {
       setShowNotBalance(true);
+      setShowNotBalance(true);
     } else {
       try {
         const responseEmail = await sendEmailToTransfer(emailData);
+        const responseEmail = await sendEmailToTransfer(emailData);
         if (responseEmail.code === "EMAIL_SEND") {
+          setshowEnterCodePopup(true);
           setshowEnterCodePopup(true);
         }
       } catch (error) {
+        console.log("error en send email code transfer", error);
         console.log("error en send email code transfer", error);
       }
     }
@@ -91,6 +96,7 @@ const Transfer = () => {
         }
       } else if (response.data.code === "NOT_BALANCE") {
         setShowNotBalance(true);
+        setShowNotBalance(true);
       }
 
       // navigate('/dashboard'); // Ejemplo de navegación a la página de dashboard después de la transferencia
@@ -100,6 +106,7 @@ const Transfer = () => {
       return alert;
     }
   };
+  };
 
   const handleCloseSuccessPopup = () => {
     navigate("/dashboard");
@@ -108,8 +115,12 @@ const Transfer = () => {
   const handleReturn = () => {
     setShowNotBalance(false);
   };
+    setShowNotBalance(false);
+  };
 
   const handleReturnCode = () => {
+    setshowEnterCodePopup(false);
+  };
     setshowEnterCodePopup(false);
   };
 
@@ -156,10 +167,11 @@ const Transfer = () => {
   return (
     <div className="transfer">
       <aside className="sidebar">
-        {/* <Navigate /> */}
         <DashboardForm />
       </aside>
+
       <main className="main-content">
+        <HeaderDashboard />
         <h1>Transferencias Directas</h1>
         <div className="account-info">
           <label htmlFor="account-select"></label>
