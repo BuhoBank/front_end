@@ -6,6 +6,7 @@ import { getClientAccounts } from "../../services/getAccountsService";
 import searchBankAccount from "../../services/searchAccount";
 import { sendEmailToTransfer } from "../../services/sendEmailTransfer";
 import TransferCodePopup from "../../components/transferCode/transferCode";
+import DashboardForm from "../../components/DashboardForm";
 import "../../styles/Dashboard-transfer.css";
 
 const Transfer = () => {
@@ -137,31 +138,8 @@ const Transfer = () => {
   return (
     <div className="transfer">
       <aside className="sidebar">
-        <div className="sidebar-logo">
-          <img src="logo.png" alt="BuhoBank" />
-        </div>
-        <nav className="sidebar-menu">
-          <ul>
-            <li onClick={() => navigate("/dashboard")}>Mis Cuentas</li>
-            <li
-              className="active"
-              onClick={() => navigate("/dashboard-transfer")}
-            >
-              Transferencias
-            </li>
-            <li onClick={() => navigate("/dashboard-payments")}>Pagos</li>
-            <li onClick={() => navigate("/dashboard-newaccount")}>
-              Solicitar cuentas
-            </li>
-            <li onClick={() => navigate("/dashboard-others")}>
-              Otros Servicios
-            </li>
-            <li onClick={() => navigate("/dashboard-contacts")}>
-              Mis Contactos
-            </li>
-            <li onClick={() => navigate("/dashboard-profile")}> Mi perfil</li>
-          </ul>
-        </nav>
+        {/* <Navigate /> */}
+        <DashboardForm />
       </aside>
       <main className="main-content">
         <h1>Transferencias Directas</h1>
@@ -262,6 +240,12 @@ const Transfer = () => {
       {showSuccessPopup && (
         <div className="success-popup">
           <h1>Transferencia realizada con exito</h1>
+          <p>Desde cuenta: {selectedAccount}</p>
+          <p>Hacia cuenta: {accountNumber}</p>
+          <p>Beneficiario: {beneficiary}</p>
+          <p>Monto transferido: {amount}$</p>
+          {description && <p>Descripción: {description}</p>}
+          {}
           <button onClick={handleCloseSuccessPopup}>Ir a mis cuentas</button>
         </div>
       )}
