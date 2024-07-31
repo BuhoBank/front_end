@@ -21,7 +21,9 @@ const Register = () => {
     pass,
     setPass,
     conf_pass,
-    setConf_pass
+    setConf_pass,
+    isButtonDisabled, 
+    setIsButtonDisabled
   } = useSendCodeEmail();
 
   const handleReturn = () => {
@@ -42,6 +44,8 @@ const Register = () => {
           setPass={setPass}
           conf_pass={conf_pass}
           setConf_pass={setConf_pass}
+          button={isButtonDisabled}
+          setButton={setIsButtonDisabled}
 
         />
         {success && (
