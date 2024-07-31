@@ -2,14 +2,14 @@ import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/Dashboard.css"; // Ajusta la ruta según sea necesario
 
-const DashboardForm = ({}) => {
+const DashboardForm = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
   return (
     <aside className="sidebar">
       <div className="sidebar-logo">
-        <img src="front_end_BuhoBank\src\assets\image.png" alt="BuhoBank" />
+        <img src="" alt="BuhoBank" />
       </div>
       <nav className="sidebar-menu">
         <ul>
