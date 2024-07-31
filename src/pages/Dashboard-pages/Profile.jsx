@@ -11,10 +11,9 @@ const Profile = () => {
   const [isEditingEmail, setIsEditingEmail] = useState(false);
   const [isEditingPhone, setIsEditingPhone] = useState(false);
 
-
-  const username=localStorage.getItem('user')
-  const email=localStorage.getItem("user_email")
-  const phone=localStorage.getItem("phone")
+  const username = localStorage.getItem("user");
+  const email = localStorage.getItem("user_email");
+  const phone = localStorage.getItem("phone");
 
   //const [username, setUsername] = useState("user0101");
   //const [email, setEmail] = useState("user@correo.com");
@@ -90,6 +89,7 @@ const Profile = () => {
               className="active"
               onClick={() => navigate("/dashboard-profile")}
             >
+              {" "}
               Mi perfil
             </li>
           </ul>
@@ -174,7 +174,7 @@ const Profile = () => {
                 )}
               </div>
             </div>
-           <ChangePassword />
+            <ChangePassword />
           </section>
         </div>
       </main>
