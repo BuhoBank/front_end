@@ -6,6 +6,7 @@ import { getClientAccounts } from "../../services/getAccountsService";
 import searchBankAccount from "../../services/searchAccount";
 import { sendEmailToTransfer } from "../../services/sendEmailTransfer";
 import TransferCodePopup from "../../components/transferCode/transferCode";
+import DashboardForm from "../../components/DashboardForm";
 import "../../styles/Dashboard-transfer.css";
 
 const Transfer = () => {
@@ -138,7 +139,8 @@ const Transfer = () => {
   return (
     <div className="transfer">
       <aside className="sidebar">
-        <Navigate />
+        {/* <Navigate /> */}
+        <DashboardForm />
       </aside>
       <main className="main-content">
         <h1>Transferencias Directas</h1>
@@ -248,6 +250,12 @@ const Transfer = () => {
       {showSuccessPopup && (
         <div className="success-popup">
           <h1>Transferencia realizada con exito</h1>
+          <p>Desde cuenta: {selectedAccount}</p>
+          <p>Hacia cuenta: {accountNumber}</p>
+          <p>Beneficiario: {beneficiary}</p>
+          <p>Monto transferido: {amount}$</p>
+          {description && (<p>Descripción: {description}</p>)}
+          {}
           <button onClick={handleCloseSuccessPopup}>Ir a mis cuentas</button>
         </div>
       )}
