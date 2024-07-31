@@ -164,3 +164,28 @@ input:focus ~ .barra::before {
   align-items: center;
 }
 
+
+
+
+
+.button.loading {
+  background-color: #6c757d; /* Fondo gris para indicar que está cargando */
+  cursor: not-allowed; /* Cursor para indicar que el botón está deshabilitado */
+}
+
+.loader {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top: 4px solid white;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  animation: spin 1s linear infinite;
+  margin-right: 8px; /* Espacio entre el icono y el texto del botón */
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

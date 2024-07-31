@@ -87,6 +87,7 @@ const useSendCodeEmail = () => {
         if (!validateForm()) {
             return;
         }
+        setIsButtonDisabled(true)
         try {
             const data = {
                 email: formData.email
@@ -96,21 +97,25 @@ const useSendCodeEmail = () => {
                 console.log("Existo al mandar mensaje")
                 console.log(response)
                 setSuccess(true)
+                setIsButtonDisabled(false)
             }
             if (response.code === 'CI_REPEAT') {
                 console.log("Cedula repetida")
                 console.log(response)
                 setNoSuccess(0)
+                setIsButtonDisabled(false)
             }
             if (response.code === 'EMAIL_REPEAT') {
                 console.log("email repetido")
                 console.log(response)
                 setNoSuccess(1)
+                setIsButtonDisabled(false)
             }
             if (response.code === 'USER_REPEAT') {
                 console.log("usuario creado")
                 console.log(response)
                 setNoSuccess(2)
+                setIsButtonDisabled(false)
             }
 
         } catch (error) {
@@ -125,7 +130,8 @@ const useSendCodeEmail = () => {
 
     const [pass, setPass] = useState("")
     const [conf_pass, setConf_pass] = useState("")
-    return { formData, handleChange, handleSendEmail, validations, success, noSuccess, handleClosePopup, pass, setPass, conf_pass, setConf_pass };
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+    return { formData, handleChange, handleSendEmail, validations, success, noSuccess, handleClosePopup, pass, setPass, conf_pass, setConf_pass,isButtonDisabled, setIsButtonDisabled };
 
 };
 
