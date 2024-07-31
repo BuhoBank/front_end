@@ -9,7 +9,7 @@ const DashboardForm = () => {
   return (
     <aside className="sidebar">
       <div className="sidebar-logo">
-        <img src="src/assets/image.png" alt="BuhoBank" />
+        <img src="" alt="BuhoBank" />
       </div>
       <nav className="sidebar-menu">
         <ul>
