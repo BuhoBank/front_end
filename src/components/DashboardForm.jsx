@@ -33,7 +33,7 @@ const DashboardForm = () => {
             }
             onClick={() => navigate("/dashboard-payments")}
           >
-            Pagos
+            Pago de servicios
           </li>
           <li
             className={
