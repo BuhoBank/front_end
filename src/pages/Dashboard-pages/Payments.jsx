@@ -13,6 +13,7 @@ const Payments = () => {
   const [isSelecter, setIsSelecter] = useState(false)
   const [service, setService] = useState(null)
   const [ci, setCi] = useState("")
+  const [succes,setSucces]=useState(false)
 
   const handleButtonClick = (selectedService) => {
     setIsSelecter(true);
@@ -51,11 +52,17 @@ const Payments = () => {
     console.log("CI agregada ", ci);
     if (ci.length !== 10) {
       alert("Debe ingresar exactamente 10 dígitos numéricos");
+      
     } else {
       // Aquí puedes manejar el caso cuando la longitud es correcta
       console.log("Número de cédula válido");
+      setSucces(true)
+      console.log("succes ",succes)
     }
   };
+
+
+
   return (
     <div className="payments">
       <aside className="sidebar">
@@ -85,26 +92,31 @@ const Payments = () => {
               </button>
             </div>
           ) : (
-            <div>
-              <p>{getServiceMessage()}</p>
-              <p>Ingrese el número de cédula</p>
-              <InputGroup
-                id="ci"
-                name="ci"
-                label="Cédula de identidad"
-                type="text"
-                value={ci}
-                onChange={(e) => setCi(e.target.value)}
-                validation={ciValidation}
-                required={true}
-              />
-              <button onClick={handleBack}>
-                Atras
-              </button>
-              <button onClick={handleSubmit}>
-                Continuar
-              </button>
-            </div>
+
+            succes ? (
+              <p>Aqui debes mostrar cuando ya tengas uan respuesta satisfactoria.</p>
+            ):(        
+              <div>
+                <p>{getServiceMessage()}</p>
+                <p>Ingrese el número de cédula</p>
+                <InputGroup
+                  id="ci"
+                  name="ci"
+                  label="Cédula de identidad"
+                  type="text"
+                  value={ci}
+                  onChange={(e) => setCi(e.target.value)}
+                  validation={ciValidation}
+                  required={true}
+                />
+                <button onClick={handleBack}>
+                  Atras
+                </button>
+                <button onClick={handleSubmit}>
+                  Continuar
+                </button>
+              </div>)
+    
           )}
         {/* </form> */}
       </main>
