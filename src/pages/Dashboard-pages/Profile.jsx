@@ -12,7 +12,7 @@ const Profile = () => {
   const [isEditingEmail, setIsEditingEmail] = useState(false);
   const [isEditingPhone, setIsEditingPhone] = useState(false);
 
-  const username = localStorage.getItem("user");
+  const [username, setUsername] = useState(localStorage.getItem("user") || "");
   const email = localStorage.getItem("user_email");
   const phone = localStorage.getItem("phone");
 
@@ -34,6 +34,7 @@ const Profile = () => {
 
   const handleSaveUser = () => {
     setIsEditingUser(false);
+    localStorage.setItem("user", username); // Guardar el nombre del usuario en el localStorage
     // Aquí puedes agregar la lógica para guardar el nuevo nombre de usuario en el backend
   };
 
