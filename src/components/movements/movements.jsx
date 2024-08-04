@@ -11,7 +11,7 @@ function AccountMovements() {
     const { accountNumber } = useParams(); // Obtén el número de cuenta de los parámetros
     const [movements, setMovements] = useState([]);
     const [accountBalance, setAccountBalance] = useState(0);
-    const [accountOwner, setAccountOwner] = useState(localStorage.getItem("user") || ''); // Para el propietario de la cuenta
+    const [accountOwner, setAccountOwner] = useState(localStorage.getItem("user_name") || ''); // Para el propietario de la cuenta
     const [filter, setFilter] = useState('15days'); // Para los filtros de fecha, por defecto '15days'
     const [startDate, setStartDate] = useState(null); // Para el filtro personalizado
     const [endDate, setEndDate] = useState(null); // Para el filtro personalizado
@@ -25,7 +25,7 @@ function AccountMovements() {
         if (account) {
             setMovements(account.movements || []);
             setAccountBalance(account.balance || 0);
-            setAccountOwner(localStorage.getItem("user") || ''); // Asigna el propietario de la cuenta desde localStorage
+            setAccountOwner(localStorage.getItem("user_name") || ''); // Asigna el propietario de la cuenta desde localStorage
         }
     }, [accountNumber]);
 
@@ -163,7 +163,7 @@ function AccountMovements() {
         <div className="movements-container">
             <h2 className="movements-header">Movimientos de Cuenta: {accountNumber}</h2>
             <div className="movements-balance">
-                <span>Saldo Actual: ${formatAmount(accountBalance)}</span>
+                <span>Saldo Actual: ${accountBalance}</span>
                 <div className="filter-container">
                     <FilterMovements onFilterChange={handleFilterChange} />
                 </div>
