@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/Dashboard.css"; // Ajusta la ruta según sea necesario
 
-const DashboardForm = ({ handleLogout }) => {
+const DashboardForm = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -33,7 +33,7 @@ const DashboardForm = ({ handleLogout }) => {
             }
             onClick={() => navigate("/dashboard-payments")}
           >
-            Pagos
+            Pago de servicios
           </li>
           <li
             className={

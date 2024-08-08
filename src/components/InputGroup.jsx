@@ -49,7 +49,7 @@
 
 import React from "react";
 
-const InputGroup = ({ id, name, label, type, value, onChange, validation, required = true }) => (
+const InputGroup = ({ id, name, label, type, value, onChange, validation, required }) => (
   <div className="group">
     <input
       type={type}

@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+
+
+import React from "react";
 import InputGroup from "./InputGroup";
-import { useNavigate } from "react-router-dom";
 import PasswordInput from "./PasswordInput";
+//import './RegisterForm.css'; // Asegúrate de importar el archivo CSS
 
-
-const RegisterForm = ({ formData, handleChange, handleSubmit, validations,handleReturn,pass,setPass,conf_pass,setConf_pass }) => (
-  
+const RegisterForm = ({ formData, handleChange, handleSubmit, validations, handleReturn, pass, setPass, conf_pass, setConf_pass, button, setButton }) => (
   <form onSubmit={handleSubmit}>
     <h2>Bienvenido a BuhoBank</h2>
-    
+
     <InputGroup
       id="ci"
       name="ci"
@@ -78,47 +78,25 @@ const RegisterForm = ({ formData, handleChange, handleSubmit, validations,handle
     />
 
     <div className="row">
-      {/* <InputGroup
-        id="password"
-        name="password"
-        label="Contraseña"
-        type="password"
-        value={formData.pass}
-        onChange={handleChange}
-        validation={validations.pass}
-        required={true}
-      /> */}
       <PasswordInput
         password={pass}
         setPassword={setPass}
-       />
-      <PasswordInput 
-      password={conf_pass}
-      setPassword={setConf_pass}
       />
-      {/* <InputGroup
-        id="pass_conf"
-        name="pass_conf"
-        label="Repetir contraseña"
-        type="password"
-        value={formData.pass_conf}
-        onChange={handleChange}
-        validation={{ message: "La contraseña debe ser igual al anterior." }}
-        required={true}
-      /> */}
+      <PasswordInput
+        password={conf_pass}
+        setPassword={setConf_pass}
+      />
     </div>
 
     <div className="form-buttons">
-      <button type="submit" className="button">
-        Registrarte
+      <button type="submit" disabled={button} className={`button ${button ? 'loading' : ''}`}>
+        {button && <div className="loader"></div>}
+        {button ? 'Cargando...' : 'Registrarte'}
       </button>
-      <button type="submit" onClick={handleReturn} className="button">
+      <button type="button" onClick={handleReturn} className="button">
         Volver
       </button>
     </div>
-
-
-
   </form>
 );
 
