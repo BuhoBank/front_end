@@ -9,27 +9,59 @@
 }
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
+
 }
 
-@keyframes logo-spin {
-  from {
+@keyframes moveBackground {
+  0% {
     transform: rotate(0deg);
   }
-  to {
+  100% {
     transform: rotate(360deg);
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.content {
+  z-index: 1;
+  text-align: center;
+  animation: fadeIn 1.5s ease-out;
 }
 
-.card {
-  padding: 2em;
+h1 {
+  font-size: 3.5em;
+  margin-bottom: 0.5em;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
-.read-the-docs {
-  color: #888;
+p {
+  font-size: 1.2em;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.cta-button {
+  margin-top: 2em;
+  padding: 0.8em 1.6em;
+  font-size: 1.1em;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.cta-button:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+.cta-button:active {
+  transform: scale(0.95);
 }
