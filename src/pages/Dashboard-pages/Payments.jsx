@@ -5,10 +5,8 @@ import InputGroup from "../../components/InputGroup";
 import DashboardForm from "../../components/DashboardForm";
 import HeaderDashboard from "../../components/headerDashboard";
 import { searchPaymentAcount } from "../../services/searchPayments";
-import { sendTransferData } from "../../services/transferService";
+import { sendTransferServiceData } from "../../services/payService";
 import { getClientAccounts } from "../../services/getAccountsService";
-import TransferCodePopup from "../../components/transferCode/transferCode";
-
 
 const Payments = () => {
   const navigate = useNavigate();
@@ -22,13 +20,16 @@ const Payments = () => {
   const [showAccountSelection, setShowAccountSelection] = useState(false);
   const [showConfirmPopup, setShowConfirmPopup] = useState(false);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [beneficiary, setBeneficiary] = useState(""); // Agregar estado para beneficiario
+  const [accountNumber, setAccountNumber] = useState(""); // Agregar estado para cuenta de destino
+  const [description, setDescription] = useState(""); // Agregar estado para descripción
 
   const accountsFromLocalStorage = JSON.parse(localStorage.getItem("accounts")) || [];
   const userAccounts = accountsFromLocalStorage.map((account, index) => ({
     id: index + 1,
     name: account.name,
     number: account.account_number,
-    balance: account.balance,
+    balance: parseFloat(account.balance).toFixed(2), // Redondear el saldo a dos decimales
   }));
 
   useEffect(() => {
@@ -42,18 +43,21 @@ const Payments = () => {
   const handleButtonClick = (selectedService) => {
     setIsSelecter(true);
     setService(selectedService);
+    setSuccess(false);
+    setPaymentData(null);
+    setContractNumber("");
   };
 
   const getServiceSuffix = () => {
     switch (service) {
       case 1:
-        return "_0"; // Luz
+        return "0"; // Luz
       case 2:
-        return "_1"; // Agua
+        return "1"; // Agua
       case 3:
-        return "_2"; // Internet
+        return "2"; // Internet
       case 4:
-        return "_3"; // Teléfono
+        return "3"; // Teléfono
       default:
         return "";
     }
@@ -91,28 +95,27 @@ const Payments = () => {
   };
 
   const handleSubmit = async () => {
-    const contractNumberWithSuffix = contractNumber + getServiceSuffix();
+    const contractNumberWithSuffix = contractNumber + '_' + getServiceSuffix();
     console.log("Número de contrato con sufijo:", contractNumberWithSuffix);
-  
+
     if (!contractNumberWithSuffix.match(/^\d+(_[0-3])?$/)) {
       alert("Debe ingresar un número de contrato válido.");
       return;
     }
-  
+
     try {
       console.log("Llamando a searchPaymentAcount con número de contrato:", contractNumberWithSuffix);
       const response = await searchPaymentAcount(contractNumberWithSuffix);
       console.log("Respuesta recibida:", response);
-  
+
       if (response && typeof response === 'object' && !Array.isArray(response)) {
-        const data = response; 
-  
+        const data = response;
+
         console.log("Datos de la factura:", data);
-  
+
         setPaymentData({
           name: data.name,
-          amount: data.amount,
-          status: data.status || "Estado no disponible",
+          amount: parseFloat(data.amount).toFixed(2), // Redondear el monto a dos decimales
           expired_date: data.expired_date,
           start_date: data.start_date,
         });
@@ -120,7 +123,6 @@ const Payments = () => {
         setShowAccountSelection(true);
       } else {
         throw new Error("No se encontraron datos para el número de contrato proporcionado.");
-
       }
     } catch (error) {
       console.error("Error al obtener datos:", error);
@@ -129,7 +131,7 @@ const Payments = () => {
       setPaymentData(null);
     }
   };
-  
+
   const handleAccountSelection = (e) => {
     setSelectedAccount(e.target.value);
   };
@@ -144,36 +146,41 @@ const Payments = () => {
 
   const handleConfirmPayment = async () => {
     setShowConfirmPopup(false);
-    
     const transferData = {
-      selectedAccount,
-      amount: paymentData.amount,
-      beneficiary: paymentData.name,
-      accountNumber: contractNumber,
-      description: `Pago de servicio ${getServiceMessage()}`,
+      contract: parseInt(contractNumber),
+      parameter: getServiceSuffix(),
+      account: parseInt(selectedAccount)
     };
-
-    try {
-      const response = await sendTransferData(transferData);
-      if (response.success) {
-        console.log("Pago exitoso:", response.data);
-        if (response.data.code === "TRANSFER_SUCCESSFUL") {
-          setShowSuccessPopup(true);
-          const clientID = localStorage.getItem("clientID");
-          const accountsResponse = await getClientAccounts(clientID);
-          if (accountsResponse.success) {
-            localStorage.setItem("accounts", JSON.stringify(accountsResponse.data.accounts_list));
-          } else {
-            console.error("Error al obtener las cuentas del cliente");
-          }
+    console.log("Transfer data before sending:", transferData);
+    const response = await sendTransferServiceData(transferData);
+    if(response.success){
+      console.log("Transferencia exitosa", response.data);
+      if(response.data.code === "PAY_TAX_SUCCESFUL"){
+        setSuccess(true);
+        setBeneficiary(paymentData.name); // Configurar beneficiario
+        setAccountNumber(selectedAccount); // Configurar cuenta de destino
+        setDescription("Pago de servicio"); // Configurar descripción
+        setShowSuccessPopup(true); // Mostrar pop-up de éxito
+        const clientID = localStorage.getItem("clientID");
+        const accountsResponse = await getClientAccounts(clientID);
+        if (accountsResponse.success) {
+          console.log("Cuentas del cliente:", accountsResponse.data);
+          localStorage.removeItem("accounts");
+          localStorage.setItem(
+            "accounts",
+            JSON.stringify(accountsResponse.data.accounts_list)
+          );
+          const data = JSON.parse(localStorage.getItem("accounts"));
+          console.log(data);
+        } else {
+          setErrorMessage("Error al obtener las cuentas del cliente");
         }
       } else {
-        console.error("Error al realizar el pago:", response.error);
-        alert("Ocurrió un error al realizar el pago, inténtelo más tarde");
+        console.error("Error al realizar la transferencia:", response.error);
+        alert(
+          "Ocurrió un error al realizar la transferencia, inténtelo más tarde"
+        );
       }
-    } catch (error) {
-      console.error("Error en la transferencia:", error);
-      alert("Ocurrió un error al procesar el pago, inténtelo más tarde");
     }
   };
 
@@ -182,7 +189,6 @@ const Payments = () => {
     navigate("/dashboard");
   };
 
-  
   return (
     <div className="payments">
       <aside className="sidebar">
@@ -211,11 +217,28 @@ const Payments = () => {
             </button>
           </div>
         ) : (
-          success ? (
+          !success ? (
+            <div>
+              <p>{getServiceMessage()}</p>
+              <p>Ingrese el número de suministro a pagar.</p>
+              <InputGroup
+                id="contractNumber"
+                name="contractNumber"
+                label="Número de contrato"
+                type="text"
+                value={contractNumber}
+                onChange={(e) => setContractNumber(e.target.value)}
+                validation={contractNumberValidation}
+                required
+              />
+              <button onClick={handleBack}>Atras</button>
+              <button onClick={handleSubmit}>Continuar</button>
+            </div>
+          ) : (
             <div className="invoice-data">
               <p>Datos de la factura:</p>
               <p>Propietario del servicio: {paymentData.name}</p>
-              <p>Monto a pagar: {paymentData.amount}</p>
+              <p>Monto a pagar: ${paymentData.amount}</p>
               <p>Fecha de vencimiento: {paymentData.expired_date}</p>
 
               {showAccountSelection && (
@@ -241,26 +264,6 @@ const Payments = () => {
                   <button onClick={handlePayment}>Realizar pago</button>
                 )}
               </div>
-
-
-            </div>
-          ) : (
-            <div>
-              <p>{getServiceMessage()}</p>
-              <p>Ingrese el número de suministro a pagar.</p>
-              <InputGroup
-                id="contractNumber"
-                name="contractNumber"
-                label="Número de contrato"
-                type="text"
-                value={contractNumber}
-                onChange={(e) => setContractNumber(e.target.value)}
-                validation={contractNumberValidation}
-                required
-              />
-              <button onClick={handleBack}>Atras</button>
-
-              <button onClick={handleSubmit}>Continuar</button>
             </div>
           )
         )}
@@ -278,19 +281,19 @@ const Payments = () => {
         </div>
       )}
 
-        {showSuccessPopup && (
-          <div className="popup-overlay">
-            <div className="success-popup">
-              <h2>Pago realizado con éxito</h2>
-              <p>Desde cuenta: {selectedAccount}</p>
-              <p>Número de contrato: {contractNumber}</p>
-              <p>Monto pagado: ${paymentData.amount}</p>
-              <div className="popup-button-container">
-                <button onClick={handleCloseSuccessPopup}>Ir al dashboard</button>
-              </div>
-            </div>
+      {showSuccessPopup && (
+        <div className="popup-overlay">
+          <div className="success-popup">
+            <h1>Transferencia realizada con éxito</h1>
+            <p>Desde cuenta: {selectedAccount}</p>
+            <p>Hacia cuenta: {accountNumber}</p>
+            <p>Beneficiario: {beneficiary}</p>
+            <p>Monto transferido: ${paymentData.amount}</p>
+            {description && <p>Descripción: {description}</p>}
+            <button onClick={handleCloseSuccessPopup}>Ir a mis cuentas</button>
           </div>
-        )}
+        </div>
+      )}
     </div>
   );
 };
