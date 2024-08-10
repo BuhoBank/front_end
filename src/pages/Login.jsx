@@ -7,12 +7,21 @@ import "../styles/Login.css";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { user, password, error, handleSubmit, setUsername, setPassword } = useLoginForm();
-  const [showResetPass, setshowResetPass] = useState(false)
+  const { user, password, error, handleSubmit, setUsername, setPassword } =
+    useLoginForm();
+  const [showResetPass, setshowResetPass] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
   const handleRegister = () => {
     navigate("/register");
   };
 
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
+    setIsButtonDisabled(true);
+    await handleSubmit(e);
+    setIsButtonDisabled(false);
+  };
 
   return (
     <div className="login-container">
@@ -28,6 +37,7 @@ const Login = () => {
           setUsername={setUsername}
           setPassword={setPassword}
           handleSubmit={handleSubmit}
+          isButtonDisabled={isButtonDisabled}
         />
         <ExtraLinks handleRegister={handleRegister} />
       </div>
