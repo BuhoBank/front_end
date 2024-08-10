@@ -23,6 +23,7 @@ const Payments = () => {
   const [beneficiary, setBeneficiary] = useState(""); // Agregar estado para beneficiario
   const [accountNumber, setAccountNumber] = useState(""); // Agregar estado para cuenta de destino
   const [description, setDescription] = useState(""); // Agregar estado para descripción
+  const [hasPendingBill, setHasPendingBill] = useState(true);
 
   const accountsFromLocalStorage = JSON.parse(localStorage.getItem("accounts")) || [];
   const userAccounts = accountsFromLocalStorage.map((account, index) => ({
@@ -113,14 +114,23 @@ const Payments = () => {
 
         console.log("Datos de la factura:", data);
 
-        setPaymentData({
-          name: data.name,
-          amount: parseFloat(data.amount).toFixed(2), // Redondear el monto a dos decimales
-          expired_date: data.expired_date,
-          start_date: data.start_date,
-        });
-        setSuccess(true);
-        setShowAccountSelection(true);
+        if (data.code === "No existe cuenta pendiente") {
+          setHasPendingBill(false);
+          setErrorMessage("No registra facturas pendientes por pagar");
+          setSuccess(true);
+          setPaymentData(null);
+          setShowAccountSelection(false);
+        } else {
+          setPaymentData({
+            name: data.name,
+            amount: parseFloat(data.amount).toFixed(2),
+            expired_date: data.expired_date,
+            start_date: data.start_date,
+          });
+          setSuccess(true);
+          setShowAccountSelection(true);
+          setHasPendingBill(true);
+        }
       } else {
         throw new Error("No se encontraron datos para el número de contrato proporcionado.");
       }
@@ -153,14 +163,14 @@ const Payments = () => {
     };
     console.log("Transfer data before sending:", transferData);
     const response = await sendTransferServiceData(transferData);
-    if(response.success){
+    if (response.success) {
       console.log("Transferencia exitosa", response.data);
-      if(response.data.code === "PAY_TAX_SUCCESFUL"){
+      if (response.data.code === "PAY_TAX_SUCCESFUL") {
         setSuccess(true);
-        setBeneficiary(paymentData.name); // Configurar beneficiario
-        setAccountNumber(selectedAccount); // Configurar cuenta de destino
-        setDescription("Pago de servicio"); // Configurar descripción
-        setShowSuccessPopup(true); // Mostrar pop-up de éxito
+        setBeneficiary(paymentData.name); 
+        setAccountNumber(selectedAccount); 
+        setDescription("Pago de servicios básicos"); 
+        setShowSuccessPopup(true); 
         const clientID = localStorage.getItem("clientID");
         const accountsResponse = await getClientAccounts(clientID);
         if (accountsResponse.success) {
@@ -175,11 +185,13 @@ const Payments = () => {
         } else {
           setErrorMessage("Error al obtener las cuentas del cliente");
         }
+      } else if (response.data.code === "No existe cuenta pendiente") {
+        setPaymentData(null); // Limpiar los datos de la factura
+        setErrorMessage("No registra facturas pendientes"); // Mensaje de error
+        setSuccess(false); // Indicar que no se obtuvo una factura
       } else {
-        console.error("Error al realizar la transferencia:", response.error);
-        alert(
-          "Ocurrió un error al realizar la transferencia, inténtelo más tarde"
-        );
+        console.error("Fondos insuficientes", response.error);
+        alert("Verifique los fondos de su cuenta antes de realizar la transferencia");
       }
     }
   };
@@ -236,37 +248,46 @@ const Payments = () => {
             </div>
           ) : (
             <div className="invoice-data">
-              <p>Datos de la factura:</p>
-              <p>Propietario del servicio: {paymentData.name}</p>
-              <p>Monto a pagar: ${paymentData.amount}</p>
-              <p>Fecha de vencimiento: {paymentData.expired_date}</p>
-
-              {showAccountSelection && (
-                <div>
-                  <p>Seleccione la cuenta desde la cual desea realizar el pago:</p>
-                  <select
-                    value={selectedAccount}
-                    onChange={handleAccountSelection}
-                  >
-                    <option value="">Seleccione una cuenta</option>
-                    {userAccounts.map((account) => (
-                      <option key={account.id} value={account.number}>
-                        {account.number} - Saldo: ${account.balance}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              )}
-
-              <div className="button-group">
-                <button onClick={handleBack}>Atras</button>
-                {showAccountSelection && (
-                  <button onClick={handlePayment}>Realizar pago</button>
+              {hasPendingBill ? (
+                  paymentData && (
+                    <>
+                      <p>Datos de la factura:</p>
+                      <p>Propietario del servicio: {paymentData.name}</p>
+                      <p>Monto a pagar: ${paymentData.amount}</p>
+                      <p>Fecha de vencimiento: {paymentData.expired_date}</p>
+                      {showAccountSelection && (
+                        <div>
+                          <p>Seleccione la cuenta desde la cual desea realizar el pago:</p>
+                          <select
+                            value={selectedAccount}
+                            onChange={handleAccountSelection}
+                          >
+                            <option value="">Seleccione una cuenta</option>
+                            {userAccounts.map((account) => (
+                              <option key={account.id} value={account.number}>
+                                {account.number} - Saldo: ${account.balance}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      )}
+                      <div className="button-group">
+                        <button onClick={handleBack}>Atras</button>
+                        {showAccountSelection && (
+                          <button onClick={handlePayment}>Realizar pago</button>
+                        )}
+                      </div>
+                    </>
+                  )
+                ) : (
+                  <div>
+                    <p>{errorMessage}</p>
+                    <button onClick={handleBack}>Volver</button>
+                  </div>
                 )}
               </div>
-            </div>
-          )
-        )}
+            )
+          )}
       </main>
       {showConfirmPopup && (
         <div className="popup-overlay">
@@ -284,10 +305,9 @@ const Payments = () => {
       {showSuccessPopup && (
         <div className="popup-overlay">
           <div className="success-popup">
-            <h1>Transferencia realizada con éxito</h1>
+            <h1>Pago de servicios realizado con exitos.</h1>
             <p>Desde cuenta: {selectedAccount}</p>
-            <p>Hacia cuenta: {accountNumber}</p>
-            <p>Beneficiario: {beneficiary}</p>
+            <p>Propietario del servicio: {beneficiary}</p>
             <p>Monto transferido: ${paymentData.amount}</p>
             {description && <p>Descripción: {description}</p>}
             <button onClick={handleCloseSuccessPopup}>Ir a mis cuentas</button>
