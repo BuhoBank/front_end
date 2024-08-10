@@ -8,47 +8,78 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000; /* Asegúrate de que la ventana emergente esté siempre por encima */
+  z-index: 1000;
 }
 
 .popup {
   background: white;
-  padding: 50px; /* Reducido para hacer el contenedor más pequeño */
+  padding: 20px; /* Ajustado para ser más compacto en pantallas pequeñas */
   border-radius: 10px;
-  text-align: justify; /* Justificar el texto */
+  text-align: justify;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 90%; /* Ajusta el ancho según sea necesario */
-  max-width: 500px; /* Limita el ancho máximo del contenedor */
+  max-width: 500px;
 }
 
 .popup h2 {
-  margin-bottom: 20px; /* Ajustado para que el título esté más cerca del contenido */
-  font-size: 1.2rem; /* Reducido el tamaño del texto del título */
+  margin-bottom: 15px;
+  font-size: 1.2rem;
 }
 
 .popup button {
   background: #ff512f;
   background: -webkit-linear-gradient(to right, #f09819, #ff512f);
   background: linear-gradient(to right, #f09819, #ff512f);
-  padding: 10px 20px; /* Reducido el padding para hacer los botones más compactos */
+  padding: 10px 20px;
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 0.9rem; /* Reducido el tamaño del texto del botón */
+  font-size: 0.9rem;
   transition: background-color 0.3s ease, transform 0.3s ease;
   display: inline-block;
-  margin: 10px; /* Añadido espacio alrededor de los botones */
+  margin: 5px;
 }
 
 .popup button:hover {
   transform: scale(1.05);
 }
 
-/* Alineación de los botones uno al lado del otro */
 .popup-button-container {
   display: flex;
-  justify-content: space-between; /* Espacio entre los botones */
-  gap: 10px; /* Espacio entre los botones */
-  margin-top: 20px; /* Espacio arriba de los botones */
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* Media Queries para Responsividad */
+@media (max-width: 768px) {
+  .popup {
+    padding: 15px; /* Reduce padding en pantallas más pequeñas */
+    max-width: 90%; /* Asegura que el popup use más ancho disponible */
+  }
+
+  .popup h2 {
+    font-size: 1rem; /* Reduce el tamaño del título en pantallas más pequeñas */
+  }
+
+  .popup button {
+    padding: 8px 16px; /* Ajusta el padding de los botones */
+    font-size: 0.8rem; /* Reduce el tamaño del texto del botón */
+  }
+}
+
+@media (max-width: 480px) {
+  .popup {
+    padding: 10px; /* Reduce más el padding en pantallas muy pequeñas */
+  }
+
+  .popup h2 {
+    font-size: 0.9rem; /* Ajusta el tamaño del título */
+  }
+
+  .popup button {
+    padding: 8px 12px; /* Ajusta aún más el padding de los botones */
+    font-size: 0.7rem; /* Reduce el tamaño del texto del botón */
+  }
 }
