@@ -7,21 +7,14 @@ import "../styles/Login.css";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { user, password, error, handleSubmit, setUsername, setPassword } =
+  const { user, password, error, handleSubmit, setUsername, setPassword,isButtonDisabled,setIsButtonDisabled } =
     useLoginForm();
   const [showResetPass, setshowResetPass] = useState(false);
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const handleRegister = () => {
     navigate("/register");
   };
 
-  const handleLoginSubmit = async (e) => {
-    e.preventDefault();
-    setIsButtonDisabled(true);
-    await handleSubmit(e);
-    setIsButtonDisabled(false);
-  };
 
   return (
     <div className="login-container">
