@@ -6,27 +6,12 @@ const DashboardForm = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  
-  const open_menu = () =>{
-    let menu_desplegable = document.getElementById('menu');
-    menu_desplegable.classList.toggle('abrir_menu');
-  }
-  
   return (
     <aside className="sidebar">
-      
       <div className="sidebar-logo">
         <img src="" alt="BuhoBank" />
-        <div className="barras">
-        <button onClick={open_menu} className="boton_menu" id="x">
-          <div className="linea"></div>
-          <div className="linea"></div>
-          <div className="linea"></div>
-        </button>
-
-        </div>
       </div>
-      <nav id="menu" className="sidebar-menu">
+      <nav className="sidebar-menu">
         <ul>
           <li
             className={location.pathname === "/dashboard" ? "active" : ""}

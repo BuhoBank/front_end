@@ -31,14 +31,12 @@
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box; /* Asegura que el padding no afecte el tamaño total */
 }
 
 .movements-header {
     margin-bottom: 20px;
     font-size: 24px;
     color: #333;
-    text-align: center;
 }
 
 .movements-balance {
@@ -50,7 +48,6 @@
 .movements-list {
     list-style: none;
     padding: 0;
-    margin: 0;
 }
 
 .movement-date {
@@ -87,23 +84,22 @@
 }
 
 .custom-filter {
-    margin: 0 auto; /* Centrar el filtro */
+    margin-left: 100px;
     display: flex;
     gap: 10px;
     align-items: center;
     margin-bottom: 20px;
-    max-width: 600px; /* Ajustar ancho máximo para mejor adaptación */
-}
-
-.date-input {
+  }
+  
+  .date-input {
     padding: 8px 12px;
     font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 4px;
     width: 120px; /* Ajusta según sea necesario */
-}
-
-.custom-filter button {
+  }
+  
+  .custom-filter button {
     padding: 8px 16px;
     font-size: 14px;
     background-color: #f4a261;
@@ -112,78 +108,17 @@
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
-}
-
-.custom-filter button:hover {
+  }
+  
+  .custom-filter button:hover {
     background-color: #e76f51;
-}
+  }
+  
 
-.filter-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.filter-buttons button {
-    padding: 8px 16px;
-    font-size: 14px;
-    background-color: #f4a261;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.filter-buttons button:hover {
-    background-color: #e76f51;
-}
-
-/* Media Queries para dispositivos móviles */
-@media (max-width: 768px) {
-    .movements-header {
-        font-size: 20px; /* Ajusta el tamaño del texto del encabezado */
-    }
-
-    .movements-balance {
-        font-size: 16px; /* Ajusta el tamaño del texto del saldo */
-    }
-
-    .movement-details {
-        flex-direction: column; /* Cambia la dirección del flex para pantallas más pequeñas */
-    }
-
-    .custom-filter {
-        flex-direction: column; /* Cambia la dirección del flex para pantallas más pequeñas */
-        align-items: flex-start; /* Alinea los elementos al inicio */
-    }
-
-    .date-input {
-        width: 100%; /* Ajusta el ancho de los inputs para pantallas pequeñas */
-    }
-
-    .filter-buttons {
-        flex-direction: column; /* Cambia la dirección del flex para pantallas más pequeñas */
-        align-items: flex-start; /* Alinea los botones al inicio */
-    }
-}
-
-@media (max-width: 480px) {
-    .movements-header {
-        font-size: 18px; /* Ajusta el tamaño del texto del encabezado */
-    }
-
-    .movements-balance {
-        font-size: 14px; /* Ajusta el tamaño del texto del saldo */
-    }
-
-    .date-input {
-        font-size: 12px; /* Ajusta el tamaño del texto en el input */
-    }
-
-    .custom-filter button {
-        padding: 6px 12px; /* Ajusta el tamaño del botón */
-        font-size: 12px; /* Ajusta el tamaño del texto en el botón */
-    }
-}
+  .filter-buttons button {
+    margin-right: 10px; /* Ajusta este valor según sea necesario */
+  }
+  
+  .filter-buttons button:last-child {
+    margin-right: 0; /* Elimina el margen del último botón para evitar espacio extra al final */
+  }
