@@ -13,6 +13,7 @@ const CodeRecoverPassword = ({ data_parameter, handleClose }) => {
     const [passwordError, setPasswordError] = useState('');
     const [message, setMessage] = useState(false); // Inicialmente, el mensaje de éxito está oculto
     const [timeOut,setTimeOut]=useState(false)
+    const [isLoading, setIsLoading] = useState(false);
 
     const navigate=useNavigate()
 
@@ -82,7 +83,7 @@ const CodeRecoverPassword = ({ data_parameter, handleClose }) => {
             return;
         }
 
-       
+        setIsLoading(true);
 
         try {
             const response = await sendCode(formData);
@@ -102,6 +103,8 @@ const CodeRecoverPassword = ({ data_parameter, handleClose }) => {
             }
         } catch (error) {
             console.error("Error al enviar el código:", error);
+        }finally{
+            setIsLoading(false);
         }
     };
 
@@ -149,7 +152,20 @@ const CodeRecoverPassword = ({ data_parameter, handleClose }) => {
                         />
                         <div className="popup-button-container">
                             {attempts > 0 && (
-                                <button onClick={handleSubmit}>Enviar</button>
+                                <button 
+                                onClick={handleSubmit}
+                                className={`send-button ${isLoading ? "loading" : ""}`}
+                                disabled={isLoading}
+                            >
+                                {isLoading ? (
+                                    <>
+                                        <div className="loader"></div>
+                                        Enviando...
+                                    </>
+                                ) : (
+                                    "Enviar"
+                                )}
+                            </button>
                             )}
                             <button onClick={handleClose}>Atras</button>
                         </div>
