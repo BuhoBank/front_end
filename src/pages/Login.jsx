@@ -19,7 +19,7 @@ const Login = () => {
   return (
     <div className="login-container">
       <div className="login-image">
-        <img src="/src/assets/image.png" alt="BúhoBank Logo" />
+        <img src="image.png" alt="BúhoBank Logo" />
       </div>
       <div className="login-form">
         <h2>BIENVENIDO A TU BANCA WEB</h2>
