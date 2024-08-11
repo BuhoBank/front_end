@@ -1,11 +1,14 @@
+/* src/styles/Account.css */
+
 /* Estilos generales para el contenedor */
 .account-container {
-    max-width: 800px;
+    max-width: 90%; /* Ajustado para usar más ancho en pantallas pequeñas */
     margin: 0 auto;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 8px;
     background-color: #f9f9f9;
+    box-sizing: border-box; /* Asegura que el padding no afecte el tamaño total */
 }
 
 /* Estilos para el encabezado */
@@ -28,6 +31,7 @@
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease, transform 0.3s ease;
+    box-sizing: border-box; /* Asegura que el padding no afecte el tamaño total */
 }
 
 /* Hover effect para resaltar la cuenta */
@@ -46,4 +50,38 @@
 .account-balance {
     font-weight: bold;
     color: #28a745;
+}
+
+/* Media Queries para dispositivos móviles */
+@media (max-width: 768px) {
+    .account-container {
+        padding: 15px;
+    }
+
+    .account-item {
+        flex-direction: column; /* Cambia la dirección del flex para mejor adaptabilidad */
+        align-items: flex-start; /* Alinea los ítems al inicio para pantallas pequeñas */
+    }
+
+    .account-item > * {
+        margin-bottom: 10px; /* Añade margen entre los elementos en dispositivos pequeños */
+    }
+
+    .account-item > *:last-child {
+        margin-bottom: 0; /* Elimina el margen inferior del último elemento */
+    }
+}
+
+@media (max-width: 480px) {
+    .account-header {
+        font-size: 1.2em; /* Reduce el tamaño del texto del encabezado en pantallas pequeñas */
+    }
+
+    .account-item {
+        padding: 15px;
+    }
+
+    .account-number, .account-balance {
+        font-size: 0.9em; /* Reduce el tamaño de fuente para los números y saldos */
+    }
 }

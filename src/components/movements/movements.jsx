@@ -11,7 +11,7 @@ function AccountMovements() {
     const { accountNumber } = useParams(); // Obtén el número de cuenta de los parámetros
     const [movements, setMovements] = useState([]);
     const [accountBalance, setAccountBalance] = useState(0);
-    const [accountOwner, setAccountOwner] = useState(localStorage.getItem("user_name") || ''); // Para el propietario de la cuenta
+    const [accountOwner, setAccountOwner] = useState(localStorage.getItem("user") || ''); // Para el propietario de la cuenta
     const [filter, setFilter] = useState('15days'); // Para los filtros de fecha, por defecto '15days'
     const [startDate, setStartDate] = useState(null); // Para el filtro personalizado
     const [endDate, setEndDate] = useState(null); // Para el filtro personalizado
@@ -25,7 +25,7 @@ function AccountMovements() {
         if (account) {
             setMovements(account.movements || []);
             setAccountBalance(account.balance || 0);
-            setAccountOwner(localStorage.getItem("user_name") || ''); // Asigna el propietario de la cuenta desde localStorage
+            setAccountOwner(localStorage.getItem("user") || ''); // Asigna el propietario de la cuenta desde localStorage
         }
     }, [accountNumber]);
 
@@ -39,9 +39,9 @@ function AccountMovements() {
         navigate("/dashboard");
     };
 
-    // Helper function to format amounts with + or -
+    // Helper function to format amounts without + sign for positive values
     const formatAmount = (amount) => (amount !== undefined && amount !== null) 
-        ? (amount >= 0 ? `+${amount.toFixed(2)}` : `${amount.toFixed(2)}`)
+        ? (amount >= 0 ? `${amount.toFixed(2)}` : `${amount.toFixed(2)}`)
         : 'N/A';
 
     // Calculate movements with previous and current balances
@@ -130,7 +130,15 @@ function AccountMovements() {
             }
 
             // Captura el contenido para el PDF
-            html2canvas(pdfRef.current).then((canvas) => {
+            html2canvas(pdfRef.current, {
+                backgroundColor: null, // Deshabilita el fondo si no es necesario
+                useCORS: true,         // Si estás cargando imágenes desde otras fuentes, habilita CORS
+                scale: 2,              // Mejora la resolución de la captura
+                scrollX: 0,
+                scrollY: 0,
+                windowWidth: pdfRef.current.scrollWidth,
+                windowHeight: pdfRef.current.scrollHeight,
+            }).then((canvas) => {
                 const imgData = canvas.toDataURL('image/png');
                 const imgWidth = 190;
                 const pageHeight = 295; // Tamaño de la página A4 en mm
@@ -163,7 +171,7 @@ function AccountMovements() {
         <div className="movements-container">
             <h2 className="movements-header">Movimientos de Cuenta: {accountNumber}</h2>
             <div className="movements-balance">
-                <span>Saldo Actual: ${accountBalance}</span>
+                <span>Saldo Actual: ${formatAmount(accountBalance)}</span>
                 <div className="filter-container">
                     <FilterMovements onFilterChange={handleFilterChange} />
                 </div>

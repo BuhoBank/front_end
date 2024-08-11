@@ -195,3 +195,136 @@ h1 {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+/* Media Queries */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 200px;
+  }
+
+  .main-content {
+    margin-left: 200px;
+  }
+}
+.barras {
+  display: none; /* Ocultamos el ícono de la hamburguesa por defecto */
+}
+@media (max-width: 768px) {
+  .barras{
+    display: block;
+
+  }
+  .sidebar-menu{
+    transform: translate(-100%);
+    transition: 0,5s;
+    font-size: 1.5rem;
+    height: 100%;
+    width: 50%;
+    background: #f5f5f5;
+    position: fixed;
+    top: 80px;
+    left: 0;
+    z-index: 1000;
+  }
+
+  .abrir_menu{
+    transform: translate(0%);
+    transition: 0.5s;
+  }
+  .transfer {
+    flex-direction: column;
+  }
+  
+  button{
+    margin:20px;
+    border: none;
+  }
+
+  .boton_menu{
+    background-color: transparent; /* Sin color de fondo */
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 30px;
+    width: 30px;
+    padding: 0;
+  }
+  
+  .boton_menu .linea {
+    width: 100%;
+    height: 3px;
+    background-color: #f09819; /* Color de las barras */
+    margin: 4px 0; /* Espacio entre las líneas */
+    transition: all 0.3s ease;
+  }
+
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .btn-primary, .btn-secondary {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-user span:first-child {
+    padding: 8px;
+  }
+  .barras{
+    background: white;
+    display: block;
+
+  }
+  .sidebar-menu{
+    transform: translate(-100%);
+    transition: 0,5s;
+    font-size: 1.5rem;
+    width: 100%;
+    background: #f09819;
+    position: fixed;
+    top: 80px;
+    left: 0;
+    z-index: 1000;
+  }
+
+  .abrir_menu{
+    transform: translate(0%);
+    transition: 0.5s;
+    width: 50%;
+    background: rgba(30, 30, 30, 0.6);
+    backdrop-filter: blur(2px);
+  }
+  .header-user a {
+    margin-left: 5px;
+  }
+
+  .account-info, .transfer-form {
+    padding: 15px;
+  }
+
+  .form-group input {
+    padding: 8px;
+  }
+
+  .btn-primary, .btn-secondary {
+    padding: 12px;
+  }
+}
+

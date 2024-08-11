@@ -1,3 +1,6 @@
+/* src/styles/Register.css */
+
+/* Fondo de la página */
 .register-background {
   position: fixed;
   top: 0;
@@ -6,46 +9,46 @@
   height: 100%;
   background: #d48740;
   z-index: -1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
+/* Contenedor de registro */
 .register-container {
   background-color: white;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 80%; /* Ancho del contenedor ajustado */
-  max-width: 650px; /* Máximo ancho del contenedor */
+  width: 90%; /* Ancho ajustado para móviles */
+  max-width: 650px;
   margin: 20px auto 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
-  border-radius: 10px;
 }
 
+/* Información adicional */
 .info {
-  font-size: 10px;
+  font-size: 0.75rem; /* Ajustado para móviles */
   color: dimgray;
   padding: 10px;
 }
 
+/* Grupo de campos de entrada */
 .group {
   margin-bottom: 20px;
   position: relative;
-  margin: 10px;
+  width: 100%; /* Asegura que el grupo use el ancho completo del contenedor */
 }
 
+/* Títulos */
 h2 {
   text-align: center;
 }
 
+/* Campos de entrada */
 input {
   background: none;
-  font-size: 18px;
+  font-size: 1rem;
   padding: 10px 10px 10px 5px;
   display: block;
   width: 100%;
@@ -58,9 +61,10 @@ input:focus {
   color: #5e5d5d;
 }
 
+/* Etiquetas */
 label {
   color: #f7b733;
-  font-size: 16px;
+  font-size: 1rem;
   position: absolute;
   bottom: 0;
   left: 5px;
@@ -72,10 +76,11 @@ label {
 input:focus ~ label,
 input:valid ~ label {
   top: -14px;
-  font-size: 12px;
+  font-size: 0.75rem; /* Ajustado para móviles */
   color: #f7b733;
 }
 
+/* Barra de enfoque */
 .barra {
   position: relative;
   display: block;
@@ -99,38 +104,37 @@ input:focus ~ .barra::before {
   width: 100%;
 }
 
+/* Botones */
 .form-buttons {
   display: flex;
+  flex-wrap: wrap; /* Permite que los botones se envuelvan en dispositivos pequeños */
   justify-content: space-between;
-  margin-top: 20px;
   gap: 10px;
+  margin-top: 20px;
 }
 
 .button {
   background: #ff512f;
   background: -webkit-linear-gradient(to right, #f09819, #ff512f);
   background: linear-gradient(to right, #f09819, #ff512f);
-  padding: 20px 0px;
+  padding: 20px 0;
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  /*margin-top: 20px;
-  /*align-self: center; /* Añadir este estilo para centrar verticalmente */
-  /*transition: 0.2s;*/
-  flex: 1;
+  flex: 1; /* Permite que los botones se expandan para llenar el espacio disponible */
   text-align: center;
   display: flex;
   justify-content: center;
 }
 
 .button:first-child {
-  margin-left: 0; /* Eliminar margen izquierdo del primer botón */
+  margin-left: 0;
 }
 
 .button:last-child {
-  margin-right: 0; /* Eliminar margen derecho del último botón */
+  margin-right: 0;
 }
 
 .button:hover {
@@ -138,16 +142,19 @@ input:focus ~ .barra::before {
   border-radius: 20px;
 }
 
-/* Estilos adicionales para organizar en filas */
+/* Filas de grupos de campos */
 .row {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap; /* Permite que los grupos se envuelvan en dispositivos pequeños */
+  gap: 10px;
   width: 100%;
 }
 
 .row .group {
-  width: 48%; /* Ajusta el ancho según sea necesario */
+  width: 100%; /* Ajustado para dispositivos pequeños */
+  max-width: calc(50% - 10px); /* Ajusta el ancho en pantallas más grandes */
 }
+
 .required-asterisk {
   color: red;
   margin-left: 4px;
@@ -158,12 +165,10 @@ input:focus ~ .barra::before {
   align-items: center;
 }
 
-
-
-
+/* Botón de carga */
 .button.loading {
-  background-color: #6c757d; /* Fondo gris para indicar que está cargando */
-  cursor: not-allowed; /* Cursor para indicar que el botón está deshabilitado */
+  background-color: #6c757d;
+  cursor: not-allowed;
 }
 
 .loader {
@@ -174,7 +179,7 @@ input:focus ~ .barra::before {
   height: 20px;
   display: inline-block;
   animation: spin 1s linear infinite;
-  margin-right: 8px; /* Espacio entre el icono y el texto del botón */
+  margin-right: 8px;
   vertical-align: middle;
 }
 

@@ -1,17 +1,55 @@
-
 /* src/styles/index.css */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #f4f4f4; /* Añadido color de fondo para mayor contraste */
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
+/* Asegúrate de que el HTML, body y root ocupen toda la pantalla */
 html, body, #root {
   height: 100%;
   width: 100%;
+}
+
+/* Media Queries para diseño responsive */
+
+/* Ajustes para tabletas */
+@media (max-width: 768px) {
+  body {
+    font-size: 16px; /* Ajusta el tamaño del texto para pantallas más pequeñas */
+  }
+
+  code {
+    font-size: 14px; /* Ajusta el tamaño del texto del código */
+  }
+}
+
+/* Ajustes para móviles */
+@media (max-width: 480px) {
+  body {
+    font-size: 14px; /* Ajusta el tamaño del texto para móviles */
+    padding: 10px; /* Añade espacio alrededor del contenido */
+  }
+
+  code {
+    font-size: 12px; /* Ajusta el tamaño del texto del código */
+  }
+}
+
+/* Ajusta márgenes y paddings en dispositivos muy pequeños */
+@media (max-width: 320px) {
+  body {
+    font-size: 12px; /* Tamaño de texto aún más pequeño para pantallas muy pequeñas */
+    padding: 5px; /* Reduce el padding */
+  }
+
+  code {
+    font-size: 10px; /* Tamaño de texto del código más pequeño */
+  }
 }
