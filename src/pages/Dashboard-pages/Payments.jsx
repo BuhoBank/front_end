@@ -175,6 +175,7 @@ const Payments = () => {
       contract: parseInt(contractNumber),
       parameter: getServiceSuffix(),
       account: parseInt(selectedAccount),
+      beneficiary: paymentData.name
     };
     console.log("Transfer data before sending:", transferData);
     const response = await sendTransferServiceData(transferData);
