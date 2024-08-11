@@ -56,7 +56,7 @@
 }
 
 .movement-details {
-    display: flex;
+    display: block;
     justify-content: space-between;
     font-size: 16px;
 }
