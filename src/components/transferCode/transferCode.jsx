@@ -10,6 +10,7 @@ const TransferCodePopup = ({ handleTransfer, handleClose }) => {
     const [showAttemptsWarning, setShowAttemptsWarning] = useState(false);
     const [showBadCodeWarning, setShowBadCodeWarning] = useState(false);
     const [timeOut, setTimeOut] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
 
     const user_email = localStorage.getItem('user_email')
     const [formData, setFormData] = useState({
@@ -43,6 +44,8 @@ const TransferCodePopup = ({ handleTransfer, handleClose }) => {
             return;
         }
 
+        setIsLoading(true);
+
         try {
             const response = await sendCode(formData);
             if (response.code === 'SUCCESS') {
@@ -68,6 +71,8 @@ const TransferCodePopup = ({ handleTransfer, handleClose }) => {
         } catch (error) {
             console.error("Error al enviar el código para transferencia:", error);
 
+        } finally {
+            setIsLoading(false);
         }
 
 
@@ -89,7 +94,20 @@ const TransferCodePopup = ({ handleTransfer, handleClose }) => {
                     />
                     <div className="popup-button-container">
                         {attempts > 0 && (
-                            <button onClick={handleSubmitCode}>Enviar</button>
+                            <button 
+                            onClick={handleSubmitCode} 
+                            className={`send-button ${isLoading ? "loading" : ""}`}
+                            disabled={isLoading}
+                        >
+                            {isLoading ? (
+                                <>
+                                    <div className="loader"></div>
+                                    Enviando...
+                                </>
+                            ) : (
+                                "Enviar"
+                            )}
+                        </button>
                         )}
                         <button onClick={handleClose}>Atras</button>
                     </div>
