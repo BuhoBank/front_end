@@ -18,7 +18,7 @@ body {
 }
 
 .sidebar-logo img {
-  width: 100%;
+  width: 200%;
   margin-bottom: 20px;
 }
 
@@ -144,4 +144,11 @@ body {
 
 .balance {
   text-align: right;
+}
+
+
+
+.logo-image {
+  width: 0.5px; /* Ajusta el ancho a 100 píxeles */
+  height: 200px; /* Mantiene la proporción original de la imagen */
 }
