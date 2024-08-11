@@ -91,7 +91,7 @@ const Transfer = () => {
             JSON.stringify(accountsResponse.data.accounts_list)
           );
           const data = JSON.parse(localStorage.getItem("accounts"));
-          console.log(data);
+          console.log("que es esta data: ",data);
           setBlockButton(false);
         } else {
           setError("Error al obtener las cuentas del cliente");
