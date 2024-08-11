@@ -11,20 +11,9 @@ const TermsDialog = ({ onClose }) => {
     showSuccessPopup,
     setShowSuccessPopup,
   } = useNewAccountForm();
-  const [accountNumber,setAccountNumber]=useState(null)
-  // const handleAccept = () => {
-  //   // Obtener el ID del cliente desde localStorage
-  //   const clientID = localStorage.getItem('clientID');
-  //   setIsAceer(true)
-  //   if (!clientID) {
-  //     console.error("No se encontró el ID del cliente en el localStorage");
-  //     return;
-  //   }
-
-  //   handleNewAccountSubmit(clientID);
-  // };
-
-  const navigate=useNavigate()
+  const [accountNumber, setAccountNumber] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleAccept = async () => {
     // Obtener el ID del cliente desde localStorage
@@ -34,21 +23,24 @@ const TermsDialog = ({ onClose }) => {
       return;
     }
 
+    setIsLoading(true);
+
     try {
       await handleNewAccountSubmit(clientID); // Llamar a la función asincrónica
-      const account=localStorage.getItem('new_account');
-      const parseAccount=JSON.parse(account)
-
-      setAccountNumber(parseAccount)
+      const account = localStorage.getItem("new_account");
+      const parseAccount = JSON.parse(account);
+      setAccountNumber(parseAccount);
     } catch (error) {
       setError("Error al intentar crear cuenta");
       console.error("Error durante la creación de cuenta", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   // Mostrar el mensaje emergente de éxito
   const handleCloseSuccessPopup = () => {
-    navigate('/dashboard');
+    navigate("/dashboard");
   };
 
   return (
@@ -118,19 +110,30 @@ const TermsDialog = ({ onClose }) => {
           <button onClick={onClose} className="terms-dialog-close-btn">
             Declinar
           </button>
-          <button onClick={handleAccept} className="terms-dialog-accept-btn">
-            Aceptar
+          <button
+            onClick={handleAccept}
+            className={`terms-dialog-accept-btn ${isLoading ? "loading" : ""}`}
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <>
+                <div className="loader"></div>
+                Creando cuenta...
+              </>
+            ) : (
+              "Aceptar"
+            )}
           </button>
         </div>
         {/* Popup de éxito */}
         {showSuccessPopup && (
-                    <div className="success-popup">
-                        <h1>Cuenta creada con éxito.</h1>
-                        <p> Nueva cuenta con número: {accountNumber}</p>
-                        
-                        <button onClick={handleCloseSuccessPopup}>Ir a mis cuentas</button>
-                    </div>
-                )}
+          <div className="success-popup">
+            <h1>Cuenta creada con éxito.</h1>
+            <p> Nueva cuenta con número: {accountNumber}</p>
+
+            <button onClick={handleCloseSuccessPopup}>Ir a mis cuentas</button>
+          </div>
+        )}
       </div>
     </div>
   );
