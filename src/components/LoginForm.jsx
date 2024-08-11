@@ -1,8 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import PasswordInput from "./PasswordInput"; 
+import PasswordInput from "./PasswordInput";
 
-const LoginForm = ({ user, password, setUsername, setPassword, handleSubmit }) => (
+const LoginForm = ({
+  user,
+  password,
+  setUsername,
+  setPassword,
+  handleSubmit,
+  isButtonDisabled,
+}) => (
   <form onSubmit={handleSubmit}>
     <div className="form-group">
       <input
@@ -11,7 +18,7 @@ const LoginForm = ({ user, password, setUsername, setPassword, handleSubmit }) =
         value={user}
         onChange={(e) => setUsername(e.target.value)}
       />
-      <Link to="#">¿Olvidaste tu usuario?</Link>
+      <Link to="/recuperar_nombre_usuario">¿Olvidaste tu usuario?</Link>
     </div>
     <div className="form-group">
       <PasswordInput
@@ -21,7 +28,14 @@ const LoginForm = ({ user, password, setUsername, setPassword, handleSubmit }) =
       />
       <Link to="/recuperar_contrasena">¿Olvidaste tu contraseña?</Link>
     </div>
-    <button type="submit">INGRESAR</button>
+    <button
+      type="submit"
+      disabled={isButtonDisabled}
+      className={`button ${isButtonDisabled ? "loading" : ""}`}
+    >
+      {isButtonDisabled && <div className="loader"></div>}
+      {isButtonDisabled ? "Cargando..." : "INGRESAR"}
+    </button>
   </form>
 );
 

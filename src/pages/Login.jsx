@@ -7,8 +7,10 @@ import "../styles/Login.css";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { user, password, error, handleSubmit, setUsername, setPassword } = useLoginForm();
-  const [showResetPass, setshowResetPass] = useState(false)
+  const { user, password, error, handleSubmit, setUsername, setPassword,isButtonDisabled,setIsButtonDisabled } =
+    useLoginForm();
+  const [showResetPass, setshowResetPass] = useState(false);
+
   const handleRegister = () => {
     navigate("/register");
   };
@@ -28,6 +30,7 @@ const Login = () => {
           setUsername={setUsername}
           setPassword={setPassword}
           handleSubmit={handleSubmit}
+          isButtonDisabled={isButtonDisabled}
         />
         <ExtraLinks handleRegister={handleRegister} />
       </div>

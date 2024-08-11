@@ -7,11 +7,13 @@ const useLoginForm = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     try {
+      setIsButtonDisabled(true)
       const response = await login(user, password);
       console.log("Tipo de datos de la respuesta en login:", typeof response);
       if (response.authenticated) {
@@ -45,7 +47,7 @@ const useLoginForm = () => {
     }
   };
 
-  return { user, password, error, handleSubmit, setUsername, setPassword };
+  return { user, password, error, handleSubmit, setUsername, setPassword,isButtonDisabled,setIsButtonDisabled };
 };
 
 export default useLoginForm;
