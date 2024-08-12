@@ -91,16 +91,24 @@ function AccountMovements() {
             } else if (movement.Descripcion === "Pago de servicios básicos: Internet") {
                 type = 'Pago Internet';
             } else if (movement.Descripcion === "Pago de servicios básicos: Telefonia fija") {
-                type = 'Telefonia fija';
+                type = 'Pago Telefonia fija';
             } else {
                 type = isDeposit ? 'Depósito' : 'Transferencia';
             }
 
-            const accountInfo = isDeposit
-                ? ''
-                : movement.saldo_sale > 0
-                    ? `A la cuenta: ${movement.cuenta_destino}`
-                    : `Desde la cuenta: ${movement.cuenta_origen}`;
+            // const accountInfo = isDeposit
+            //     ? ''
+            //     : movement.saldo_sale > 0
+            //         ? `A la cuenta: ${movement.cuenta_destino}`
+            //         : `Desde la cuenta: ${movement.cuenta_origen}`;
+
+            // Cambia la lógica para accountInfo basado en el tipo de movimiento
+            const accountInfo = type.startsWith('Pago') ? '' :
+                isDeposit
+                    ? ''
+                    : movement.saldo_sale > 0
+                        ? `A la cuenta: ${movement.cuenta_destino}`
+                        : `Desde la cuenta: ${movement.cuenta_origen}`;
 
             return {
                 date,
@@ -114,8 +122,6 @@ function AccountMovements() {
                 beneficiary: movement.beneficiary
             };
         });
-
-        console.log("rrrr ",results)
         return results;
     };
 
