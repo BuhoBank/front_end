@@ -146,7 +146,7 @@ function AccountMovements() {
         }
 
         // Ruta del logo en la carpeta pública
-        const logoUrl = `${window.location.origin}/public/logo.png`;
+        const logoUrl = '/logo.png';
 
         const logoImage = new Image();
         logoImage.src = logoUrl;
