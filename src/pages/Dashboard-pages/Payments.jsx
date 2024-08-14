@@ -175,6 +175,7 @@ const Payments = () => {
       contract: parseInt(contractNumber),
       parameter: getServiceSuffix(),
       account: parseInt(selectedAccount),
+      beneficiary: paymentData.name
     };
     console.log("Transfer data before sending:", transferData);
     const response = await sendTransferServiceData(transferData);
@@ -233,7 +234,7 @@ const Payments = () => {
               onClick={() => handleButtonClick(1)}
             >
               <img
-                src="/src/assets/services/luz.png"
+                src="/services/luz.png"
                 alt="Luz"
                 className="service-icon"
               />
@@ -244,7 +245,7 @@ const Payments = () => {
               onClick={() => handleButtonClick(2)}
             >
               <img
-                src="/src/assets/services/agua.png"
+                src="/services/agua.png"
                 alt="Agua"
                 className="service-icon"
               />
@@ -255,7 +256,7 @@ const Payments = () => {
               onClick={() => handleButtonClick(3)}
             >
               <img
-                src="/src/assets/services/wifi.png"
+                src="/services/wifi.png"
                 alt="Internet"
                 className="service-icon"
               />
@@ -266,7 +267,7 @@ const Payments = () => {
               onClick={() => handleButtonClick(4)}
             >
               <img
-                src="/src/assets/services/telefono.png"
+                src="/services/telefono.png"
                 alt="Teléfono"
                 className="service-icon"
               />

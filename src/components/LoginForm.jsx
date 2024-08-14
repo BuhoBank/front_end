@@ -18,7 +18,7 @@ const LoginForm = ({
         value={user}
         onChange={(e) => setUsername(e.target.value)}
       />
-      <Link to="#">¿Olvidaste tu usuario?</Link>
+      <Link to="/recuperar_nombre_usuario">¿Olvidaste tu usuario?</Link>
     </div>
     <div className="form-group">
       <PasswordInput

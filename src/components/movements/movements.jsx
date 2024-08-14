@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { format, subDays, startOfMonth, endOfMonth, isWithinInterval } from 'date-fns';
+//import { format, subDays, startOfMonth, endOfMonth, isWithinInterval } from 'date-fns';
 import es from 'date-fns/locale/es'; // Importa el locale español si quieres que esté en español
 import FilterMovements from './FilterMovements';
 import '../../styles/AccountMovements.css';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { format, subDays, startOfDay, endOfDay, startOfMonth, endOfMonth, isWithinInterval } from 'date-fns';
 
 function AccountMovements() {
     const { accountNumber } = useParams(); // Obtén el número de cuenta de los parámetros
@@ -29,6 +30,8 @@ function AccountMovements() {
         }
     }, [accountNumber]);
 
+    console.log("movementes ", movements)
+
     const handleFilterChange = (newFilter, start, end) => {
         setFilter(newFilter);
         setStartDate(start);
@@ -40,29 +43,36 @@ function AccountMovements() {
     };
 
     // Helper function to format amounts with + or -
-    const formatAmount = (amount) => (amount !== undefined && amount !== null) 
+    const formatAmount = (amount) => (amount !== undefined && amount !== null)
         ? (amount >= 0 ? `+${amount.toFixed(2)}` : `${amount.toFixed(2)}`)
         : 'N/A';
 
-    // Calculate movements with previous and current balances
     const calculateMovements = () => {
         let filteredMovements = movements;
 
+        // Obtener la fecha de hoy y calcular el rango de 15 días atrás
+        const today = new Date();
+        const startOfToday = startOfDay(today);
+        const endOfToday = endOfDay(today);
+
         if (filter === '15days') {
-            const fifteenDaysAgo = subDays(new Date(), 15);
+            const fifteenDaysAgo = subDays(startOfToday, 15);
             filteredMovements = movements.filter(movement =>
-                isWithinInterval(new Date(movement.fecha_movimiento), { start: fifteenDaysAgo, end: new Date() })
+                isWithinInterval(new Date(movement.fecha_movimiento), { start: fifteenDaysAgo, end: endOfToday })
             );
         } else if (filter === 'month') {
-            const start = startOfMonth(new Date());
-            const end = endOfMonth(new Date());
+            const start = startOfMonth(today);
+            const end = endOfMonth(today);
             filteredMovements = movements.filter(movement =>
-                isWithinInterval(new Date(movement.fecha_movimiento), { start, end })
+                isWithinInterval(new Date(movement.fecha_movimiento), { start: startOfDay(start), end: endOfDay(end) })
             );
         } else if (filter === 'custom') {
             if (startDate && endDate) {
+                // Ajusta startDate y endDate a las 00:00 y 23:59 respectivamente
+                const start = startOfDay(startDate);
+                const end = endOfDay(endDate);
                 filteredMovements = movements.filter(movement =>
-                    isWithinInterval(new Date(movement.fecha_movimiento), { start: startDate, end: endDate })
+                    isWithinInterval(new Date(movement.fecha_movimiento), { start, end })
                 );
             }
         }
@@ -71,24 +81,47 @@ function AccountMovements() {
             const date = format(new Date(movement.fecha_movimiento), 'EEEE, d MMMM yyyy', { locale: es });
             const isDeposit = movement.cuenta_origen === 0;
 
-            const accountInfo = isDeposit
-                ? ''
-                : movement.saldo_sale > 0
-                    ? `A la cuenta: ${movement.cuenta_destino}`
-                    : `Desde la cuenta: ${movement.cuenta_origen}`;
+            // Verificación para cambiar el tipo de movimiento si el destino es 29417150
+            let type;
+            if (movement.Descripcion === "Pago de servicios básicos: Luz") {
+                type = 'Pago Luz';
+            }
+            else if (movement.Descripcion === "Pago de servicios básicos: Agua") {
+                type = 'Pago Agua';
+            } else if (movement.Descripcion === "Pago de servicios básicos: Internet") {
+                type = 'Pago Internet';
+            } else if (movement.Descripcion === "Pago de servicios básicos: Telefonia fija") {
+                type = 'Pago Telefonia fija';
+            } else {
+                type = isDeposit ? 'Depósito' : 'Transferencia';
+            }
+
+            // const accountInfo = isDeposit
+            //     ? ''
+            //     : movement.saldo_sale > 0
+            //         ? `A la cuenta: ${movement.cuenta_destino}`
+            //         : `Desde la cuenta: ${movement.cuenta_origen}`;
+
+            // Cambia la lógica para accountInfo basado en el tipo de movimiento
+            const accountInfo = type.startsWith('Pago') ? '' :
+                isDeposit
+                    ? ''
+                    : movement.saldo_sale > 0
+                        ? `A la cuenta: ${movement.cuenta_destino}`
+                        : `Desde la cuenta: ${movement.cuenta_origen}`;
 
             return {
                 date,
-                type: isDeposit ? 'Depósito' : 'Transferencia',
+                type,
                 amountIn: movement.saldo_entra !== undefined ? movement.saldo_entra : 0,
                 amountOut: movement.saldo_sale !== undefined ? movement.saldo_sale : 0,
                 previousBalance: movement.saldo_anterior !== undefined ? movement.saldo_anterior : 0,
                 finalBalance: movement.saldo_resultante !== undefined ? movement.saldo_resultante : 0,
                 accountInfo,
-                entryOrExit: movement.saldo_entra > 0 ? 'Entra' : 'Sale'
+                entryOrExit: movement.saldo_entra > 0 ? 'Entra' : 'Sale',
+                beneficiary: movement.beneficiary
             };
         });
-
         return results;
     };
 
@@ -163,7 +196,7 @@ function AccountMovements() {
         <div className="movements-container">
             <h2 className="movements-header">Movimientos de Cuenta: {accountNumber}</h2>
             <div className="movements-balance">
-                <span>Saldo Actual: ${accountBalance}</span>
+                <span>Saldo Actual: ${accountBalance.toFixed(2)}</span>
                 <div className="filter-container">
                     <FilterMovements onFilterChange={handleFilterChange} />
                 </div>
@@ -183,16 +216,24 @@ function AccountMovements() {
                                 <span className="movement-type">
                                     Tipo de movimiento: {movement.type}
                                 </span>
+                                {movement.beneficiary && movement.beneficiary.trim() !== '' && (
+                                    <div>
+                                        Beneficiario: {movement.beneficiary}
+                                    </div>
+                                )}
+
+
+
                                 <div className="movement-amount">
                                     <span className={movement.amountIn > 0 ? 'amount-entry' : 'amount-exit'}>
                                         {movement.entryOrExit}: {formatAmount(movement.amountIn || -movement.amountOut)}
                                     </span>
                                 </div>
                                 <div className="movement-balance">
-                                    <span>Saldo anterior: ${formatAmount(movement.previousBalance)}</span>
+                                    <span>Saldo anterior: ${movement.previousBalance}</span>
                                 </div>
                                 <div className="movement-final-balance">
-                                    <span>Saldo posterior: ${formatAmount(movement.finalBalance)}</span>
+                                    <span>Saldo posterior: ${movement.finalBalance}</span>
                                 </div>
                                 {movement.accountInfo && (
                                     <div className="account-info">
