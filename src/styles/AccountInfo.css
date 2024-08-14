@@ -47,3 +47,37 @@
     font-weight: bold;
     color: #28a745;
 }
+
+/* Media Queries para dispositivos móviles */
+@media (max-width: 768px) {
+    .account-container {
+        padding: 15px;
+    }
+
+    .account-item {
+        flex-direction: column; /* Cambia la dirección del flex para mejor adaptabilidad */
+        align-items: flex-start; /* Alinea los ítems al inicio para pantallas pequeñas */
+    }
+
+    .account-item > * {
+        margin-bottom: 10px; /* Añade margen entre los elementos en dispositivos pequeños */
+    }
+
+    .account-item > *:last-child {
+        margin-bottom: 0; /* Elimina el margen inferior del último elemento */
+    }
+}
+
+@media (max-width: 480px) {
+    .account-header {
+        font-size: 1.2em; /* Reduce el tamaño del texto del encabezado en pantallas pequeñas */
+    }
+
+    .account-item {
+        padding: 15px;
+    }
+
+    .account-number, .account-balance {
+        font-size: 0.9em; /* Reduce el tamaño de fuente para los números y saldos */
+    }
+}

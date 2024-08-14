@@ -66,3 +66,17 @@
     transition: opacity 0.3s ease-in-out;
   }
   
+  @media (max-width: 768px) {
+    .popup {
+      padding: 20px;
+    }
+    
+    .popup h1 {
+      font-size: 1.2rem;
+    }
+    
+    .popup button {
+      font-size: 0.9rem;
+      padding: 8px 16px;
+    }
+    }
