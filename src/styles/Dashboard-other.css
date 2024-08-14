@@ -74,3 +74,35 @@ h1 {
   font-size: 24px;
   color: #333;
 }
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .others {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 20px;
+  }
+
+  .header-user span:first-child {
+    padding: 8px;
+  }
+
+  .header-user a {
+    margin-left: 5px;
+  }
+}

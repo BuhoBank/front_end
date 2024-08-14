@@ -15,3 +15,38 @@ html, body, #root {
   height: 100%;
   width: 100%;
 }
+
+/* Ajustes para tabletas */
+@media (max-width: 768px) {
+  body {
+    font-size: 16px; /* Ajusta el tamaño del texto para pantallas más pequeñas */
+  }
+
+  code {
+    font-size: 14px; /* Ajusta el tamaño del texto del código */
+  }
+}
+
+/* Ajustes para móviles */
+@media (max-width: 480px) {
+  body {
+    font-size: 14px; /* Ajusta el tamaño del texto para móviles */
+    padding: 10px; /* Añade espacio alrededor del contenido */
+  }
+
+  code {
+    font-size: 12px; /* Ajusta el tamaño del texto del código */
+  }
+}
+
+/* Ajusta márgenes y paddings en dispositivos muy pequeños */
+@media (max-width: 320px) {
+  body {
+    font-size: 12px; /* Tamaño de texto aún más pequeño para pantallas muy pequeñas */
+    padding: 5px; /* Reduce el padding */
+  }
+
+  code {
+    font-size: 10px; /* Tamaño de texto del código más pequeño */
+  }
+}

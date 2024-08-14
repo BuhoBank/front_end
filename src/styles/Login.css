@@ -1,36 +1,58 @@
-/* src/styles/Login.css */
+/* Asegúrate de que el body y el html ocupen toda la pantalla y no tengan márgenes */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box; /* Para asegurarte de que el padding no afecte el tamaño total */
+}
+
+/* Estilos para el contenedor principal */
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh; /* Asegura que el contenedor siempre ocupe al menos toda la altura de la pantalla */
   background-color: #d48740;
   padding: 2rem;
+  flex-direction: row; /* Mantén la dirección en fila para pantallas más grandes */
+  box-sizing: border-box;
+  width: 100vw; /* Asegura que el fondo cubra todo el ancho de la pantalla */
 }
 
+/* Estilos para la imagen del logo */
 .login-image {
-  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 50%;
+  width: 100%;
+  margin-bottom: 0; /* Sin margen inferior en pantallas grandes */
 }
 
 .login-image img {
   max-width: 100%;
   height: auto;
+  display: block;
 }
 
+/* Aumentar el tamaño de la imagen solo en pantallas de PC */
+@media (min-width: 1024px) {
+  .login-image {
+      max-width: 600px; /* Aumenta el tamaño máximo de la imagen en pantallas grandes */
+  }
+}
+
+/* Estilos para el formulario de inicio de sesión */
 .login-form {
-  flex: 1;
   padding: 2rem;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  padding: 3rem;
-  max-width: 400px;
   width: 100%;
-  margin-left: 2rem;
+  max-width: 400px;
+  box-sizing: border-box;
+  margin-left: 2rem; /* Añadir margen izquierdo para separar el formulario de la imagen */
+  text-align: center; /* Centrar el contenido dentro del formulario */
 }
 
 .login-form h2 {
@@ -48,10 +70,11 @@
 }
 
 .form-group input {
-  width: 95%;
+  width: 100%;
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
+  box-sizing: border-box;
 }
 
 .form-group a {
@@ -61,6 +84,7 @@
   text-decoration: none;
 }
 
+/* Asegúrate de que el botón esté centrado */
 button[type="submit"] {
   width: 100%;
   padding: 1rem;
@@ -70,12 +94,18 @@ button[type="submit"] {
   border-radius: 4px;
   cursor: pointer;
   font-size: 1rem;
+  margin: 0 auto; /* Asegura que el botón esté centrado */
+  display: block; /* Hace que el botón sea un bloque para que se centre */
 }
 
+/* Estilos para los enlaces y botones adicionales */
 .extra-links {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   margin-top: 1.5rem;
+  gap: 1rem;
+  flex-direction: column; /* Cambia a columna para asegurar que los botones estén uno debajo del otro */
+  align-items: center; /* Centra los botones */
 }
 
 .extra-links button {
@@ -85,6 +115,8 @@ button[type="submit"] {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  width: 100%; /* Asegura que los botones ocupen todo el ancho disponible */
+  max-width: 300px; /* Limita el ancho máximo de los botones */
 }
 
 .error-message {
@@ -93,28 +125,59 @@ button[type="submit"] {
   text-align: center;
 }
 
-.button.loading {
-  background-color: #6c757d; /* Fondo gris para indicar que está cargando */
-  cursor: not-allowed; /* Cursor para indicar que el botón está deshabilitado */
-}
-
-.loader {
-  border: 4px solid rgba(0, 0, 0, 0.1);
-  border-radius: 50%;
-  border-top: 4px solid white;
-  width: 20px;
-  height: 20px;
-  display: inline-block;
-  animation: spin 1s linear infinite;
-  margin-right: 8px; /* Espacio entre el icono y el texto del botón */
-  vertical-align: middle;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
+/* Media Queries */
+@media (max-width: 768px) {
+  .login-container {
+      flex-direction: column; /* Cambia a columna sólo en pantallas pequeñas */
+      padding: 1rem;
+      min-height: 100vh; /* Asegura que el contenedor ocupe al menos toda la altura de la pantalla */
   }
-  100% {
-    transform: rotate(360deg);
+
+  .login-image {
+      max-width: 70%; /* Ajusta el tamaño de la imagen sólo en pantallas pequeñas */
+      margin-bottom: 1rem; /* Añade margen inferior para separar de la imagen del formulario */
+  }
+
+  .login-form {
+      margin-left: 0;
+      max-width: 100%;
+      padding: 1.5rem;
+  }
+
+  .extra-links {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .extra-links button {
+      width: 100%;
+      margin-top: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+      padding: 1rem;
+      min-height: 100vh; /* Asegura que el contenedor ocupe al menos toda la altura de la pantalla */
+  }
+
+  .login-image {
+      max-width: 100%; /* La imagen ocupa el ancho completo en dispositivos pequeños */
+      margin-bottom: 1rem;
+  }
+
+  .login-form {
+      max-width: 100%;
+      padding: 1rem;
+  }
+
+  .extra-links {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .extra-links button {
+      width: 100%;
+      margin-top: 0.5rem;
   }
 }

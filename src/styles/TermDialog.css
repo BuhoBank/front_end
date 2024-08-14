@@ -149,3 +149,53 @@
     transform: rotate(360deg);
   }
 }
+/* Media Queries para Responsividad */
+@media (max-width: 768px) {
+  .terms-dialog-content {
+      padding: 16px; /* Reduce el padding en pantallas más pequeñas */
+  }
+
+  .terms-dialog-title {
+      font-size: 1.2rem; /* Ajusta el tamaño del título */
+  }
+
+  .terms-dialog-body {
+      font-size: 12px; /* Ajusta el tamaño de la fuente del cuerpo */
+  }
+
+  .terms-dialog-footer {
+      flex-direction: column;
+      align-items: flex-end;
+  }
+
+  .terms-dialog-close-btn, .terms-dialog-accept-btn {
+      padding: 8px 14px; /* Reduce el padding de los botones */
+      font-size: 0.9rem; /* Reduce el tamaño del texto del botón */
+  }
+}
+
+@media (max-width: 480px) {
+  .terms-dialog-content {
+      padding: 12px; /* Reduce aún más el padding */
+      width: 95%; /* Asegura que el diálogo use la mayor parte del ancho disponible */
+      max-width: 95%; /* Asegura que el diálogo no exceda el ancho de la pantalla */
+  }
+
+  .terms-dialog-title {
+      font-size: 1rem; /* Ajusta el tamaño del título para pantallas más pequeñas */
+  }
+
+  .terms-dialog-body {
+      font-size: 11px; /* Ajusta el tamaño de la fuente del cuerpo */
+  }
+
+  .terms-dialog-footer {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .terms-dialog-close-btn, .terms-dialog-accept-btn {
+      padding: 8px 12px; /* Reduce aún más el padding de los botones */
+      font-size: 0.8rem; /* Reduce el tamaño del texto del botón */
+  }
+}

@@ -1,0 +1,180 @@
+/* Estilo general del sidebar */
+.sidebar {
+    width: 250px;
+    background-color: #f5f5f5;
+    padding: 20px;
+}
+
+
+
+.sidebar-logo img {
+    width: 100%;
+}
+
+.sidebar-menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-menu li {
+    margin: 15px 0; /* Ajuste del margen para parecerse más a la imagen */
+    cursor: pointer;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    padding: 10px;
+    border-radius: 4px; /* Añade bordes redondeados */
+}
+
+/* Estado por defecto de los elementos del menú */
+.sidebar-menu li {
+    background-color: #f5f5f5; /* Fondo gris claro */
+    color: #6c757d; /* Letras gris oscuro */
+    border-bottom: 1px solid #e9ecef; /* Separador ligero entre elementos */
+}
+
+/* Estado activo (elemento seleccionado) */
+.sidebar-menu li.active {
+    background-color: #007bff; /* Fondo azul */
+    color: #ffc107; /* Letras doradas */
+}
+
+/* Hover: Cambia el fondo a un gris claro y el texto a gris oscuro */
+.sidebar-menu li:hover {
+    background-color: #e9ecef; /* Fondo gris claro al pasar el cursor */
+    color: #6c757d; /* Letras gris oscuro al pasar el cursor */
+}
+
+/* Ocultamos el botón en pantallas grandes */
+.barras {
+    display: none;
+}
+
+/* Media Queries para pantallas pequeñas (menores a 768px) */
+@media (max-width: 768px) {
+    .barras {
+        display: block; /* Mostramos el ícono de la hamburguesa solo en pantallas pequeñas */
+    }
+
+    .sidebar-menu {
+        transform: translateX(-100%);
+        transition: transform 0.5s ease;
+        font-size: 1.2rem; /* Ajuste del tamaño de fuente para pantallas pequeñas */
+        height: 100%;
+        width: 70%; /* Ancho del menú en pantallas pequeñas */
+        background: #f5f5f5; /* Fondo gris claro */
+        position: fixed;
+        top: 70px; /* Ajusta esto según la altura de tu barra de navegación */
+        left: 0;
+        z-index: 1000;
+    }
+
+    .abrir_menu {
+        transform: translateX(0%);
+        transition: transform 0.5s ease;
+    }
+
+    .sidebar-menu ul li {
+        color: #6c757d; /* Letras gris oscuro por defecto */
+    }
+
+    .sidebar-menu ul li.active {
+        background-color: #007bff; /* Fondo azul para el elemento activo */
+        color: #ffc107; /* Letras doradas para el elemento activo */
+    }
+
+    .sidebar-menu ul li:hover {
+        background-color: #e9ecef; /* Fondo gris claro al pasar el cursor */
+        color: #6c757d; /* Letras gris oscuro al pasar el cursor */
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .sidebar-logo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #f5f5f5; /* Fondo del contenedor del logo */
+      z-index: 1000;/* Para que esté por encima de otros elementos */
+      padding: 10px 0; /* Añadir un poco de padding si es necesario */
+      text-align: center; /* Centrar el logo */
+  }
+
+  .sidebar-logo img {
+    width: 50%; /* Ajusta el tamaño del logo si es necesario */
+}
+}
+
+/* Media Queries para pantallas muy pequeñas (menores a 480px) */
+@media (max-width: 480px) {
+    .header-user span:first-child {
+        padding: 8px;
+    }
+
+    .barras {
+        display: block; /* Mostramos el ícono de la hamburguesa */
+    
+      }
+
+    .sidebar-menu {
+        transform: translateX(-100%);
+        transition: transform 0.5s ease;
+        font-size: 1.2rem;
+        width: 100%;
+        background: #e9ecef; /* Fondo gris claro */
+        color: #6c757d; /* Letras gris oscuro */
+        position: fixed;
+        top: 70px;
+        left: 0;
+        z-index: 1000;
+    }
+
+    .abrir_menu {
+        transform: translateX(0%);
+        transition: transform 0.5s ease;
+        width: 100%;
+        background: #e9ecef; /* Fondo semitransparente cuando está abierto */
+        backdrop-filter: blur(2px);
+    }
+
+    .sidebar-menu ul li {
+        color: #6c757d; /* Letras gris oscuro */
+        background-color: #e9ecef;
+    }
+
+    .sidebar-menu ul li.active {
+        background-color: #007bff; /* Fondo azul para el elemento activo */
+        color: #ffc107; /* Letras doradas para el elemento activo */
+    }
+
+    .sidebar-menu ul li:hover {
+        background-color: #e9ecef; /* Fondo gris claro al pasar el cursor */
+        color: #6c757d; /* Letras gris oscuro al pasar el cursor */
+    }
+
+    .sidebar-logo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #f5f5f5; /* Fondo del contenedor del logo */
+      z-index: 1000;/* Para que esté por encima de otros elementos */
+      padding: 10px 0; /* Añadir un poco de padding si es necesario */
+      text-align: center; /* Centrar el logo */
+  }
+
+  .sidebar-logo img {
+    width: 50%; /* Ajusta el tamaño del logo si es necesario */
+}
+.logo-image{
+  width: 50%;
+}
+}
