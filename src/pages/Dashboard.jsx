@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardForm from "../components/DashboardForm";
 import AccountInfo from "../components/accountsList";
@@ -7,12 +7,22 @@ import "../styles/Dashboard.css";
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false); // Estado para controlar el menú
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen); // Alterna el estado del menú
+  };
 
   const name_user = localStorage.getItem("user_name");
 
   return (
     <div className="dashboard">
-      <DashboardForm />
+      <div className="hamburger-menu" onClick={toggleMenu}>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <DashboardForm isOpen={isOpen} />
       <main className="main-content">
         <HeaderDashboard />
         <div className="content">

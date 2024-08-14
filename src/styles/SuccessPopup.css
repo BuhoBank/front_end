@@ -52,3 +52,35 @@
   gap: 10px; /* Espacio entre los botones */
   margin-top: 20px; /* Espacio arriba de los botones */
 }
+
+/* Media Queries para Responsividad */
+@media (max-width: 768px) {
+  .popup {
+    padding: 15px; /* Reduce padding en pantallas más pequeñas */
+    max-width: 90%; /* Asegura que el popup use más ancho disponible */
+  }
+
+  .popup h2 {
+    font-size: 1rem; /* Reduce el tamaño del título en pantallas más pequeñas */
+  }
+
+  .popup button {
+    padding: 8px 16px; /* Ajusta el padding de los botones */
+    font-size: 0.8rem; /* Reduce el tamaño del texto del botón */
+  }
+}
+
+@media (max-width: 480px) {
+  .popup {
+    padding: 10px; /* Reduce más el padding en pantallas muy pequeñas */
+  }
+
+  .popup h2 {
+    font-size: 0.9rem; /* Ajusta el tamaño del título */
+  }
+
+  .popup button {
+    padding: 8px 12px; /* Ajusta aún más el padding de los botones */
+    font-size: 0.7rem; /* Reduce el tamaño del texto del botón */
+  }
+}

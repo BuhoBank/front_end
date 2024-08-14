@@ -1,17 +1,36 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import "../styles/Dashboard.css"; // Ajusta la ruta según sea necesario
+import "../styles/DashboardForm.css"; // Asegúrate de que la ruta sea correcta
 
 const DashboardForm = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const open_menu = () => {
+    console.log("Menú hamburguesa clicado"); // Verifica si se ejecuta
+    let menu_desplegable = document.getElementById("menu");
+    menu_desplegable.classList.toggle("abrir_menu");
+  };
+
+  const handleLogout = () => {
+    console.log("Cerrar sesión");
+    // Aquí puedes agregar cualquier lógica adicional para cerrar sesión, como limpiar el estado global o las cookies
+    navigate("/"); // Redirige a la página de login
+  };
+
   return (
     <aside className="sidebar">
       <div className="sidebar-logo">
-        <img src="image2.png" alt="BuhoBank" className="logo-image"/>
-      </div> 
-      <nav className="sidebar-menu">
+        <div className="barras">
+          <button onClick={open_menu} className="boton_menu" id="x">
+            <div className="linea"></div>
+            <div className="linea"></div>
+            <div className="linea"></div>
+          </button>
+          <img src="image2.png" alt="BuhoBank" className="logo-image" />
+        </div>
+      </div>
+      <nav id="menu" className="sidebar-menu">
         <ul>
           <li
             className={location.pathname === "/dashboard" ? "active" : ""}
@@ -66,6 +85,12 @@ const DashboardForm = () => {
             onClick={() => navigate("/dashboard-profile")}
           >
             Mi perfil
+          </li>
+          <li
+            className="cerrar-sesion"
+            onClick={handleLogout} // Usamos la función de logout
+          >
+            Cerrar Sesión
           </li>
         </ul>
       </nav>

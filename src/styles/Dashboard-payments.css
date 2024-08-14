@@ -238,3 +238,53 @@ select {
   display: flex;
   margin-top: 20px;
 }
+/* Media Queries */
+@media (max-width: 768px) {
+  .payments {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 20px;
+  }
+
+  .header-user span:first-child {
+    padding: 8px;
+  }
+
+  .header-user a {
+    margin-left: 5px;
+  }
+
+  .form-group input {
+    padding: 6px;
+  }
+
+  button {
+    padding: 8px 12px;
+  }
+
+  .service-button {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+
+  .service-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+  }
+}
