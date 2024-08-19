@@ -1,3 +1,9 @@
+# Link del proyecto
+https://front-end-buhobank.onrender.com
+
+Puedes ingresar en el siguiente link para poder visualizar el proyecto desarrollado, para el cuál tendrás que registrarte con un correo al que tengas acceso ya que estamos simulando el funcionamiento de un banco o billetera virtual.
+
+
 # React + Vite
 
 Este template proporciona una configuración mínima para hacer funcionar React en Vite con HMR y algunas reglas de ESLint.
@@ -6,6 +12,8 @@ Actualmente, hay dos plugins oficiales disponibles:
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) usa [Babel](https://babeljs.io/) para Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) usa [SWC](https://swc.rs/) para Fast Refresh
+
+
 
 ## Cómo iniciar el proyecto
 
